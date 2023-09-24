@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "20670230189",
+    "project_id": "pastillapplogin",
+    "storage_bucket": "pastillapplogin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20670230189:android:8dddedc13e726289e2a024",
+        "android_client_info": {
+          "package_name": "edu.ort.pastillapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYAYsoaLCfatG9fJdreKEt20Suk43-Bjw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
