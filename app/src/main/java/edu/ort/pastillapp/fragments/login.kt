@@ -58,7 +58,7 @@ class login : Fragment() {
                 val email = emailEditText.text.toString()
                 val password = passwordEditText.text.toString()
 
-                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             // Navega a la siguiente pantalla
 
