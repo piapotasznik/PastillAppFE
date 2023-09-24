@@ -1,60 +1,83 @@
 package edu.ort.pastillapp.fragments
-
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import edu.ort.pastillapp.R
+import edu.ort.pastillapp.UserSingleton
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [login.newInstance] factory method to
- * create an instance of this fragment.
- */
 class login : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    lateinit var v: View
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        v = inflater.inflate(R.layout.fragment_login, container, false)
+        return v
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment login.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            login().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onStart() {
+        super.onStart()
+
+        auth = FirebaseAuth.getInstance()
+
+        val emailEditText = v.findViewById<EditText>(R.id.textFgLoginEmail)
+        val passwordEditText = v.findViewById<EditText>(R.id.textFgLoginPass)
+        val logInButton = v.findViewById<Button>(R.id.btnFgLoginLogin)
+
+        // Agregar OnClickListener para "Olvidé mi contraseña"
+        val forgotPasswordTextView = v.findViewById<TextView>(R.id.textFgLoginOlvideCont)
+        forgotPasswordTextView.setOnClickListener {
+            val action = loginDirections.actionLoginToForgotPassword()
+            v.findNavController().navigate(action)
+        }
+
+        logInButton.setOnClickListener() {
+            if(emailEditText.text.isNotEmpty() && passwordEditText.text.isNotEmpty()){
+
+                val errorMessageTextView = v.findViewById<TextView>(R.id.errorMessageTextView)
+                val email = emailEditText.text.toString()
+                val password = passwordEditText.text.toString()
+
+                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            // Navega a la siguiente pantalla
+
+                            Log.d(TAG, "createUserWithEmail:success")
+                            val user = auth.currentUser
+                            UserSingleton.currentUser = user
+
+                            val action = loginDirections.actionLoginToHomePageUser()
+                             v.findNavController().navigate(action)
+
+                        } else {
+                            // Autenticación fallida. Mensaje que indica error,
+                            // se muestra text view que estaba oculto
+                            errorMessageTextView.visibility = View.VISIBLE
+                            errorMessageTextView.text = "El usuario y/o contrasena ingresados son incorrectos"
+                        }
+                    }
             }
+
+        }
     }
 }
