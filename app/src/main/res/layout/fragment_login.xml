@@ -9,44 +9,70 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        tools:layout_editor_absoluteY="302dp">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="184dp"
-        tools:layout_editor_absoluteY="64dp" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
 
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Ingrese su contraseña"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="253dp" />
+        <EditText
+            android:id="@+id/textFgLoginEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/Email"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp" />
 
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Ingrese su correo"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="160dp" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <EditText
+            android:id="@+id/textFgLoginPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/Contraseña"
+            android:inputType="textPassword"
+            android:minHeight="48dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnFgLoginLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/Acceder" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/errorMessageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Se ha producido un error de autenticación"
+            android:textColor="#FF0000"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/textFgLoginOlvideCont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/olvide_contraseña" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
