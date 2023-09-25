@@ -11,20 +11,28 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
+            android:id="@+id/action_login_to_forgotPassword"
+            app:destination="@id/forgotPassword" />
+        <action
             android:id="@+id/action_login_to_homePageUser"
             app:destination="@id/homePageUser" />
         <action
-            android:id="@+id/action_login_to_forgotPassword"
-            app:destination="@id/forgotPassword" />
+            android:id="@+id/action_login_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/forgotPassword"
+        android:name="edu.ort.pastillapp.fragments.forgotPassword"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" />
     <fragment
         android:id="@+id/homePageUser"
         android:name="edu.ort.pastillapp.fragments.homePageUser"
         android:label="fragment_home_page"
         tools:layout="@layout/fragment_home_page" />
     <fragment
-        android:id="@+id/forgotPassword"
-        android:name="edu.ort.pastillapp.fragments.forgotPassword"
-        android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password" />
+        android:id="@+id/registerFragment"
+        android:name="edu.ort.pastillapp.fragments.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
 </navigation>
