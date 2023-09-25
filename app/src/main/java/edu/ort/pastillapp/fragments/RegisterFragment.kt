@@ -3,6 +3,7 @@ package edu.ort.pastillapp.fragments
 import android.content.ContentValues
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -39,7 +40,10 @@ class RegisterFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         val singUp = v.findViewById<Button>(R.id.singUpBtn)
-        val loginTextView = v.findViewById<TextView>(R.id.twFgloginRegistrer)
+        val loginTextView = v.findViewById<TextView>(R.id.twFgregisterLogin)
+        val errorMsgRegister = v.findViewById<TextView>(R.id.errorMsgRegister)
+        val errorMsgRegisterPass = v.findViewById<TextView>(R.id.errorMsgRegisterPass)
+        val fillMsg = v.findViewById<TextView>(R.id.errorMsgRegisterFill)
 
         loginTextView.setOnClickListener {
             // Navega al fragmento de login cuando se hace clic en el TextView "Ingresar"
@@ -56,16 +60,22 @@ class RegisterFragment : Fragment() {
             val passPass2 = v.findViewById<EditText>(R.id.singUpPassword2).text.toString();
 
 
-            if (passPass != passPass2 ){
-                val text = "Password are not the same!"
-                val duration = Toast.LENGTH_SHORT
+            if (userEmail.isEmpty() || userName.isEmpty()){
+                fillMsg.visibility = View.VISIBLE
+                fillMsg.text =
+                    "Todos los campos deben ser completados"
 
-                //snackbar
-                val snackbar = Snackbar.make(v,text,duration)
-                snackbar.setTextColor(Color.RED)
-                // snackbar.setBackgroundTint(getResources().getColor(R.color.black))
+                Handler().postDelayed({
+                    fillMsg.visibility = View.INVISIBLE
+                }, 3000)
+            } else if (passPass != passPass2 ){
+                errorMsgRegisterPass.visibility = View.VISIBLE
+                errorMsgRegisterPass.text =
+                    "Las contraseñas no coinciden"
+                Handler().postDelayed({
+                    errorMsgRegisterPass.visibility = View.INVISIBLE
+                }, 3000)
 
-                snackbar.show()
             } else{
                 auth.createUserWithEmailAndPassword(userEmail, passPass).addOnCompleteListener(){
                     if (it.isSuccessful){
@@ -75,6 +85,13 @@ class RegisterFragment : Fragment() {
 
                         val action = RegisterFragmentDirections.actionRegisterFragmentToProfileUserFragment()
                         v.findNavController().navigate(action)
+                    } else {
+                        errorMsgRegister.visibility = View.VISIBLE
+                        errorMsgRegister.text =
+                            "La contraseña debe tener al menos 6 caracteres"
+                        Handler().postDelayed({
+                            errorMsgRegister.visibility = View.INVISIBLE
+                        }, 3000)
                     }
                 }
             }

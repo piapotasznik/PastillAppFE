@@ -18,6 +18,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/errorMsgRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="La contraseña debe tener al menos 6 caracteres"
+        android:textColor="#F7F2AEAE"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/cardView" />
+    <TextView
+        android:id="@+id/errorMsgRegisterPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="Las contraseñas no coinciden"
+        android:textColor="#F7F2AEAE"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/cardView" />
+    <TextView
+        android:id="@+id/errorMsgRegisterFill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="Las contraseñas no coinciden"
+        android:textColor="#F7F2AEAE"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/cardView" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="387dp"
@@ -91,6 +122,13 @@
                 android:minHeight="48dp"
                 android:textStyle="bold" />
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </RelativeLayout>
+
             <EditText
                 android:id="@+id/singUpPassword2"
                 style="@style/GrayText"
@@ -118,6 +156,8 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:fontFamily="@font/francois_one" />
+
+
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
