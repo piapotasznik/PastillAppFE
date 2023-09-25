@@ -6,4 +6,7 @@
     <string name="Contraseña">Contraseña</string>
     <string name="Acceder">ACCEDER</string>
     <string name="olvide_contraseña">Olvidé mi contraseña</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="registarse">Registarse</string>
+    <string name="app_logo">App logo</string>
 </resources>
