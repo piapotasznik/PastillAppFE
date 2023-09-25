@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -38,6 +39,14 @@ class RegisterFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         val singUp = v.findViewById<Button>(R.id.singUpBtn)
+        val loginTextView = v.findViewById<TextView>(R.id.twFgloginRegistrer)
+
+        loginTextView.setOnClickListener {
+            // Navega al fragmento de login cuando se hace clic en el TextView "Ingresar"
+            val action = RegisterFragmentDirections.actionRegisterFragmentToLogin()
+            v.findNavController().navigate(action)
+        }
+
 
         singUp.setOnClickListener{
             val userName = v.findViewById<EditText>(R.id.singUpName).text.toString();
