@@ -61,6 +61,7 @@ class login : Fragment() {
                 val password = passwordEditText.text.toString()
 
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+
                     if (task.isSuccessful) {
                         // Navega a la siguiente pantalla
 
@@ -77,6 +78,7 @@ class login : Fragment() {
                         errorMessageTextView.visibility = View.VISIBLE
                         errorMessageTextView.text =
                             "El usuario y/o contrasena ingresados son incorrectos"
+
                     }
                 }
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navegation"
-    app:startDestination="@id/login">
+    app:startDestination="@id/homePageUser">
 
     <fragment
         android:id="@+id/login"
@@ -13,12 +13,7 @@
         <action
             android:id="@+id/action_login_to_forgotPassword"
             app:destination="@id/forgotPassword" />
-        <action
-            android:id="@+id/action_login_to_homePageUser"
-            app:destination="@id/homePageUser" />
-        <action
-            android:id="@+id/action_login_to_registerFragment"
-            app:destination="@id/registerFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/forgotPassword"
@@ -29,7 +24,11 @@
         android:id="@+id/homePageUser"
         android:name="edu.ort.pastillapp.fragments.homePageUser"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePageUser_to_login"
+            app:destination="@id/login" />
+    </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="edu.ort.pastillapp.fragments.RegisterFragment"
