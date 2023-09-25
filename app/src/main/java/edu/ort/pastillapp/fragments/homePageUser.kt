@@ -36,10 +36,10 @@ class   homePageUser : Fragment() {
             v.findNavController().navigate(action)
         }
 
-//        singUp.setOnClickListener {
-//            val action = homePageUserDirections.  agregar direction to registerFragment
-//            v.findNavController().navigate(action)
-//        }
+        singUp.setOnClickListener {
+            val action = homePageUserDirections.actionHomePageUserToRegisterFragment()
+            v.findNavController().navigate(action)
+        }
 
 
 

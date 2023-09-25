@@ -69,7 +69,7 @@ class login : Fragment() {
                         val user = auth.currentUser
                         UserSingleton.currentUser = user
 
-                        val action = loginDirections.actionLoginToHomePageUser()
+                        val action = loginDirections.actionLoginToProfileUserFragment()
                         v.findNavController().navigate(action)
 
                     } else {
