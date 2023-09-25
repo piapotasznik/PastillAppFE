@@ -2,8 +2,13 @@
     <string name="app_name">PastillApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="Email">Email</string>
+    <string name="Email">E-mail</string>
     <string name="Contraseña">Contraseña</string>
-    <string name="Acceder">ACCEDER</string>
-    <string name="olvide_contraseña">Olvidé mi contraseña</string>
+
+    <string name="Acceder">Ingresar</string>
+    <string name="olvide_contraseña">¿Olvidaste tu contraseña?</string>
+    <string name="Bienvenido">BIENVENIDO</string>
+    <string name="Sin_cuenta">¿No tenés una cuenta? </string>
+    <string name="Registrarse">Registrarse </string>
+
 </resources>

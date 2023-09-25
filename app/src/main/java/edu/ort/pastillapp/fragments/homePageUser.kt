@@ -1,13 +1,17 @@
 package edu.ort.pastillapp.fragments
+import android.content.pm.ActivityInfo
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import edu.ort.pastillapp.R
 
-class homePageUser : Fragment() {
 
+class   homePageUser : Fragment() {
+    lateinit var v: View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -17,6 +21,29 @@ class homePageUser : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_page, container, false)
+        v = inflater.inflate(R.layout.fragment_home_page, container, false)
+        return v
     }
+
+    override fun onStart() {
+        super.onStart()
+        val singUp = v.findViewById<Button>(R.id.btnSingUp)
+        val login = v.findViewById<Button>(R.id.btnLogIn)
+
+
+        login.setOnClickListener {
+            val action = homePageUserDirections.actionHomePageUserToLogin()
+            v.findNavController().navigate(action)
+        }
+
+        singUp.setOnClickListener {
+            val action = homePageUserDirections.actionHomePageUserToRegisterFragment()
+            v.findNavController().navigate(action)
+        }
+
+
+
+    }
+
+
 }
