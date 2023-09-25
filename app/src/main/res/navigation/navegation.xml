@@ -13,7 +13,13 @@
         <action
             android:id="@+id/action_login_to_forgotPassword"
             app:destination="@id/forgotPassword" />
+
     </fragment>
+    <fragment
+        android:id="@+id/forgotPassword"
+        android:name="edu.ort.pastillapp.fragments.forgotPassword"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" />
     <fragment
         android:id="@+id/homePageUser"
         android:name="edu.ort.pastillapp.fragments.homePageUser"
@@ -24,8 +30,8 @@
             app:destination="@id/login" />
     </fragment>
     <fragment
-        android:id="@+id/forgotPassword"
-        android:name="edu.ort.pastillapp.fragments.forgotPassword"
-        android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password" />
+        android:id="@+id/registerFragment"
+        android:name="edu.ort.pastillapp.fragments.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
 </navigation>
