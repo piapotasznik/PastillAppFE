@@ -5,6 +5,7 @@
        // <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 <!--        <item name="windowActionBar">false</item>-->
          <item name="colorPrimary">@color/pink</item>
+        <item name="android:fontFamily">@font/francois_one</item>
     </style>
 
     <style name="Theme.PastillApp" parent="Base.Theme.PastillApp" />

@@ -82,6 +82,9 @@ class login : Fragment() {
                     }
                 }
 
+            } else {
+                emailEditText.setError("Este campo es requerido") // Esto activará el estado de error
+                passwordEditText.setError("Este campo es requerido") // Esto
             }
         }
     }

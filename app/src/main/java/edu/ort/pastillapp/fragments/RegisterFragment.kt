@@ -16,6 +16,9 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.actionCodeSettings
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.UserSingleton
 
@@ -44,6 +47,7 @@ class RegisterFragment : Fragment() {
         val errorMsgRegister = v.findViewById<TextView>(R.id.errorMsgRegister)
         val errorMsgRegisterPass = v.findViewById<TextView>(R.id.errorMsgRegisterPass)
         val fillMsg = v.findViewById<TextView>(R.id.errorMsgRegisterFill)
+        val emailCollisionMsg = v.findViewById<TextView>(R.id.errorMsgRegisterEmail)
 
         loginTextView.setOnClickListener {
             // Navega al fragmento de login cuando se hace clic en el TextView "Ingresar"
@@ -59,8 +63,11 @@ class RegisterFragment : Fragment() {
             val passPass = v.findViewById<EditText>(R.id.singUpPassword).text.toString();
             val passPass2 = v.findViewById<EditText>(R.id.singUpPassword2).text.toString();
 
-
+                // si el campo email o nombre estan vacios
             if (userEmail.isEmpty() || userName.isEmpty()){
+                v.findViewById<EditText>(R.id.singUpName).setError("Campos obligatorios") // Esto activará el estado de error
+                v.findViewById<EditText>(R.id.singUpemail).setError("Campos obligatorios") //
+
                 fillMsg.visibility = View.VISIBLE
                 fillMsg.text =
                     "Todos los campos deben ser completados"
@@ -68,7 +75,24 @@ class RegisterFragment : Fragment() {
                 Handler().postDelayed({
                     fillMsg.visibility = View.INVISIBLE
                 }, 3000)
-            } else if (passPass != passPass2 ){
+
+                // si el password tiene menos de 6 caracteres
+            } else if (passPass.length<6) {
+                v.findViewById<EditText>(R.id.singUpPassword).setError("La contraseña debe tener al menos 6 caracteres") // Esto activará el estado de error
+                v.findViewById<EditText>(R.id.singUpPassword2).setError("La contraseña debe tener al menos 6 caracteres") // Esto
+                errorMsgRegister.visibility = View.VISIBLE
+                errorMsgRegister.text =
+                    "La contraseña debe tener al menos 6 caracteres"
+                Handler().postDelayed({
+                    errorMsgRegister.visibility = View.INVISIBLE
+                }, 3000)
+
+            }
+
+            // si los password no coinciden
+            else if (passPass != passPass2 ){
+                v.findViewById<EditText>(R.id.singUpPassword).setError("Las contraseñas no coinciden") // Esto activará el estado de error
+                v.findViewById<EditText>(R.id.singUpPassword2).setError("Las contraseñas no coinciden") // Esto
                 errorMsgRegisterPass.visibility = View.VISIBLE
                 errorMsgRegisterPass.text =
                     "Las contraseñas no coinciden"
@@ -77,26 +101,54 @@ class RegisterFragment : Fragment() {
                 }, 3000)
 
             } else{
-                auth.createUserWithEmailAndPassword(userEmail, passPass).addOnCompleteListener(){
-                    if (it.isSuccessful){
+                auth.createUserWithEmailAndPassword(userEmail, passPass).addOnCompleteListener(){task ->
+
+                    if (task.isSuccessful){
                         Log.d(ContentValues.TAG, "createUserWithEmail:success")
+
+                        auth.currentUser?.sendEmailVerification()
+                        Toast.makeText(requireContext(), "Email de verifiacion enviado!", Toast.LENGTH_SHORT).show()
+                        val actionCodeSettings = actionCodeSettings {
+                            // URL you want to redirect back to. The domain (www.example.com) for this
+                            // URL must be whitelisted in the Firebase Console.
+                            url = "https://www.example.com/finishSignUp?cartId=1234"
+                            // This must be true
+                            handleCodeInApp = true
+                            setIOSBundleId("com.example.ios")
+                            setAndroidPackageName(
+                                "com.example.android",
+                                true, // installIfNotAvailable
+                                "12", // minimumVersion
+                            )
+                        }
+
+
+
+
                         val user = auth.currentUser
                         UserSingleton.currentUser = user
 
                         val action = RegisterFragmentDirections.actionRegisterFragmentToProfileUserFragment()
                         v.findNavController().navigate(action)
                     } else {
-                        errorMsgRegister.visibility = View.VISIBLE
-                        errorMsgRegister.text =
-                            "La contraseña debe tener al menos 6 caracteres"
-                        Handler().postDelayed({
-                            errorMsgRegister.visibility = View.INVISIBLE
-                        }, 3000)
-                    }
+                        val exception = task.exception
+                        if (exception is FirebaseAuthUserCollisionException) {
+
+                            // El correo electrónico ya está registrado
+                            emailCollisionMsg.visibility = View.VISIBLE
+                            emailCollisionMsg.text =
+                                "El Email ya figura como registrado"
+                            Handler().postDelayed({
+                                errorMsgRegister.visibility = View.INVISIBLE
+                            }, 3000)
+
+                        } else {
+                            // Otro tipo de error
+                        }
                 }
             }
 
             }
 
     }
-}
+}}
