@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.actionCodeSettings
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.UserSingleton
+import edu.ort.pastillapp.ValidationEmail
 
 class RegisterFragment : Fragment() {
 
@@ -42,7 +43,7 @@ class RegisterFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val singUp = v.findViewById<Button>(R.id.singUpBtn)
+        val signUp = v.findViewById<Button>(R.id.signUpBtn)
         val loginTextView = v.findViewById<TextView>(R.id.twFgregisterLogin)
         val errorMsgRegister = v.findViewById<TextView>(R.id.errorMsgRegister)
         val errorMsgRegisterPass = v.findViewById<TextView>(R.id.errorMsgRegisterPass)
@@ -56,17 +57,19 @@ class RegisterFragment : Fragment() {
         }
 
 
-        singUp.setOnClickListener{
-            val userName = v.findViewById<EditText>(R.id.singUpName).text.toString();
+        signUp.setOnClickListener{
+            val userName = v.findViewById<EditText>(R.id.signUpName).text.toString();
+            val userLastName = v.findViewById<EditText>(R.id.signUpLastName).text.toString();
             // el text es para obtener el valor del campo, y luego lo parseo a String
-            val userEmail = v.findViewById<EditText>(R.id.singUpemail).text.toString();
-            val passPass = v.findViewById<EditText>(R.id.singUpPassword).text.toString();
-            val passPass2 = v.findViewById<EditText>(R.id.singUpPassword2).text.toString();
+            val userEmail = v.findViewById<EditText>(R.id.signUpemail).text.toString();
+            val passPass = v.findViewById<EditText>(R.id.signUpPassword).text.toString();
+            val passPass2 = v.findViewById<EditText>(R.id.signUpPassword2).text.toString();
 
                 // si el campo email o nombre estan vacios
-            if (userEmail.isEmpty() || userName.isEmpty()){
-                v.findViewById<EditText>(R.id.singUpName).setError("Campos obligatorios") // Esto activará el estado de error
-                v.findViewById<EditText>(R.id.singUpemail).setError("Campos obligatorios") //
+            if (userEmail.isEmpty() || userName.isEmpty() ||userLastName.isEmpty()){
+                v.findViewById<EditText>(R.id.signUpName).setError("Campos obligatorios") // Esto activará el estado de error
+                v.findViewById<EditText>(R.id.signUpemail).setError("Campos obligatorios") //
+                v.findViewById<EditText>(R.id.signUpLastName).setError("Campos obligatorios")
 
                 fillMsg.visibility = View.VISIBLE
                 fillMsg.text =
@@ -78,8 +81,8 @@ class RegisterFragment : Fragment() {
 
                 // si el password tiene menos de 6 caracteres
             } else if (passPass.length<6) {
-                v.findViewById<EditText>(R.id.singUpPassword).setError("La contraseña debe tener al menos 6 caracteres") // Esto activará el estado de error
-                v.findViewById<EditText>(R.id.singUpPassword2).setError("La contraseña debe tener al menos 6 caracteres") // Esto
+                v.findViewById<EditText>(R.id.signUpPassword).setError("La contraseña debe tener al menos 6 caracteres") // Esto activará el estado de error
+                v.findViewById<EditText>(R.id.signUpPassword2).setError("La contraseña debe tener al menos 6 caracteres") // Esto
                 errorMsgRegister.visibility = View.VISIBLE
                 errorMsgRegister.text =
                     "La contraseña debe tener al menos 6 caracteres"
@@ -87,12 +90,20 @@ class RegisterFragment : Fragment() {
                     errorMsgRegister.visibility = View.INVISIBLE
                 }, 3000)
 
+            }else if(!ValidationEmail.validate(userEmail)){
+                v.findViewById<EditText>(R.id.signUpemail).setError("Email con formato invalido") //
+                errorMsgRegister.visibility = View.VISIBLE
+                errorMsgRegister.text =
+                    "Email con formato invalido"
+                Handler().postDelayed({
+                    errorMsgRegister.visibility = View.INVISIBLE
+                }, 3000)
             }
 
             // si los password no coinciden
             else if (passPass != passPass2 ){
-                v.findViewById<EditText>(R.id.singUpPassword).setError("Las contraseñas no coinciden") // Esto activará el estado de error
-                v.findViewById<EditText>(R.id.singUpPassword2).setError("Las contraseñas no coinciden") // Esto
+                v.findViewById<EditText>(R.id.signUpPassword).setError("Las contraseñas no coinciden") // Esto activará el estado de error
+                v.findViewById<EditText>(R.id.signUpPassword2).setError("Las contraseñas no coinciden") // Esto
                 errorMsgRegisterPass.visibility = View.VISIBLE
                 errorMsgRegisterPass.text =
                     "Las contraseñas no coinciden"
