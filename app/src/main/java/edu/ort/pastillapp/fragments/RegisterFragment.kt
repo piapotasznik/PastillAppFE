@@ -1,7 +1,6 @@
 package edu.ort.pastillapp.fragments
 
 import android.content.ContentValues
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -14,10 +13,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.actionCodeSettings
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.UserSingleton
@@ -57,7 +54,8 @@ class RegisterFragment : Fragment() {
 
 
         singUp.setOnClickListener{
-            val userName = v.findViewById<EditText>(R.id.singUpName).text.toString();
+            val userName = v.findViewById<EditText>(R.id.signUpName).text.toString();
+            val userLastName = v.findViewById<EditText>(R.id.signUpLastName).text.toString();
             // el text es para obtener el valor del campo, y luego lo parseo a String
             val userEmail = v.findViewById<EditText>(R.id.singUpemail).text.toString();
             val passPass = v.findViewById<EditText>(R.id.singUpPassword).text.toString();
@@ -65,7 +63,7 @@ class RegisterFragment : Fragment() {
 
                 // si el campo email o nombre estan vacios
             if (userEmail.isEmpty() || userName.isEmpty()){
-                v.findViewById<EditText>(R.id.singUpName).setError("Campos obligatorios") // Esto activará el estado de error
+                v.findViewById<EditText>(R.id.signUpName).setError("Campos obligatorios") // Esto activará el estado de error
                 v.findViewById<EditText>(R.id.singUpemail).setError("Campos obligatorios") //
 
                 fillMsg.visibility = View.VISIBLE
