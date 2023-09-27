@@ -62,7 +62,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="370dp"
+        android:layout_height="420dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         app:cardBackgroundColor="@color/celeste"
@@ -72,8 +72,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.312"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.791">
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="0.091">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout"
@@ -91,8 +91,8 @@
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:letterSpacing="0"
-                android:paddingStart="10dp"
                 android:lineSpacingExtra="12sp"
+                android:paddingStart="10dp"
                 android:text="@string/Bienvenido"
                 android:textColor="@color/celesteClaro"
                 android:textSize="40sp"
@@ -105,59 +105,79 @@
                 app:layout_constraintVertical_bias="0.062" />
 
             <EditText
-                android:id="@+id/singUpName"
+                android:id="@+id/signUpName"
                 style="@style/GrayText"
-                android:textColor="@color/grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
                 android:ems="10"
-                android:paddingStart="10dp"
-                android:hint="@string/Nombre_Completo"
+                android:hint="@string/Nombre"
                 android:inputType="text"
                 android:minHeight="48dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/grey"
                 android:textStyle="bold"
-                android:background="@drawable/edit_text_background"
-                app:layout_constraintBottom_toTopOf="@+id/singUpemail"
+                app:layout_constraintBottom_toTopOf="@+id/signUpLastName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewWelcome3" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewWelcome3"
+                app:layout_constraintVertical_bias="1.0" />
 
             <EditText
-                android:id="@+id/singUpemail"
+                android:id="@+id/signUpLastName"
                 style="@style/GrayText"
-                android:textColor="@color/grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
                 android:ems="10"
+                android:hint="@string/Apellido"
+                android:inputType="text"
+                android:minHeight="48dp"
                 android:paddingStart="10dp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/signUpemail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWelcome3"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/signUpemail"
+                style="@style/GrayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
                 android:hint="@string/Email"
                 android:inputType="textEmailAddress"
                 android:minHeight="48dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/grey"
                 android:textStyle="bold"
-                android:background="@drawable/edit_text_background"
-                app:layout_constraintBottom_toTopOf="@+id/singUpPassword"
+                app:layout_constraintBottom_toTopOf="@+id/signUpPassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
-                android:id="@+id/singUpPassword2"
+                android:id="@+id/signUpPassword2"
                 style="@style/GrayText"
-                android:textColor="@color/grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
                 android:ems="10"
-                android:paddingStart="10dp"
                 android:hint="@string/Confirmar_Contraseña"
                 android:inputType="textPassword"
                 android:minHeight="48dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/grey"
                 android:textStyle="bold"
-                android:background="@drawable/edit_text_background"
-                app:layout_constraintBottom_toTopOf="@+id/singUpBtn"
+                app:layout_constraintBottom_toTopOf="@+id/signUpBtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
-                android:id="@+id/singUpBtn"
+                android:id="@+id/signUpBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
@@ -173,19 +193,19 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
-                android:id="@+id/singUpPassword"
+                android:id="@+id/signUpPassword"
                 style="@style/GrayText"
-                android:textColor="@color/grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
                 android:ems="10"
-                android:paddingStart="10dp"
                 android:hint="@string/Contraseña"
                 android:inputType="textPassword"
                 android:minHeight="48dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/grey"
                 android:textStyle="bold"
-                android:background="@drawable/edit_text_background"
-                app:layout_constraintBottom_toTopOf="@+id/singUpPassword2"
+                app:layout_constraintBottom_toTopOf="@+id/signUpPassword2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -247,6 +267,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent=".3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

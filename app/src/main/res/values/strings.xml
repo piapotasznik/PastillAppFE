@@ -14,5 +14,7 @@
     <string name="Con_cuenta">¿Ya tenés una cuenta? </string>
     <string name="Registrarse">Registrarse</string>
     <string name="user_profile_title">Perfil del usuario</string>
+    <string name="Apellido">Apellido</string>
+    <string name="Nombre">Nombre</string>
 
 </resources>
