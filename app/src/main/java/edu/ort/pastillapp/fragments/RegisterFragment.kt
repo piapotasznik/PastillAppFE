@@ -111,6 +111,36 @@ class RegisterFragment : Fragment() {
                     errorMsgRegisterPass.visibility = View.INVISIBLE
                 }, 3000)
 
+                // si el nombre tiene más de 50 caracteres
+            } else if (userName.length>50) {
+                v.findViewById<EditText>(R.id.signUpName).setError("El nombre no debe superar los 50 caracteres") // Esto activará el estado de error
+                errorMsgRegister.visibility = View.VISIBLE
+                errorMsgRegister.text =
+                    "El nombre no debe superar los 50 caracteres"
+                Handler().postDelayed({
+                    errorMsgRegister.visibility = View.INVISIBLE
+                }, 3000)
+
+                // si el apellido tiene más de 50 caracteres
+            } else if (userLastName.length>50) {
+                v.findViewById<EditText>(R.id.signUpLastName).setError("El apellido no debe superar los 50 caracteres") // Esto activará el estado de error
+                errorMsgRegister.visibility = View.VISIBLE
+                errorMsgRegister.text =
+                    "El apellido no debe superar los 50 caracteres"
+                Handler().postDelayed({
+                    errorMsgRegister.visibility = View.INVISIBLE
+                }, 3000)
+
+                // si el email tiene más de 50 caracteres
+            } else if (userEmail.length>50) {
+                v.findViewById<EditText>(R.id.signUpemail).setError("El email no debe superar los 50 caracteres") // Esto activará el estado de error
+                errorMsgRegister.visibility = View.VISIBLE
+                errorMsgRegister.text =
+                    "El email no debe superar los 50 caracteres"
+                Handler().postDelayed({
+                    errorMsgRegister.visibility = View.INVISIBLE
+                }, 3000)
+
             } else{
                 auth.createUserWithEmailAndPassword(userEmail, passPass).addOnCompleteListener(){task ->
 
