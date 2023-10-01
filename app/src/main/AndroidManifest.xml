@@ -17,7 +17,8 @@
         <activity
             android:name=".HomeScreenActivity"
             android:exported="true"
-            android:label="@string/title_activity_home_screen" >
+            android:label="@string/title_activity_home_screen"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

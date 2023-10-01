@@ -17,7 +17,8 @@
         <item name="android:layout_marginHorizontal">50sp</item>
     </style>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Otras configuraciones del tema -->
+        <item name="android:contentInsetStart">0dp</item>
+        <item name="colorPrimary">@color/blue</item>
     </style>
 
 </resources>
