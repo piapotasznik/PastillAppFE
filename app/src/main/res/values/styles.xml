@@ -5,4 +5,19 @@
 
 </style>
 
+    <style name="SelectedNavItem">
+        <item name="android:textColor">@color/white</item> <!-- Cambia el color del texto -->
+        <item name="android:background">@color/white</item> <!-- Cambia el color de fondo -->
+        <!-- Otros atributos de estilo que quieras modificar -->
+    </style>
+
+    <style name="BottomNavigationStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">start</item>
+        <item name="android:layout_marginHorizontal">50sp</item>
+    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Otras configuraciones del tema -->
+    </style>
+
 </resources>
