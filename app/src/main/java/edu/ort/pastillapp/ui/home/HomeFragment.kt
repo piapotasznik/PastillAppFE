@@ -63,7 +63,6 @@ class HomeFragment : Fragment() {
 
     fun obtenerDiasDelMes(): List<Dia> {
         val dias = mutableListOf<Dia>()
-
         val calendario = Calendar.getInstance()
         val formatoNumeroDia = SimpleDateFormat("d", Locale.getDefault())
 
@@ -71,35 +70,34 @@ class HomeFragment : Fragment() {
         val nombresDias = symbols.shortWeekdays // Obtiene los nombres cortos de los días en español
 
         val today = calendario.get(Calendar.DAY_OF_MONTH)
-
         val ultimoDiaDelMes = calendario.getActualMaximum(Calendar.DAY_OF_MONTH)
-        calendario.add(Calendar.MONTH, 1)
-        val ultimoDiaDelMesSiguiente = calendario.getActualMaximum(Calendar.DAY_OF_MONTH)
 
-
-        fun addDaysOfMothIntoList(daysOfMonth: Int ){
-            for (i in 1..daysOfMonth) {
-                calendario.set(Calendar.DAY_OF_MONTH, i)
-                val diaSemana = nombresDias[calendario.get(Calendar.DAY_OF_WEEK)]
-                val primeraLetra = diaSemana[0].toString().uppercase()
-                val numeroDia = formatoNumeroDia.format(calendario.time).toInt()
-
-                if(i == today){
-                    val dia = Dia(primeraLetra, numeroDia, true)
-                    dias.add(dia)
-
-                } else {
-
-                    val dia = Dia(primeraLetra, numeroDia, false)
-                    dias.add(dia)
-                }
-
-            }
+        // Obtener los tres días anteriores a hoy
+        for (i in today - 3 until today) {
+            calendario.set(Calendar.DAY_OF_MONTH, i)
+            val diaSemana = nombresDias[calendario.get(Calendar.DAY_OF_WEEK)]
+            val primeraLetra = diaSemana[0].toString().uppercase()
+            val numeroDia = formatoNumeroDia.format(calendario.time).toInt()
+            val dia = Dia(primeraLetra, numeroDia, false)
+            dias.add(dia)
         }
 
-        addDaysOfMothIntoList(ultimoDiaDelMes)
-        addDaysOfMothIntoList(ultimoDiaDelMesSiguiente)
+        // Obtener el día de hoy
+        calendario.set(Calendar.DAY_OF_MONTH, today)
+        val diaSemanaHoy = nombresDias[calendario.get(Calendar.DAY_OF_WEEK)]
+        val primeraLetraHoy = diaSemanaHoy[0].toString().uppercase()
+        val diaHoy = Dia(primeraLetraHoy, today, true)
+        dias.add(diaHoy)
 
+        // Obtener los tres días posteriores a hoy
+        for (i in today + 1..today + 3) {
+            calendario.set(Calendar.DAY_OF_MONTH, i)
+            val diaSemana = nombresDias[calendario.get(Calendar.DAY_OF_WEEK)]
+            val primeraLetra = diaSemana[0].toString().uppercase()
+            val numeroDia = formatoNumeroDia.format(calendario.time).toInt()
+            val dia = Dia(primeraLetra, numeroDia, false)
+            dias.add(dia)
+        }
 
         return dias
     }
