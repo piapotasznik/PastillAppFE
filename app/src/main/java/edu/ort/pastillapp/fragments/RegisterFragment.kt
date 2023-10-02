@@ -22,6 +22,9 @@ import com.google.firebase.auth.ktx.actionCodeSettings
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.UserSingleton
 import edu.ort.pastillapp.ValidationEmail
+import edu.ort.pastillapp.models.User
+import edu.ort.pastillapp.models.UserRepository
+import edu.ort.pastillapp.services.ActivityServiceApiBuilder
 
 class RegisterFragment : Fragment() {
 
@@ -35,7 +38,7 @@ class RegisterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-   ): View? {
+    ): View? {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_register, container, false)
         return v
@@ -57,7 +60,7 @@ class RegisterFragment : Fragment() {
         }
 
 
-        signUp.setOnClickListener{
+        signUp.setOnClickListener {
             val userName = v.findViewById<EditText>(R.id.signUpName).text.toString();
             val userLastName = v.findViewById<EditText>(R.id.signUpLastName).text.toString();
             // el text es para obtener el valor del campo, y luego lo parseo a String
@@ -65,9 +68,10 @@ class RegisterFragment : Fragment() {
             val passPass = v.findViewById<EditText>(R.id.signUpPassword).text.toString();
             val passPass2 = v.findViewById<EditText>(R.id.signUpPassword2).text.toString();
 
-                // si el campo email o nombre estan vacios
-            if (userEmail.isEmpty() || userName.isEmpty() ||userLastName.isEmpty()){
-                v.findViewById<EditText>(R.id.signUpName).setError("Campos obligatorios") // Esto activará el estado de error
+            // si el campo email o nombre estan vacios
+            if (userEmail.isEmpty() || userName.isEmpty() || userLastName.isEmpty()) {
+                v.findViewById<EditText>(R.id.signUpName)
+                    .setError("Campos obligatorios") // Esto activará el estado de error
                 v.findViewById<EditText>(R.id.signUpemail).setError("Campos obligatorios") //
                 v.findViewById<EditText>(R.id.signUpLastName).setError("Campos obligatorios")
 
@@ -80,9 +84,11 @@ class RegisterFragment : Fragment() {
                 }, 3000)
 
                 // si el password tiene menos de 6 caracteres
-            } else if (passPass.length<6) {
-                v.findViewById<EditText>(R.id.signUpPassword).setError("La contraseña debe tener al menos 6 caracteres") // Esto activará el estado de error
-                v.findViewById<EditText>(R.id.signUpPassword2).setError("La contraseña debe tener al menos 6 caracteres") // Esto
+            } else if (passPass.length < 6) {
+                v.findViewById<EditText>(R.id.signUpPassword)
+                    .setError("La contraseña debe tener al menos 6 caracteres") // Esto activará el estado de error
+                v.findViewById<EditText>(R.id.signUpPassword2)
+                    .setError("La contraseña debe tener al menos 6 caracteres") // Esto
                 errorMsgRegister.visibility = View.VISIBLE
                 errorMsgRegister.text =
                     "La contraseña debe tener al menos 6 caracteres"
@@ -90,7 +96,7 @@ class RegisterFragment : Fragment() {
                     errorMsgRegister.visibility = View.INVISIBLE
                 }, 3000)
 
-            }else if(!ValidationEmail.validate(userEmail)){
+            } else if (!ValidationEmail.validate(userEmail)) {
                 v.findViewById<EditText>(R.id.signUpemail).setError("Email con formato invalido") //
                 errorMsgRegister.visibility = View.VISIBLE
                 errorMsgRegister.text =
@@ -101,9 +107,11 @@ class RegisterFragment : Fragment() {
             }
 
             // si los password no coinciden
-            else if (passPass != passPass2 ){
-                v.findViewById<EditText>(R.id.signUpPassword).setError("Las contraseñas no coinciden") // Esto activará el estado de error
-                v.findViewById<EditText>(R.id.signUpPassword2).setError("Las contraseñas no coinciden") // Esto
+            else if (passPass != passPass2) {
+                v.findViewById<EditText>(R.id.signUpPassword)
+                    .setError("Las contraseñas no coinciden") // Esto activará el estado de error
+                v.findViewById<EditText>(R.id.signUpPassword2)
+                    .setError("Las contraseñas no coinciden") // Esto
                 errorMsgRegisterPass.visibility = View.VISIBLE
                 errorMsgRegisterPass.text =
                     "Las contraseñas no coinciden"
@@ -112,8 +120,9 @@ class RegisterFragment : Fragment() {
                 }, 3000)
 
                 // si el nombre tiene más de 50 caracteres
-            } else if (userName.length>50) {
-                v.findViewById<EditText>(R.id.signUpName).setError("El nombre no debe superar los 50 caracteres") // Esto activará el estado de error
+            } else if (userName.length > 50) {
+                v.findViewById<EditText>(R.id.signUpName)
+                    .setError("El nombre no debe superar los 50 caracteres") // Esto activará el estado de error
                 errorMsgRegister.visibility = View.VISIBLE
                 errorMsgRegister.text =
                     "El nombre no debe superar los 50 caracteres"
@@ -122,8 +131,9 @@ class RegisterFragment : Fragment() {
                 }, 3000)
 
                 // si el apellido tiene más de 50 caracteres
-            } else if (userLastName.length>50) {
-                v.findViewById<EditText>(R.id.signUpLastName).setError("El apellido no debe superar los 50 caracteres") // Esto activará el estado de error
+            } else if (userLastName.length > 50) {
+                v.findViewById<EditText>(R.id.signUpLastName)
+                    .setError("El apellido no debe superar los 50 caracteres") // Esto activará el estado de error
                 errorMsgRegister.visibility = View.VISIBLE
                 errorMsgRegister.text =
                     "El apellido no debe superar los 50 caracteres"
@@ -132,8 +142,9 @@ class RegisterFragment : Fragment() {
                 }, 3000)
 
                 // si el email tiene más de 50 caracteres
-            } else if (userEmail.length>50) {
-                v.findViewById<EditText>(R.id.signUpemail).setError("El email no debe superar los 50 caracteres") // Esto activará el estado de error
+            } else if (userEmail.length > 50) {
+                v.findViewById<EditText>(R.id.signUpemail)
+                    .setError("El email no debe superar los 50 caracteres") // Esto activará el estado de error
                 errorMsgRegister.visibility = View.VISIBLE
                 errorMsgRegister.text =
                     "El email no debe superar los 50 caracteres"
@@ -141,55 +152,77 @@ class RegisterFragment : Fragment() {
                     errorMsgRegister.visibility = View.INVISIBLE
                 }, 3000)
 
-            } else{
-                auth.createUserWithEmailAndPassword(userEmail, passPass).addOnCompleteListener(){task ->
+            } else {
+                auth.createUserWithEmailAndPassword(userEmail, passPass)
+                    .addOnCompleteListener() { task ->
 
-                    if (task.isSuccessful){
-                        Log.d(ContentValues.TAG, "createUserWithEmail:success")
+                        if (task.isSuccessful) {
+                            Log.d(ContentValues.TAG, "createUserWithEmail:success")
 
-                        auth.currentUser?.sendEmailVerification()
-                        Toast.makeText(requireContext(), "Email de verifiacion enviado!", Toast.LENGTH_SHORT).show()
-                        val actionCodeSettings = actionCodeSettings {
-                            // URL you want to redirect back to. The domain (www.example.com) for this
-                            // URL must be whitelisted in the Firebase Console.
-                            url = "https://www.example.com/finishSignUp?cartId=1234"
-                            // This must be true
-                            handleCodeInApp = true
-                            setIOSBundleId("com.example.ios")
-                            setAndroidPackageName(
-                                "com.example.android",
-                                true, // installIfNotAvailable
-                                "12", // minimumVersion
+                            // Crear una instancia de CreateUserRequest con los datos del usuario
+                            val newUser = User(
+                                name = userName,
+                                lastName = userLastName,
+                                email = userEmail,
                             )
-                        }
 
+                            val userRepository = UserRepository(requireContext())
+                            userRepository.createUser(newUser,
+                                onSuccess = {
+                                // La API ha guardado los datos del usuario con éxito
+                                    auth.currentUser?.sendEmailVerification()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Email de verificacion enviado!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val actionCodeSettings = actionCodeSettings {
+                                        // URL you want to redirect back to. The domain (www.example.com) for this
+                                        // URL must be whitelisted in the Firebase Console.
+                                        url = "https://www.example.com/finishSignUp?cartId=1234"
+                                        // This must be true
+                                        handleCodeInApp = true
+                                        setIOSBundleId("com.example.ios")
+                                        setAndroidPackageName(
+                                            "com.example.android",
+                                            true, // installIfNotAvailable
+                                            "12", // minimumVersion
+                                        )
+                                    }
 
+                                    val user = auth.currentUser
+                                    UserSingleton.currentUser = user
 
-
-                        val user = auth.currentUser
-                        UserSingleton.currentUser = user
-
-                        val action = RegisterFragmentDirections.actionRegisterFragmentToProfileUserFragment()
-                        v.findNavController().navigate(action)
-                    } else {
-                        val exception = task.exception
-                        if (exception is FirebaseAuthUserCollisionException) {
-
-                            // El correo electrónico ya está registrado
-                            emailCollisionMsg.visibility = View.VISIBLE
-                            emailCollisionMsg.text =
-                                "El Email ya figura como registrado"
-                            Handler().postDelayed({
-                                errorMsgRegister.visibility = View.INVISIBLE
-                            }, 3000)
-
+                                    val action =
+                                        RegisterFragmentDirections.actionRegisterFragmentToProfileUserFragment()
+                                    v.findNavController().navigate(action)
+                                },
+                                onError = {
+                                // Manejar el error de la llamada a la API adecuadamente
+                                // Puedes mostrar un mensaje de error o intentar de nuevo, según sea necesario.
+                                }
+                            )
                         } else {
-                            // Otro tipo de error
+                            val exception = task.exception
+                            if (exception is FirebaseAuthUserCollisionException) {
+
+                                // El correo electrónico ya está registrado
+                                emailCollisionMsg.visibility = View.VISIBLE
+                                emailCollisionMsg.text =
+                                    "El Email ya figura como registrado"
+                                Handler().postDelayed({
+                                    errorMsgRegister.visibility = View.INVISIBLE
+                                }, 3000)
+
+                            } else {
+                                // Otro tipo de error
+                                emailCollisionMsg.visibility = View.INVISIBLE
+                            }
                         }
-                }
-            }
+                    }
 
             }
 
+        }
     }
-}}
+}
