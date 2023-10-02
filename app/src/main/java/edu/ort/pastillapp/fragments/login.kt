@@ -1,18 +1,21 @@
 package edu.ort.pastillapp.fragments
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import edu.ort.pastillapp.HomeScreenActivity
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.UserSingleton
+
 
 class login : Fragment() {
     lateinit var v: View
@@ -69,8 +72,23 @@ class login : Fragment() {
                         val user = auth.currentUser
                         UserSingleton.currentUser = user
 
-                        val action = loginDirections.actionLoginToProfileUserFragment()
-                        v.findNavController().navigate(action)
+//                        val action = loginDirections.actionLoginToProfileUserFragment()
+//                        v.findNavController().navigate(action)
+
+//                        val intent = Intent(activity, HomeScreenActivity::class.java)
+//                        startActivity(intent)
+
+                        // En la primera actividad, al crear el Intent
+
+                        // En la primera actividad, al crear el Intent
+                        val intent = Intent(context, HomeScreenActivity::class.java)
+                        intent.putExtra(
+                            "user",
+                            user
+                        )
+
+                        startActivity(intent)
+
 
                     } else {
                         // Autenticación fallida. Mensaje que indica error,
