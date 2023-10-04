@@ -22,6 +22,9 @@
     <string name="title_calendar">Calendario</string>
     <string name="title_sintomas">Sintomas</string>
     <string name="title_register">Registrar</string>
-
-
+    <string name="my_data">MIS DATOS</string>
+    <string name="my_profile">MI PERFIL</string>
+    <string name="sign_out">CERRAR SESION</string>
+    <string name="emergency_contact">Contacto de Emergencia</string>
+    <string name="save">Guardar</string>
 </resources>
