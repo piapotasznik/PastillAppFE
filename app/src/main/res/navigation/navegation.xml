@@ -16,9 +16,6 @@
         <action
             android:id="@+id/action_login_to_registerFragment"
             app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_login_to_profileUserFragment"
-            app:destination="@id/profileUserFragment" />
 
     </fragment>
     <fragment
@@ -44,15 +41,7 @@
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_registerFragment_to_profileUserFragment"
-            app:destination="@id/profileUserFragment" />
-        <action
             android:id="@+id/action_registerFragment_to_login"
             app:destination="@id/login" />
     </fragment>
-    <fragment
-        android:id="@+id/profileUserFragment"
-        android:name="edu.ort.pastillapp.profileUserFragment"
-        android:label="fragment_profile_user"
-        tools:layout="@layout/fragment_profile_user" />
 </navigation>

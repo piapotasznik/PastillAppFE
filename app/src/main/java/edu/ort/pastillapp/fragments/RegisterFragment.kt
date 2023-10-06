@@ -194,7 +194,7 @@ class RegisterFragment : Fragment() {
                                     UserSingleton.currentUser = user
 
                                     val action =
-                                        RegisterFragmentDirections.actionRegisterFragmentToProfileUserFragment()
+                                        RegisterFragmentDirections.actionRegisterFragmentToLogin()
                                     v.findNavController().navigate(action)
                                 },
                                 onError = {
