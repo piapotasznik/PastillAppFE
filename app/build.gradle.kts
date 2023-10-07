@@ -48,6 +48,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("com.google.firebase:firebase-messaging-ktx:23.2.1")
+    implementation("com.google.firebase:firebase-database-ktx:20.2.2")
 
     val nav_version = "2.5.3"
 
@@ -80,6 +81,7 @@ dependencies {
 
     // Also add the dependency for the Google Play services library and specify its version
     implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("com.google.firebase:firebase-messaging-ktx")
 
     //retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

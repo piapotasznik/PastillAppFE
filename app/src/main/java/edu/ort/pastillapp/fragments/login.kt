@@ -16,12 +16,12 @@ import com.google.firebase.messaging.FirebaseMessaging
 import edu.ort.pastillapp.HomeScreenActivity
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.UserSingleton
-import edu.ort.pastillapp.services.ActivityServiceApiBuilder
-
+import edu.ort.pastillapp.models.UserRepository
 
 class login : Fragment() {
     lateinit var v: View
     private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -78,12 +78,6 @@ class login : Fragment() {
                         UserSingleton.currentUser = user
                         UserSingleton.currentUserEmail = email // Almacena el correo
 
-//                        val action = loginDirections.actionLoginToProfileUserFragment()
-//                        v.findNavController().navigate(action)
-
-//                        val intent = Intent(activity, HomeScreenActivity::class.java)
-//                        startActivity(intent)
-
                         // En la primera actividad, al crear el Intent
                         val intent = Intent(context, HomeScreenActivity::class.java)
                         intent.putExtra(
@@ -98,31 +92,42 @@ class login : Fragment() {
                             if (task.isSuccessful) {
                                 val token = task.result
                                 // Llama a la función para enviar el token al backend
-                               // sendTokenToServer(token)
+                                UserRepository(requireContext()).sendTokenToServer(email,
+                                    onSuccess = {
+                                        // Manejar éxito
+                                        Log.d(
+                                            "LoginFragment",
+                                            "Token enviado con éxito al servidor."
+                                        )
+
+                                        // Continúa con la navegación u otras acciones necesarias después del inicio de sesión
+                                        val intent = Intent(context, HomeScreenActivity::class.java)
+                                        intent.putExtra("user", user)
+                                        startActivity(intent)
+                                    },
+                                    onError = {
+                                        // Manejar error
+                                        Log.e(
+                                            "LoginFragment",
+                                            "Error al enviar el token al servidor."
+                                        )
+                                        // Puedes mostrar un mensaje de error al usuario si es necesario
+                                    }
+                                )
                             } else {
                                 // Manejar el error al obtener el token
-                                Log.e(ContentValues.TAG, "Error al obtener el token FCM: ${task.exception}")
+                                Log.e(
+                                    ContentValues.TAG,
+                                    "Error al obtener el token FCM: ${task.exception}"
+                                )
                             }
-
-                            // Continúa con la navegación u otras acciones necesarias después del inicio de sesión
-                            val intent = Intent(context, HomeScreenActivity::class.java)
-                            intent.putExtra("user", user)
-                            startActivity(intent)
                         }
 
                     } else {
-                        // Autenticación fallida. Mensaje que indica error,
-                        // se muestra text view que estaba oculto
-                        errorMessageTextView.visibility = View.VISIBLE
-                        errorMessageTextView.text =
-                            "El usuario y/o contrasena ingresados son incorrectos"
-
+                        emailEditText.setError("Este campo es requerido") // Esto activará el estado de error
+                        passwordEditText.setError("Este campo es requerido") // Esto
                     }
                 }
-
-            } else {
-                emailEditText.setError("Este campo es requerido") // Esto activará el estado de error
-                passwordEditText.setError("Este campo es requerido") // Esto
             }
         }
     }

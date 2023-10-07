@@ -26,6 +26,8 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         // Puedes hacer lo que necesites con el token, como enviarlo a tu servidor
     }
 
+
+
     companion object {
         private const val TAG = "MyFirebaseMessagingService"
     }

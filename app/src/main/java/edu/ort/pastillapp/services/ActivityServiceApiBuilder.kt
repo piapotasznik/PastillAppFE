@@ -1,7 +1,5 @@
 package edu.ort.pastillapp.services
 
-import edu.ort.pastillapp.UserSingleton
-import edu.ort.pastillapp.models.ApiUserResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,14 +15,11 @@ import javax.net.ssl.SSLSession
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
-import retrofit2.Callback
-import retrofit2.Call
-import retrofit2.Response
 
 object ActivityServiceApiBuilder {
 
     // CAMBIAR POR DIRECCION IP LOCAL PROPIA!!!!!!!!!!!!! HABILITAR FIREWALL DE WINDOWS
-     private val BASE_URL = "https://192.168.0.96:7067"
+     private val BASE_URL = "https://ff40-2800-21c1-c400-4fa-21c3-21a7-3caf-4852.ngrok-free.app"
     val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }

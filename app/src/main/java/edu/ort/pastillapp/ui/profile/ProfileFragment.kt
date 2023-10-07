@@ -3,21 +3,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import edu.ort.pastillapp.databinding.FragmentProfileBinding
-import android.widget.Toast
-import edu.ort.pastillapp.models.ApiUserResponse
-import com.google.firebase.database.*
-import edu.ort.pastillapp.services.ActivityServiceApiBuilder
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Call
-import androidx.appcompat.app.AlertDialog
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
-import edu.ort.pastillapp.UserSingleton
-import edu.ort.pastillapp.models.User
+import edu.ort.pastillapp.databinding.FragmentProfileBinding
+import edu.ort.pastillapp.models.ApiUserResponse
+import edu.ort.pastillapp.models.Token
+import edu.ort.pastillapp.services.ActivityServiceApiBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class ProfileFragment : Fragment() {
@@ -128,4 +128,31 @@ class ProfileFragment : Fragment() {
             }
         })
     }
+
+    fun sendTokenToServer(token: String, userEmail: String) {
+        // Llama a la función para enviar el token al backend utilizando Retrofit u otra biblioteca que prefieras.
+        // Aquí debes hacer la solicitud HTTP al servidor para enviar el token y el correo electrónico.
+
+        val userService = ActivityServiceApiBuilder.create()
+
+        val tokenData = Token(deviceToken = token, userEmail = userEmail)
+        val request = userService.sendTokenToServer(tokenData)
+
+        request.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(requireContext(), "Token enviado al servidor", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Hubo un error al enviar el token al servidor
+                    Toast.makeText(requireContext(), "Error al enviar el token al servidor", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(requireContext(), "Error de red al enviar el token", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+
 }

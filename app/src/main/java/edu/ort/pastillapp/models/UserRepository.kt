@@ -2,6 +2,7 @@ package edu.ort.pastillapp.models
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import com.google.firebase.messaging.FirebaseMessaging
 import edu.ort.pastillapp.services.ActivityServiceApiBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,7 +27,48 @@ class UserRepository(private val context: Context) {
        }
      })
   }
-  private fun showErrorToast(message: String) {
+    fun sendTokenToServer(userEmail: String, onSuccess: () -> Unit, onError: () -> Unit) {
+        // Obtener el token FCM del dispositivo
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val token = task.result
+
+                // Enviar el token FCM al servidor
+                val tokenData = Token(deviceToken = token, userEmail = userEmail)
+                Log.d("UserRepository", "Token obtenido: $tokenData")
+                userService.sendTokenToServer(tokenData).enqueue(object : Callback<Void> {
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                        if (response.isSuccessful) {
+                            // Token enviado con éxito
+                            Log.d("UserRepository", "Token enviado al servidor con éxito.")
+                            onSuccess.invoke()
+                        } else {
+                            // Error al enviar el token
+                            Log.e(
+                                "UserRepository",
+                                "Error al enviar el token al servidor: ${response.message()}"
+                            )
+                            onError.invoke()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        // Error de red al enviar el token
+                        Log.e("UserRepository", "Error de red al enviar el token: ${t.message}")
+                        onError.invoke()
+                    }
+                })
+            } else {
+                // Error al obtener el token FCM
+                Log.e("UserRepository", "Error al obtener el token FCM: ${task.exception}")
+                onError.invoke()
+            }
+        }
+    }
+
+
+
+    private fun showErrorToast(message: String) {
       Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
   }
 
