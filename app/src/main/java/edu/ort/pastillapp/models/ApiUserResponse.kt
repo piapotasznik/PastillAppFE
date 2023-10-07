@@ -1,10 +1,10 @@
 package edu.ort.pastillapp.models
-data class ApiResponse(
-    val userId: Integer?,
+data class ApiUserResponse(
+    val userId: Int?,
     val name: String,
     val lastName: String,
     val email: String,
-    val emergencyUserId: Integer?,
+    val emergencyUserId: Int?,
     val emergencyUser: User?,
 
 )

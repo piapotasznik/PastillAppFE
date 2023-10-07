@@ -72,6 +72,10 @@ class login : Fragment() {
                         val user = auth.currentUser
                         UserSingleton.currentUser = user
 
+                        // Actualiza la variable global con el correo y el ID del usuario
+                        UserSingleton.currentUser = user
+                        UserSingleton.currentUserEmail = email // Almacena el correo
+
 //                        val action = loginDirections.actionLoginToProfileUserFragment()
 //                        v.findNavController().navigate(action)
 
