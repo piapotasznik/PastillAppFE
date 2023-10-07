@@ -42,6 +42,35 @@ object ActivityServiceApiBuilder {
          return retrofit.create(UserService::class.java)
 
      }
+
+
+    fun createReminder(): ReminderService {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getUnsafeOkHttpClient())
+            //PARA ACTIVAR SEGURIDAD DE NUEVO: COMENTAR LINEA 41
+            // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
+            .build()
+
+        return retrofit.create(ReminderService::class.java)
+
+    }
+
+    fun createMedicine(): MedicineService {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getUnsafeOkHttpClient())
+            //PARA ACTIVAR SEGURIDAD DE NUEVO: COMENTAR LINEA 41
+            // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
+            .build()
+
+        return retrofit.create(MedicineService::class.java)
+
+    }
+
+
     private fun getUnsafeOkHttpClient(): OkHttpClient? {
         return try {
             // Create a trust manager that does not validate certificate chains
@@ -91,4 +120,11 @@ object ActivityServiceApiBuilder {
             throw RuntimeException(e)
         }
     }
+
+
+
+
+
+
+
 }
