@@ -12,9 +12,11 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 import edu.ort.pastillapp.HomeScreenActivity
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.UserSingleton
+import edu.ort.pastillapp.services.ActivityServiceApiBuilder
 
 
 class login : Fragment() {
@@ -83,8 +85,6 @@ class login : Fragment() {
 //                        startActivity(intent)
 
                         // En la primera actividad, al crear el Intent
-
-                        // En la primera actividad, al crear el Intent
                         val intent = Intent(context, HomeScreenActivity::class.java)
                         intent.putExtra(
                             "user",
@@ -93,6 +93,22 @@ class login : Fragment() {
 
                         startActivity(intent)
 
+                        // Obtengo el token FCM del dispositivo. EMAIL AGREGAR
+                        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val token = task.result
+                                // Llama a la función para enviar el token al backend
+                               // sendTokenToServer(token)
+                            } else {
+                                // Manejar el error al obtener el token
+                                Log.e(ContentValues.TAG, "Error al obtener el token FCM: ${task.exception}")
+                            }
+
+                            // Continúa con la navegación u otras acciones necesarias después del inicio de sesión
+                            val intent = Intent(context, HomeScreenActivity::class.java)
+                            intent.putExtra("user", user)
+                            startActivity(intent)
+                        }
 
                     } else {
                         // Autenticación fallida. Mensaje que indica error,
