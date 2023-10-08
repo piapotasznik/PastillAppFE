@@ -76,7 +76,7 @@ class login : Fragment() {
 
                         // Actualiza la variable global con el correo y el ID del usuario
                         UserSingleton.currentUser = user
-                        UserSingleton.currentUserEmail = email // Almacena el correo
+                        UserSingleton.currentUserEmail = email
 
                         // En la primera actividad, al crear el Intent
                         val intent = Intent(context, HomeScreenActivity::class.java)
@@ -87,11 +87,12 @@ class login : Fragment() {
 
                         startActivity(intent)
 
-                        // Obtengo el token FCM del dispositivo. EMAIL AGREGAR
+                        // Obtengo el token FCM del dispositivo.
                         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 val token = task.result
                                 // Llama a la función para enviar el token al backend
+
                                 UserRepository(requireContext()).sendTokenToServer(email,
                                     onSuccess = {
                                         // Manejar éxito

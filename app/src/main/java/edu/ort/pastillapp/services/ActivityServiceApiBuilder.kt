@@ -19,7 +19,7 @@ import javax.net.ssl.X509TrustManager
 object ActivityServiceApiBuilder {
 
     // CAMBIAR POR DIRECCION IP LOCAL PROPIA!!!!!!!!!!!!! HABILITAR FIREWALL DE WINDOWS
-     private val BASE_URL = "https://ff40-2800-21c1-c400-4fa-21c3-21a7-3caf-4852.ngrok-free.app"
+     private val BASE_URL = "https://192.168.0.96:7067"
     val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
@@ -40,28 +40,18 @@ object ActivityServiceApiBuilder {
          return retrofit.create(UserService::class.java)
 
      }
+    fun createToken(): TokenService {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getUnsafeOkHttpClient())
+            //PARA ACTIVAR SEGURIDAD DE NUEVO: COMENTAR LINEA 41
+            // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
+            .build()
 
-    // COMPLETAR
-    /*// fun sendTokenToServer(token: String) {
-        val userService = ActivityServiceApiBuilder.create() // Usar tu servicio Retrofit
-        val currentUserEmail = UserSingleton.currentUserEmail.toString() // Obtener el correo del usuario actual
+        return retrofit.create(TokenService::class.java)
 
-        // Enviar el token al backend COMPLETAR
-        userService.sendFCMToken(currentUserEmail, token).enqueue(object : Callback<ApiUserResponse> {
-            override fun onResponse(call: Call<ApiUserResponse>, response: Response<ApiUserResponse>) {
-                if (response.isSuccessful) {
-                    // Token enviado correctamente al backend
-                } else {
-                    // Manejar el error en caso de fallo en la solicitud
-                }
-            }
-
-            override fun onFailure(call: Call<ApiUserResponse>, t: Throwable) {
-                // Manejar errores de red o solicitud
-            }
-        })
-    }  */
-
+    }
 private fun getUnsafeOkHttpClient(): OkHttpClient? {
         return try {
             // Create a trust manager that does not validate certificate chains

@@ -15,6 +15,8 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             // Por ejemplo, mostrar un log con el título y el cuerpo de la notificación
             Log.d(TAG, "Título: $title")
             Log.d(TAG, "Cuerpo: $body")
+
+            mostrarDialogoDeNotificacion(title, body)
         }
     }
 
@@ -26,7 +28,11 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         // Puedes hacer lo que necesites con el token, como enviarlo a tu servidor
     }
 
-
+    private fun mostrarDialogoDeNotificacion(title: String?, body: String?) {
+        // Aquí puedes mostrar un cuadro de diálogo al usuario con el título y el cuerpo de la notificación
+        // Además, puedes agregar opciones "Sí" y "No" para que el usuario responda a la notificación
+        // Dependiendo de la respuesta del usuario, puedes realizar acciones adicionales
+    }
 
     companion object {
         private const val TAG = "MyFirebaseMessagingService"
