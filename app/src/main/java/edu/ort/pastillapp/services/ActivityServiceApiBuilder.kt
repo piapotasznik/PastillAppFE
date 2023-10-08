@@ -20,7 +20,7 @@ import javax.net.ssl.X509TrustManager
 object ActivityServiceApiBuilder {
 
     // CAMBIAR POR DIRECCION IP LOCAL PROPIA!!!!!!!!!!!!! HABILITAR FIREWALL DE WINDOWS
-     private val BASE_URL = " https://a5a8-2800-810-502-704-e52b-758c-9ac-39fb.ngrok-free.app"
+     private val BASE_URL = "https://73d3-2800-21c1-c400-4fa-a1be-5e18-fbdf-e346.ngrok-free.app/"
 
     val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

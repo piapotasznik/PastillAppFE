@@ -34,5 +34,5 @@
     <string name="reminder_name">Nombre del medicamento:</string>
     <string name="reminder_dose">Dosis:</string>
     <string name="reminder_presentation">Presentación:</string>
-    <string name="reminder_date">Fecha:</string>
+    <string name="reminder_date">Fecha programada:</string>
 </resources>

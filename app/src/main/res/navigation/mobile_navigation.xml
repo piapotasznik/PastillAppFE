@@ -31,5 +31,10 @@
         android:name="edu.ort.pastillapp.ui.calendar_.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/medicationReminder"
+        android:name="edu.ort.pastillapp.fragments.medicationReminder"
+        android:label="fragment_medication_reminder"
+        tools:layout="@layout/fragment_medication_reminder" />
 
 </navigation>
