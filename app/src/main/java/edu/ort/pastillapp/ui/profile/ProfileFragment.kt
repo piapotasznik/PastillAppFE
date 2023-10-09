@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
+import edu.ort.pastillapp.NotificationUtils
 import edu.ort.pastillapp.databinding.FragmentProfileBinding
 import edu.ort.pastillapp.models.ApiTokenResponse
 import edu.ort.pastillapp.models.ApiUserResponse
@@ -27,6 +28,7 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private lateinit var databaseReference: DatabaseReference
     private lateinit var tokenService: TokenService
+    private var TAG = "ProfileFragment"
 
     private val binding get() = _binding!!
 
@@ -111,78 +113,94 @@ class ProfileFragment : Fragment() {
         })
     }
 
-    private fun obtenerTokenPorEmail(emailContactoEmergencia: String) {
-        val call = tokenService.getUserEmail(emailContactoEmergencia)
+private fun obtenerTokenPorEmail(emailContactoEmergencia: String) {
+    val call = tokenService.getUserEmail(emailContactoEmergencia)
 
-        call.enqueue(object : Callback<ApiTokenResponse> {
-            override fun onResponse(call: Call<ApiTokenResponse>, response: Response<ApiTokenResponse>) {
-                if (response.isSuccessful) {
-                    val apiTokenResponse = response.body()
-                    if (apiTokenResponse != null) {
-                        val token = apiTokenResponse.deviceToken // Accede directamente a la propiedad 'token'
-                        if (token != null) {
-                            // Aquí puedes utilizar el objeto 'token'
-                            // Por ejemplo, imprimir su valor
-                            println("Token de $emailContactoEmergencia: $token")
-                            enviarNotificacionPush(token)
+    call.enqueue(object : Callback<ApiTokenResponse> {
+        override fun onResponse(call: Call<ApiTokenResponse>, response: Response<ApiTokenResponse>) {
+            if (response.isSuccessful) {
+                val apiTokenResponse = response.body()
+                if (apiTokenResponse != null) {
+                    val token = apiTokenResponse.deviceToken // Accede directamente a la propiedad 'token'
+                    if (token != null) {
+                        // Aquí puedes utilizar el objeto 'token'
+                        // Por ejemplo, imprimir su valor
+                        println("Token de $emailContactoEmergencia: $token")
+                        enviarNotificacionPush(token)
 
-                        } else {
-                            println("NO HAY TOKEN")// Manejar el caso en el que no se encontró ningún token en ApiUserResponse
-                        }
                     } else {
-                        // Manejar el caso en el que ApiUserResponse es nulo
+                        println("NO HAY TOKEN")// Manejar el caso en el que no se encontró ningún token en ApiUserResponse
                     }
                 } else {
-                    // Manejar errores de la respuesta, por ejemplo, error 404 si el usuario no existe
+                    // Manejar el caso en el que ApiUserResponse es nulo
                 }
+            } else {
+                // Manejar errores de la respuesta, por ejemplo, error 404 si el usuario no existe
             }
-
-            override fun onFailure(call: Call<ApiTokenResponse>, t: Throwable) {
-                // Manejar errores de conexión u otros errores
-            }
-        })
-    }
-    private fun enviarNotificacionPush(token: String) {
-        // Construir los datos de la notificación para el usuario
-        val title = "Solicitud de contacto de emergencia"
-        val body = "¿Aceptar la solicitud para agregar a pepe como contacto de emergencia?"
-
-        // Crear un mapa de datos que contendrá los detalles de la notificación
-        val notificationData = mapOf(
-            "title" to title,
-            "body" to body
-        )
-
-        // Crear un mensaje FCM con los datos de la notificación
-        val notificationMessage = RemoteMessage.Builder(token)
-            .setData(notificationData)
-            .build()
-
-        // Intenta enviar el mensaje FCM
-        try {
-            FirebaseMessaging.getInstance().send(notificationMessage)
-
-            val alertDialog = AlertDialog.Builder(requireContext())
-            alertDialog.setTitle("Notificación Enviada")
-            alertDialog.setMessage("La notificación se ha enviado correctamente.")
-            alertDialog.setPositiveButton("Aceptar") { _, _ ->
-                // Aquí puedes realizar acciones adicionales si el usuario acepta la notificación enviada.
-            }
-            alertDialog.show()
-
-            // Aquí puedes realizar las acciones adicionales, como actualizar la base de datos y notificar al usuario
-        } catch (e: Exception) {
-            // Hubo un error al enviar la notificación
-            Log.e("Notificación", "Error al enviar la notificación: ${e.message}", e)
-            val alertDialog = AlertDialog.Builder(requireContext())
-            alertDialog.setTitle("Error")
-            alertDialog.setMessage("Hubo un error al enviar la notificación.")
-            alertDialog.setPositiveButton("Aceptar") { _, _ ->
-                // Aquí puedes realizar acciones adicionales si el usuario acepta la notificación enviada.
-            }
-            alertDialog.show()
-
         }
+
+        override fun onFailure(call: Call<ApiTokenResponse>, t: Throwable) {
+            // Manejar errores de conexión u otros errores
+        }
+    })
+}
+private fun enviarNotificacionPush(token: String) {
+    // Construir los datos de la notificación para el usuario
+    NotificationUtils.createNotificationChannels(requireContext())
+    Log.d(TAG, "Enviando notificación push...")
+    Log.d(TAG, token)
+    val title = "Solicitud de contacto de emergencia"
+    val body = "¿Aceptar la solicitud para agregar a pepe como contacto de emergencia?"
+
+    // Crear un mapa de datos que contendrá los detalles de la notificación
+
+    val notificationData = mapOf(
+        "title" to "Solicitud de contacto de emergencia",
+        "body" to "¿Aceptar la solicitud para agregar a pepe como contacto de emergencia?"
+    )
+
+    val notificationMessage = RemoteMessage.Builder(token)
+        .setData(notificationData)
+        .build()
+
+    try {
+        FirebaseMessaging.getInstance().send(notificationMessage)
+        // Resto de tu código
+    } catch (e: Exception) {
+        // Manejar el error
     }
 
+    // Crear un mensaje FCM con los datos de la notificación
+    /*val notificationMessage = RemoteMessage.Builder(token)
+        .setData(notificationData)
+        .build()
+
+    // Intenta enviar el mensaje FCM
+    try {
+        FirebaseMessaging.getInstance().send(notificationMessage)
+
+        val alertDialog = AlertDialog.Builder(requireContext())
+        alertDialog.setTitle("Notificación Enviada")
+        alertDialog.setMessage("La notificación se ha enviado correctamente.")
+        alertDialog.setPositiveButton("Aceptar") { _, _ ->
+            // Aquí puedes realizar acciones adicionales si el usuario acepta la notificación enviada.
+        }
+        alertDialog.show()
+
+        // Aquí puedes realizar las acciones adicionales, como actualizar la base de datos y notificar al usuario
+    } catch (e: Exception) {
+        // Hubo un error al enviar la notificación
+        Log.e("Notificación", "Error al enviar la notificación: ${e.message}", e)
+        val alertDialog = AlertDialog.Builder(requireContext())
+        alertDialog.setTitle("Error")
+        alertDialog.setMessage("Hubo un error al enviar la notificación.")
+        Log.e(TAG, "Error al enviar la notificación: ${e.message}", e)
+        alertDialog.setPositiveButton("Aceptar") { _, _ ->
+            // Aquí puedes realizar acciones adicionales si el usuario acepta la notificación enviada.
+        }
+        alertDialog.show()
+
+    }
+}*/
+}
 }
