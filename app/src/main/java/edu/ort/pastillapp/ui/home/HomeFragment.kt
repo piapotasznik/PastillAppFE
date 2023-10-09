@@ -5,38 +5,27 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.compose.ui.text.toUpperCase
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import edu.ort.pastillapp.databinding.FragmentHomeBinding
-import edu.ort.pastillapp.databinding.FragmentSymtomsBinding
 import edu.ort.pastillapp.helpers.Helpers
 import edu.ort.pastillapp.listener.OnClickNavigate
 import edu.ort.pastillapp.models.Medicine
 import edu.ort.pastillapp.models.Reminder
 import edu.ort.pastillapp.services.ActivityServiceApiBuilder
-import edu.ort.pastillapp.ui.symtoms_.MedAdapter
-import edu.ort.pastillapp.ui.symtoms_.Medication
-import edu.ort.pastillapp.ui.symtoms_.SymtomsFragmentDirections
+
 import edu.ort.pastillapp.ui.symtoms_.SymtomsViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.DateFormatSymbols
-import java.util.Date
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
 class HomeFragment : Fragment() , OnClickNavigate {
     var medication: MutableList<Medication> = ArrayList()
     private val reminderList = mutableListOf<Reminder>()
     private val medicineList = mutableListOf<Medicine>()
-    private lateinit var adapter: MedAdapter
+    private lateinit var adapter: ReminderAdatper
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -57,15 +46,9 @@ class HomeFragment : Fragment() , OnClickNavigate {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        val rvDate: RecyclerView = binding.rvDate
-//        homeViewModel.text.observe(viewLifecycleOwner) {
-//            rvDate.text = it
-//        }
 
-        //  getReminder()
-//            MedAdapter(medication)
-
-        getMedName()
+        //agrego reminder mockeado hastas que se arregle endpoint
+        getMockReminder()
         return root
     }
 
@@ -89,13 +72,10 @@ class HomeFragment : Fragment() , OnClickNavigate {
         binding.rvDate.smoothScrollToPosition(posicionInicial)
 
 
-        // invento medicaction para cargar, luego pedir por Retrofit
-        medication.add(Medication(2,"Pill","Paracetamol"))
-        medication.add(Medication(10,"Pill","Rosubastatina"))
 
         // adapter = ReminderAdatper(reminderList)
-        adapter = MedAdapter(medicineList)
-        adapter.setOnMedicineClickListener(this)
+        adapter = ReminderAdatper(reminderList, findNavController())
+//       adapter.setOnMedicineClickListener(this)
         binding.medList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.medList.adapter = adapter
     }
@@ -136,6 +116,36 @@ class HomeFragment : Fragment() , OnClickNavigate {
 
 
 
+    fun getMockReminder(){
+Log.e("lista","Entrando al getmocjReminder")
+        if(reminderList.isEmpty()){
+            reminderList.add(Reminder(1,
+                                    2,"20 grm",
+                                    "20-11-23",
+                                    8,
+                                    false,
+                                    "",
+                                    "1-12-23",
+                                    "fran",
+                                    "Paracetamol"
+
+                ))
+            reminderList.add(Reminder(1,
+                3,"5 grm",
+                "20-10-23",
+                12,
+                false,
+                "",
+                "31-10-23",
+                "fran",
+                "Amlodipina"
+
+            ))
+            Log.e("lista","Saliendo fel getmocjReminder")
+        }
+        Log.e("lista",reminderList.toString())
+    }
+
 
     fun getMedName() {
 
@@ -151,6 +161,7 @@ class HomeFragment : Fragment() , OnClickNavigate {
                     val responseMedicine = response.body()
 
                     if (responseMedicine != null) {
+                        medicineList.clear()
                         medicineList.addAll(responseMedicine)
 
 
@@ -173,7 +184,7 @@ class HomeFragment : Fragment() , OnClickNavigate {
     }
 
     override fun OnClickNavigate() {
-        val action = SymtomsFragmentDirections.actionNavigationSymptomsToEditReminderFragment()
+        val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment()
         Log.e("click","estoy clickeando aqui!!!")
         this.findNavController().navigate(action)
     }

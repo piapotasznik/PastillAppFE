@@ -2,11 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/custom_rectangle"
     android:layout_marginTop="15dp"
     android:layout_marginHorizontal="20dp"
-    android:layout_marginBottom="10dp"
-    android:backgroundTint="@color/blue"
+    android:layout_marginBottom="5dp"
+    android:paddingBottom="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -14,7 +13,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:backgroundTint="@color/celeste"
+        android:backgroundTint="@color/celesteItem"
         android:paddingBottom="10dp"
         app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +27,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent">>
 
             <ImageView
                 android:id="@+id/tvPill"
@@ -41,7 +40,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/reminderName"
+                android:id="@+id/medName"
                 android:layout_width="155dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -49,8 +48,8 @@
                 android:layout_marginBottom="7dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/reminderDosage"
-                app:layout_constraintEnd_toStartOf="@+id/closeBtn"
+                app:layout_constraintBottom_toTopOf="@+id/medDosage"
+                app:layout_constraintEnd_toStartOf="@+id/updateBtn"
                 app:layout_constraintHorizontal_bias="0.118"
                 app:layout_constraintStart_toEndOf="@+id/tvPill"
                 app:layout_constraintTop_toTopOf="parent"
@@ -58,26 +57,25 @@
                 tools:text="Medicamento" />
 
             <TextView
-                android:id="@+id/reminderDosage"
+                android:id="@+id/medDosage"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:backgroundTint="@color/blue"
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/closeBtn"
+                app:layout_constraintEnd_toStartOf="@+id/archivedBtn"
                 app:layout_constraintHorizontal_bias="0.118"
                 app:layout_constraintStart_toEndOf="@+id/tvPill"
-                app:layout_constraintTop_toTopOf="@+id/reminderName"
+                app:layout_constraintTop_toTopOf="@+id/medName"
                 app:layout_constraintVertical_bias="0.824"
                 tools:text="Dosage" />
 
             <ImageView
-                android:id="@+id/closeBtn"
+                android:id="@+id/updateBtn"
                 android:layout_width="28dp"
                 android:layout_height="25dp"
-                android:background="@drawable/ic_close"
+                android:background="@drawable/ic_edit"
                 android:paddingEnd="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -88,16 +86,16 @@
                 app:layout_constraintVertical_bias="0.41" />
 
             <ImageView
-                android:id="@+id/updateBtn"
+                android:id="@+id/archivedBtn"
                 android:layout_width="28dp"
                 android:layout_height="25dp"
-                android:background="@drawable/ic_ok"
+                android:background="@drawable/ic_archived"
                 android:paddingEnd="20dp"
                 android:textColor="@color/grey"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/closeBtn"
+                app:layout_constraintEnd_toStartOf="@+id/updateBtn"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/reminderName"
+                app:layout_constraintStart_toEndOf="@+id/medName"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.4" />
 

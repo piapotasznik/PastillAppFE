@@ -21,4 +21,17 @@
         <item name="colorPrimary">@color/blue</item>
     </style>
 
+    <style name="MyTimePickerDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:timePickerStyle">@style/MyTimePickerStyle</item>
+    </style>
+    <style name="MyTimePickerStyle" parent="@android:style/Widget.Material.Light.TimePicker">
+        <!-- Puedes personalizar otros atributos aquí si lo deseas -->
+    </style>
+    <style name="CustomNumberPickerStyle">
+        <item name="android:textColor">@color/grey</item>
+
+    </style>
+
+
+
 </resources>

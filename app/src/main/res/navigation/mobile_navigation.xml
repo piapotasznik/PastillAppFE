@@ -9,16 +9,16 @@
         android:id="@+id/navigation_home"
         android:name="edu.ort.pastillapp.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_editReminderFragment"
+            app:destination="@id/editReminderFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_symptoms"
         android:name="edu.ort.pastillapp.ui.symtoms_.SymtomsFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_symtoms" >
-        <action
-            android:id="@+id/action_navigation_symptoms_to_editReminderFragment"
-            app:destination="@id/editReminderFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_symtoms" />
 
     <fragment
         android:id="@+id/navigation_profile"
