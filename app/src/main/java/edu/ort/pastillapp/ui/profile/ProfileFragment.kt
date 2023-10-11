@@ -76,6 +76,8 @@ class ProfileFragment : Fragment() {
         profileSurname = binding.myProfileLastName
         profileEmail = binding.myProfileEmail
 
+        this.setUserInformation()
+
         return root
     }
 
@@ -90,9 +92,9 @@ class ProfileFragment : Fragment() {
                 if (response.isSuccessful) {
                     if (response.body() != null) {
                         userCreatedInformation = response.body()
-//                        profileName?.text = userCreatedInformation.name
-//                        profileSurname?.text = userCreatedInformation.lastName
-//                        profileEmail?.text = userCreatedInformation.email
+                        profileName?.setText(userCreatedInformation?.name)
+                        profileSurname?.setText(userCreatedInformation?.lastName)
+                        profileEmail?.setText(userCreatedInformation?.email)
                         profileEmail?.isEnabled = false
                     }
                 }
