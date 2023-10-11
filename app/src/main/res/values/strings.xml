@@ -30,6 +30,14 @@
     <string-array name="frecuency_intake_type">
         <item>Horas</item>
         <item>Dias</item>
+        <item>Meses</item>
+    </string-array>
+
+    <string-array name="duration_intake">
+        <item>Dias</item>
+        <item>Semanas</item>
+        <item>Meses</item>
+        <item>Años</item>
     </string-array>
     <string-array name="frecuency_intake_duration">
         <item>1</item>
@@ -63,7 +71,6 @@
         <item>29</item>
         <item>30</item>
         <item>31</item>
-        <item>Indefinido</item>
     </string-array>
     <string-array name="med_presentation">
         <item>Polvos</item>
