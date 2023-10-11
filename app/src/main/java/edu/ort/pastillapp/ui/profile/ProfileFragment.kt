@@ -4,20 +4,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
-import edu.ort.pastillapp.NotificationUtils
+//import edu.ort.pastillapp.NotificationUtils
 import edu.ort.pastillapp.databinding.FragmentProfileBinding
 import edu.ort.pastillapp.models.ApiTokenResponse
 import edu.ort.pastillapp.models.ApiUserResponse
+import edu.ort.pastillapp.models.User
 import edu.ort.pastillapp.services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.services.TokenService
+import edu.ort.pastillapp.services.UserService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,12 +29,19 @@ import retrofit2.Response
 
 class ProfileFragment : Fragment() {
 
-    private var _binding: FragmentProfileBinding? = null
     private lateinit var databaseReference: DatabaseReference
     private lateinit var tokenService: TokenService
+
+    private var _binding: FragmentProfileBinding? = null
+    private var userService: UserService? = null
     private var TAG = "ProfileFragment"
+    private var profileName: EditText? = null
+    private var profileSurname: EditText? = null
+    private var profileEmail: EditText? = null
+    private var userCreatedInformation: ApiUserResponse? = null
 
     private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,10 +65,17 @@ class ProfileFragment : Fragment() {
 //            textView.text = it
 //        }
 
-        val buttonSaveEmergencyContact = binding.saveBtn
-        buttonSaveEmergencyContact.setOnClickListener {
-            saveEmergencyContact()
+        this.userService = ActivityServiceApiBuilder.create()
+
+        val buttonUpdateInformation = binding.saveBtn
+        buttonUpdateInformation.setOnClickListener {
+            updateUserInformation()
         }
+
+        profileName = binding.myProfileName
+        profileSurname = binding.myProfileLastName
+        profileEmail = binding.myProfileEmail
+
         return root
     }
 
@@ -66,14 +84,54 @@ class ProfileFragment : Fragment() {
         _binding = null
     }
 
+    private fun setUserInformation() {
+        this.userService?.getUserId(1)?.enqueue(object: Callback<ApiUserResponse> {
+            override fun onResponse(call: Call<ApiUserResponse>, response: Response<ApiUserResponse>) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        userCreatedInformation = response.body()
+//                        profileName?.text = userCreatedInformation.name
+//                        profileSurname?.text = userCreatedInformation.lastName
+//                        profileEmail?.text = userCreatedInformation.email
+                        profileEmail?.isEnabled = false
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ApiUserResponse>, t: Throwable) {
+                // Manejar errores de red o solicitud
+                Toast.makeText(requireContext(), "Error de red", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun updateUserInformation() {
+        val name = profileName?.text.toString()
+        val surname = profileSurname?.text.toString()
+
+        if (name?.isNotEmpty() == true && surname?.isNotEmpty() == true) {
+            val userEmail = this.userCreatedInformation?.email?.let {
+                val userUpdated = User(name = name,
+                    lastName = surname,
+                    email = it
+                )
+                this.userService?.updateUser(1, userUpdated)?.enqueue(object: Callback<Void> {
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                        Toast.makeText(requireContext(), "Informacion de usuario actualizada con exito", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        Toast.makeText(requireContext(), "Error de red", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+        }
+    }
     private fun saveEmergencyContact() {
         val emailContactoEmergencia = binding.myProfileEmergencyContact.text.toString()
 
-        // Creo una instancia de Retrofit
-        val userService = ActivityServiceApiBuilder.create()
-
         // Cheqeo en servidor si tiene el correo
-        userService.getUserEmail(emailContactoEmergencia).enqueue(object : Callback<ApiUserResponse> {
+        this.userService?.getUserEmail(emailContactoEmergencia)?.enqueue(object : Callback<ApiUserResponse> {
             override fun onResponse(call: Call<ApiUserResponse>, response: Response<ApiUserResponse>) {
                 if (response.isSuccessful) {
                     // El correo existe en la base de datos
@@ -105,6 +163,7 @@ class ProfileFragment : Fragment() {
                     }
                 }
             }
+
             override fun onFailure(call: Call<ApiUserResponse>, t: Throwable) {
                 // Manejar errores de red o solicitud
                 Log.e("SaveEmergencyContact", "Error de red", t)
@@ -146,7 +205,7 @@ private fun obtenerTokenPorEmail(emailContactoEmergencia: String) {
 }
 private fun enviarNotificacionPush(token: String) {
     // Construir los datos de la notificación para el usuario
-    NotificationUtils.createNotificationChannels(requireContext())
+//    NotificationUtils.createNotificationChannels(requireContext())
     Log.d(TAG, "Enviando notificación push...")
     Log.d(TAG, token)
     val title = "Solicitud de contacto de emergencia"
