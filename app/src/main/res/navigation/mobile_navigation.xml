@@ -37,8 +37,12 @@
         tools:layout="@layout/fragment_calendar" />
     <fragment
         android:id="@+id/editReminderFragment"
-        android:name="edu.ort.pastillapp.EditReminderFragment"
+        android:name="edu.ort.pastillapp.ui.EditReminder.EditReminderFragment"
         android:label="fragment_edit_reminder"
-        tools:layout="@layout/fragment_edit_reminder" />
+        tools:layout="@layout/fragment_edit_reminder" >
+        <argument
+            android:name="reminder"
+            app:argType="edu.ort.pastillapp.models.Reminder" />
+    </fragment>
 
 </navigation>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
-    tools:context=".EditReminderFragment">
+    tools:context=".ui.EditReminder.EditReminderFragment">
 
 
 <!--    <TextView-->
@@ -133,16 +133,15 @@
                 android:textColor="@color/white_white_transparency"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/spinner_id"
+                app:layout_constraintBottom_toTopOf="@+id/presentationSpinner"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.893"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Spinner
-                android:id="@+id/spinner_id"
+                android:id="@+id/presentationSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-
                 android:layout_marginTop="60dp"
                 android:backgroundTint="@color/grey"
                 android:entries="@array/med_presentation"
@@ -160,13 +159,13 @@
                 android:textColor="@color/white_white_transparency"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/editFrecuencyType"
+                app:layout_constraintBottom_toTopOf="@+id/editFrecuencyInterval"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.096"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Spinner
-                android:id="@+id/editFrecuencyType"
+                android:id="@+id/editFrecuencyInterval"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/grey"
@@ -185,17 +184,17 @@
 
 
             <Spinner
+                android:id="@+id/editFrecuencyInt"
                 android:layout_width="80dp"
                 android:layout_height="48dp"
                 android:backgroundTint="@color/grey"
                 android:entries="@array/frecuency_intake_duration"
-
                 android:textStyle="bold"
                 android:theme="@style/Theme.PastillApp.Spinner"
                 app:layout_constraintBottom_toTopOf="@+id/saveBtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.024"
-                app:layout_constraintStart_toEndOf="@+id/editFrecuencyType"
+                app:layout_constraintStart_toEndOf="@+id/editFrecuencyInterval"
                 app:layout_constraintTop_toBottomOf="@+id/editDateIntake"
                 app:layout_constraintVertical_bias="0.18" />
 
@@ -212,7 +211,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.123"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_id"
+                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"
                 app:layout_constraintVertical_bias="0.963" />
 
             <Spinner
@@ -229,11 +228,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.094"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_id"
+                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"
                 app:layout_constraintVertical_bias="0.852" />
 
             <Spinner
-                android:id="@+id/editNotes"
+                android:id="@+id/editDurationNum"
                 style="@style/GrayText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -267,7 +266,7 @@
             <EditText
                 android:layout_width="110dp"
                 android:layout_height="120dp"
-
+                android:id="@+id/editNotes"
                 android:background="@drawable/custom_rectangle"
                 android:hint="Agrega notas"
                 android:paddingStart="5dp"
@@ -335,20 +334,21 @@
                 app:layout_constraintHorizontal_bias="0.112"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <EditText
+            <TextView
                 android:id="@+id/editDateIntake"
-                style="@style/GrayText"
-                android:layout_width="90dp"
+                android:gravity="center"
+                android:layout_width="110dp"
                 android:layout_height="48dp"
                 android:background="@drawable/edit_text_background"
                 android:paddingStart="5dp"
+                android:textSize="18sp"
                 android:text="22-10-23"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/saveBtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.111"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_id"
+                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"
                 app:layout_constraintVertical_bias="0.166" />
 
             <NumberPicker
@@ -356,9 +356,9 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:theme="@style/Theme.PastillApp.Picker"
-                app:layout_constraintBottom_toTopOf="@+id/editFrecuencyType"
+                app:layout_constraintBottom_toTopOf="@+id/editFrecuencyInterval"
                 app:layout_constraintStart_toEndOf="@+id/editDateIntake"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_id"
+                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"
                 app:layout_constraintVertical_bias="0.615" />
 
             <NumberPicker
@@ -367,11 +367,11 @@
                 android:layout_height="48dp"
                 android:textColor="@color/grey"
                 android:theme="@style/Theme.PastillApp.Picker"
-                app:layout_constraintBottom_toTopOf="@+id/editFrecuencyType"
+                app:layout_constraintBottom_toTopOf="@+id/editFrecuencyInterval"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/hourPicker"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_id"
+                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"
                 app:layout_constraintVertical_bias="0.615" />
 
             <TextView
@@ -393,7 +393,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/white"
-
+                android:id="@+id/emergencyCheckBox"
                 app:layout_constraintBottom_toTopOf="@+id/textView3"
                 app:layout_constraintEnd_toStartOf="@+id/checkedTextView"
                 app:layout_constraintTop_toBottomOf="@+id/textViewWelcome3"
@@ -410,15 +410,5 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.90" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/ivPillReminder"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="12dp"-->
-<!--        android:src="@drawable/ic_grey_pill"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHeight_percent=".48"-->
-<!--        app:layout_constraintHorizontal_bias="0.832"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

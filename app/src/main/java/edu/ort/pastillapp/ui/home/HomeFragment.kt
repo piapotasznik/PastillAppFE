@@ -121,22 +121,28 @@ Log.e("lista","Entrando al getmocjReminder")
         if(reminderList.isEmpty()){
             reminderList.add(Reminder(1,
                                     2,"20 grm",
+                                    "Comprimidos",
                                     "20-11-23",
+                                    "Dias",
                                     8,
                                     false,
                                     "",
-                                    "1-12-23",
+                                    "Meses",
+                                    1,
                                     "fran",
                                     "Paracetamol"
 
                 ))
             reminderList.add(Reminder(1,
                 3,"5 grm",
-                "20-10-23",
+                "Comprimidos",
+                "20-11-23",
+                "Horas",
                 12,
                 false,
                 "",
-                "31-10-23",
+                "Dias",
+                5,
                 "fran",
                 "Amlodipina"
 
@@ -183,8 +189,8 @@ Log.e("lista","Entrando al getmocjReminder")
         })
     }
 
-    override fun OnClickNavigate() {
-        val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment()
+    override fun OnClickNavigate(reminder :Reminder) {
+        val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminder)
         Log.e("click","estoy clickeando aqui!!!")
         this.findNavController().navigate(action)
     }

@@ -1,5 +1,6 @@
 package edu.ort.pastillapp.ui.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
@@ -21,7 +22,8 @@ class ReminderAdatper  (private val reminders:List<Reminder>,private val navCont
         holder.render(reminders[position])
 
         holder.updateBtn.setOnClickListener{
-            val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment()
+            val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminders[position])
+            Log.e("reminderAdapter", "el reminder que se esta pasando es  ${reminders[position].medicine}")
             navController.navigate(action)
         }
     }
