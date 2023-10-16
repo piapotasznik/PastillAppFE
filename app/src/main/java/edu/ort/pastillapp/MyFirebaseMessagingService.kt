@@ -1,30 +1,32 @@
 package edu.ort.pastillapp
-import android.util.Log
-import com.google.firebase.messaging.FirebaseMessagingService
-import com.google.firebase.messaging.RemoteMessage
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AlertDialog
+import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
+import edu.ort.pastillapp.fragments.homePageUser
 
 class MyFirebaseMessagingService: FirebaseMessagingService() {
- override fun onMessageReceived(remoteMessage: RemoteMessage) {
-     // Aquí puedes manejar las notificaciones cuando se reciban
-     if (remoteMessage.notification != null) {
-         val title = remoteMessage.notification!!.title
-         val body = remoteMessage.notification!!.body
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        if (remoteMessage.notification != null) {
+            val title = remoteMessage.notification?.title
+            val body = remoteMessage.notification?.body
+            val tipo = remoteMessage.data["tipo"]
+            val reminderLogId = remoteMessage.data["id"]
 
-         // Puedes mostrar la notificación o realizar otras acciones aquí
-         // Por ejemplo, mostrar un log con el título y el cuerpo de la notificación
-         Log.d(TAG, "Título: $title")
-         Log.d(TAG, "Cuerpo: $body")
+            Log.d(TAG, "Título: $title")
+            Log.d(TAG, "Cuerpo: $body")
+            Log.d(TAG, "Tipo: $tipo")
+            Log.d(TAG, "ID del ReminderLog: $reminderLogId")
 
-         mostrarDialogoDeNotificacion(title, body)
-     }
- }
-
+            mostrarNotificacion(title, body, tipo, reminderLogId)
+        }
+    }
     override fun onNewToken(token: String) {
         // Este método se llama cuando se genera un nuevo token o se actualiza el token
         // Aquí puedes obtener y manejar el token
@@ -33,7 +35,12 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         // Puedes hacer lo que necesites con el token, como enviarlo a tu servidor
     }
 
-    private fun mostrarDialogoDeNotificacion(title: String?, body: String?) {
+    private fun mostrarNotificacion(
+        title: String?,
+        body: String?,
+        tipo: String?,
+        reminderLogId: String?
+    ) {
         val channelId = "canal_de_notificacion_ppal"
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.logo)
@@ -43,7 +50,6 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        // Si deseas, puedes crear un canal de notificación para Android Oreo y versiones posteriores
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
@@ -53,6 +59,31 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
         val notificationId = System.currentTimeMillis().toInt()
+
+        val resultIntent = when (tipo) {
+            "alarm" -> {
+                // Configurar la acción para abrir el fragmento de alarma y pasar el ID
+                Intent(this, homePageUser::class.java)
+                    .apply { putExtra("reminderLogId", reminderLogId) }
+            }
+            "emergencycontact" -> {
+                // Configurar la acción para abrir el fragmento de contacto de emergencia
+                Intent(this, homePageUser::class.java)
+            }
+            else -> {
+                // Configurar la acción predeterminada (puedes ajustarla según tus necesidades)
+                Intent(this, MainActivity::class.java)
+            }
+        }
+
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            resultIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        notificationBuilder.setContentIntent(pendingIntent)
+        notificationBuilder.setAutoCancel(true)
 
         notificationManager.notify(notificationId, notificationBuilder.build())
     }
