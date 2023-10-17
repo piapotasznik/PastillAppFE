@@ -40,8 +40,16 @@ object ActivityServiceApiBuilder {
              .build()
 
          return retrofit.create(UserService::class.java)
-
      }
+    fun createReminderLogService(): ReminderLogService {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getUnsafeOkHttpClient())
+            .build()
+
+        return retrofit.create(ReminderLogService::class.java)
+    }
     private fun getUnsafeOkHttpClient(): OkHttpClient? {
         return try {
             // Create a trust manager that does not validate certificate chains
