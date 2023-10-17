@@ -1,12 +1,12 @@
 package edu.ort.pastillapp.services
 
-import edu.ort.pastillapp.models.ApiResponse
 import edu.ort.pastillapp.models.Reminder
 import edu.ort.pastillapp.models.ReminderUpdate
 import edu.ort.pastillapp.models.ServerResponse
 import edu.ort.pastillapp.models.User
 import retrofit2.Call
 import retrofit2.http.Body
+import edu.ort.pastillapp.models.ApiReminderResponse
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
