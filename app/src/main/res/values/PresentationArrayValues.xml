@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="presentation_array">
+    <string-array name="med_presentation">
         <item>Polvo</item>
         <item>Granulado</item>
         <item>Comprimidos</item>

@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context=".ui.home.EditReminder.EditReminderFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvReminderEdit"
+        android:layout_width="376dp"
+        android:layout_height="550dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="@color/celeste"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loEditReminder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/textViewWelcome3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:letterSpacing="0"
+                android:lineSpacingExtra="12sp"
+                android:paddingStart="10dp"
+                android:text="Editar recordatorio"
+                android:textColor="@color/celesteClaro"
+                android:textSize="35sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medicamento"
+                android:textColor="@color/white_white_transparency"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/editNameMed"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.114"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/editNameMed"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/edit_text_background"
+                android:inputType="text"
+                android:text="Paracetamol"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.114"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWelcome3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dosis"
+                android:textSize="16dp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/editDosis"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.094"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editNameMed"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                android:id="@+id/editDosis"
+                android:layout_width="70dp"
+                android:layout_height="48dp"
+                android:background="@drawable/edit_text_background"
+                android:text=" 20"
+                android:inputType="number"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/textView6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.102"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editNameMed"
+                app:layout_constraintVertical_bias="0.512" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Presentacion"
+                android:textColor="@color/white_white_transparency"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/presentationSpinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.893"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Spinner
+                android:id="@+id/presentationSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="60dp"
+                android:backgroundTint="@color/grey"
+                android:entries="@array/med_presentation"
+                android:gravity="end"
+                android:theme="@style/Theme.PastillApp.Spinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.919"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkedTextView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Frecuencia"
+                android:textColor="@color/white_white_transparency"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/editFrecuencyInterval"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.096"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+            <Spinner
+                android:id="@+id/editFrecuencyInterval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:backgroundTint="@color/grey"
+                android:entries="@array/frequency_values"
+                android:minHeight="48dp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                android:theme="@style/Theme.PastillApp.Spinner"
+                app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.094"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editDateIntake"
+                app:layout_constraintVertical_bias="0.183" />
+
+            <Spinner
+                android:id="@+id/editFrecuencyInt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:backgroundTint="@color/grey"
+                android:entries="@array/quantity"
+                android:minHeight="48dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:theme="@style/Theme.PastillApp.Spinner"
+                app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.084"
+                app:layout_constraintStart_toEndOf="@+id/editFrecuencyInterval"
+                app:layout_constraintTop_toBottomOf="@+id/editDateIntake"
+                app:layout_constraintVertical_bias="0.183" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:text="Duración de toma"
+                android:textColor="@color/white_white_transparency"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/editDurationIntake"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.123"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"
+                app:layout_constraintVertical_bias="0.963" />
+
+            <Spinner
+                android:id="@+id/editDurationIntake"
+                style="@style/GrayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:entries="@array/duration_values"
+                android:minHeight="48dp"
+                android:textStyle="bold"
+                android:theme="@style/Theme.PastillApp.Spinner"
+                app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.094"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"
+                app:layout_constraintVertical_bias="0.852" />
+
+            <Spinner
+                android:id="@+id/editDurationNum"
+                style="@style/GrayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:entries="@array/quantity"
+                android:minHeight="48dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:theme="@style/Theme.PastillApp.Spinner"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.335"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7"
+                app:layout_constraintVertical_bias="0.06" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notas Adicionales"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/cxlBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.91"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editDateIntake"
+                app:layout_constraintVertical_bias="0.034" />
+
+            <EditText
+                android:layout_width="110dp"
+                android:layout_height="120dp"
+                android:id="@+id/editNotes"
+                android:background="@drawable/custom_rectangle"
+                android:hint="Agrega notas"
+                android:gravity="top"
+                android:paddingTop="5dp"
+                android:paddingStart="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.908"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/round_button"
+                android:gravity="center"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="8dp"
+                android:text="@string/save"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:theme="@style/Theme.PastillApp.ButtonSave"
+                app:fontFamily="@font/francois_one"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/cxlBtn"
+                app:layout_constraintHorizontal_bias="0.213"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/cxlBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/round_button"
+                android:gravity="center"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="8dp"
+                android:text="Cancelar"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:theme="@style/Theme.PastillApp.ButtonCxl"
+                app:fontFamily="@font/francois_one"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.951"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inicio de toma"
+                android:textColor="@color/white_white_transparency"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/editDateIntake"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.112"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/editDateIntake"
+                android:gravity="center"
+                android:layout_width="210dp"
+                android:layout_height="48dp"
+                android:background="@drawable/edit_text_background"
+                android:paddingStart="5dp"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.111"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"
+                app:layout_constraintVertical_bias="0.166" />
+
+<!--            <NumberPicker-->
+<!--                android:id="@+id/hourPicker"-->
+<!--                android:layout_width="48dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:theme="@style/Theme.PastillApp.Picker"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/editFrecuencyInterval"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/editDateIntake"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"-->
+<!--                app:layout_constraintVertical_bias="0.615" />-->
+
+<!--            <NumberPicker-->
+<!--                android:id="@+id/minutePicker"-->
+<!--                android:layout_width="48dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:textColor="@color/grey"-->
+<!--                android:theme="@style/Theme.PastillApp.Picker"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/editFrecuencyInterval"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/hourPicker"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"-->
+<!--                app:layout_constraintVertical_bias="0.615" />-->
+
+            <TextView
+                android:id="@+id/checkedTextView"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Notificar Contacto"
+                android:textColor="@color/white_white_transparency"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/editNameMed"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.928"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWelcome3"
+                app:layout_constraintVertical_bias="0.342" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@android:color/white"
+                android:id="@+id/emergencyCheckBox"
+                app:layout_constraintBottom_toTopOf="@+id/textView3"
+                app:layout_constraintEnd_toStartOf="@+id/checkedTextView"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWelcome3"
+                app:layout_constraintVertical_bias="0.281" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

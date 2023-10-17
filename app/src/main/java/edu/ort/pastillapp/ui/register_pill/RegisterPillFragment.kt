@@ -87,7 +87,7 @@ class RegisterPillFragment : Fragment() {
         activity?.let {
             ArrayAdapter.createFromResource(
                 it,
-                R.array.quantity_array,
+                R.array.quantity,
                 android.R.layout.simple_spinner_item
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -97,17 +97,25 @@ class RegisterPillFragment : Fragment() {
 
             ArrayAdapter.createFromResource(
                 it,
-                R.array.values_array,
+                R.array.frequency_values,
                 android.R.layout.simple_spinner_item
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 this.valueFrequencySpinner?.adapter = adapter
+            }
+
+            ArrayAdapter.createFromResource(
+                it,
+                R.array.duration_values,
+                android.R.layout.simple_spinner_item
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 this.valueDurationSpinner?.adapter = adapter
             }
 
             ArrayAdapter.createFromResource(
                 it,
-                R.array.presentation_array,
+                R.array.med_presentation,
                 android.R.layout.simple_spinner_item
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

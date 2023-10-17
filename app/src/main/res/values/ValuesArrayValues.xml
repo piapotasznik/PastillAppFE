@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="values_array">
-        <item>Dias</item>
-        <item>Semanas</item>
-        <item>Meses</item>
-        <item>Años</item>
+    <string-array name="duration_values">
+        <item>DIAS</item>
+        <item>SEMANAS</item>
+        <item>MESES</item>
+        <item>AÑOS</item>
+    </string-array>
+    <string-array name="frequency_values">
+        <item>HORAS</item>
+        <item>DIAS</item>
+        <item>SEMANAS</item>
+        <item>MESES</item>
     </string-array>
 </resources>
