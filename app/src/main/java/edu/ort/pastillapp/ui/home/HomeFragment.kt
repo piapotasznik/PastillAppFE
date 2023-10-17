@@ -1,25 +1,32 @@
 package edu.ort.pastillapp.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.compose.ui.text.toUpperCase
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import edu.ort.pastillapp.databinding.FragmentHomeBinding
-import edu.ort.pastillapp.helpers.DayToday
-import edu.ort.pastillapp.ui.symtoms_.SymtomsViewModel
-import java.text.DateFormatSymbols
-import java.util.Date
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import edu.ort.pastillapp.helpers.Helpers
+import edu.ort.pastillapp.listener.OnClickNavigate
+import edu.ort.pastillapp.models.Medicine
+import edu.ort.pastillapp.models.Reminder
+import edu.ort.pastillapp.services.ActivityServiceApiBuilder
+import edu.ort.pastillapp.services.PaginateResponse
 
-class HomeFragment : Fragment() {
+import edu.ort.pastillapp.ui.symtoms_.SymtomsViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+class HomeFragment : Fragment() , OnClickNavigate {
+
+    private lateinit var adapter: ReminderAdatper
+
+    private val reminderList = mutableListOf<Reminder>()
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -35,70 +42,105 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(SymtomsViewModel::class.java)
+            ViewModelProvider(this).get(HomeViewModel::class.java)
+
+
+
+
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        val rvDate: RecyclerView = binding.rvDate
-//        homeViewModel.text.observe(viewLifecycleOwner) {
-//            rvDate.text = it
-//        }
-        val dateAdapter = DateAdapter(obtenerDiasDelMes())
-        val posicionInicial = DayToday().dayToday()+2
 
-        binding.rvDate.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvDate.adapter = dateAdapter
-        binding.rvDate.smoothScrollToPosition(posicionInicial)
+
         return root
     }
 
+    override fun onStart() {
+        super.onStart()
+
+            getAllReminders()
+
+        intiRecylcerView()
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getAllReminders()
+
+        intiRecylcerView()
+
+
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
 
+    fun intiRecylcerView(){
+        val dateAdapter = DateAdapter(Helpers().getDayOfMoth())
+        val posicionInicial = Helpers().dayToday()+2
+
+        binding.rvDate.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvDate.adapter = dateAdapter
+        binding.rvDate.smoothScrollToPosition(posicionInicial)
 
 
-    fun obtenerDiasDelMes(): List<Dia> {
-        val dias = mutableListOf<Dia>()
-        val calendario = Calendar.getInstance()
-        val formatoNumeroDia = SimpleDateFormat("d", Locale.getDefault())
+        adapter = ReminderAdatper(reminderList, findNavController())
 
-        val symbols = DateFormatSymbols(Locale("es", "ES"))
-        val nombresDias = symbols.shortWeekdays // Obtiene los nombres cortos de los días en español
-
-        val today = calendario.get(Calendar.DAY_OF_MONTH)
-        val ultimoDiaDelMes = calendario.getActualMaximum(Calendar.DAY_OF_MONTH)
-
-        // Obtener los tres días anteriores a hoy
-        for (i in today - 3 until today) {
-            calendario.set(Calendar.DAY_OF_MONTH, i)
-            val diaSemana = nombresDias[calendario.get(Calendar.DAY_OF_WEEK)]
-            val primeraLetra = diaSemana[0].toString().uppercase()
-            val numeroDia = formatoNumeroDia.format(calendario.time).toInt()
-            val dia = Dia(primeraLetra, numeroDia, false)
-            dias.add(dia)
-        }
-
-        // Obtener el día de hoy
-        calendario.set(Calendar.DAY_OF_MONTH, today)
-        val diaSemanaHoy = nombresDias[calendario.get(Calendar.DAY_OF_WEEK)]
-        val primeraLetraHoy = diaSemanaHoy[0].toString().uppercase()
-        val diaHoy = Dia(primeraLetraHoy, today, true)
-        dias.add(diaHoy)
-
-        // Obtener los tres días posteriores a hoy
-        for (i in today + 1..today + 3) {
-            calendario.set(Calendar.DAY_OF_MONTH, i)
-            val diaSemana = nombresDias[calendario.get(Calendar.DAY_OF_WEEK)]
-            val primeraLetra = diaSemana[0].toString().uppercase()
-            val numeroDia = formatoNumeroDia.format(calendario.time).toInt()
-            val dia = Dia(primeraLetra, numeroDia, false)
-            dias.add(dia)
-        }
-
-        return dias
+        binding.medList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.medList.adapter = adapter
     }
+
+
+
+
+
+    override fun OnClickNavigate(reminder :Reminder) {
+        val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminder)
+        Log.e("click","estoy clickeando aqui!!!")
+        this.findNavController().navigate(action)
+    }
+
+    fun getAllReminders(){
+        val service = ActivityServiceApiBuilder.createReminder()
+
+        service.getReminders().enqueue(object : Callback<List<Reminder>> {
+            override fun onResponse(
+                call: Call<List<Reminder>>,
+                response: Response<List<Reminder>>
+            ) {
+                if (response.isSuccessful && response.body() != null) {
+                    val responseReminders = response.body()
+                    Log.e("chau", response.body().toString())
+                    Log.e("chau", "estoy dentrod e la respuesta")
+
+                    if (responseReminders != null) {
+                        reminderList.clear()
+                        reminderList.addAll(responseReminders)
+
+                    }
+
+                    // Actualizar el RecyclerView
+                    adapter.notifyDataSetChanged()
+
+
+                } else {
+                    Log.e("chau", "respuesta no exitosa")
+                    Log.e("Respuesta no exitosa", " esta es la respuesta $response")
+                }
+
+            }
+
+            override fun onFailure(call: Call<List<Reminder>>, t: Throwable) {
+                Log.e("Example", t.stackTraceToString())
+            }
+        })
+
+    }
+
 }
