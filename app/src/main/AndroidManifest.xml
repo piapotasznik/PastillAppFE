@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- permissions for INTERNET -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <permission
+        android:name="edu.ort.pastillapp.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="edu.ort.pastillapp.permission.C2D_MESSAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,15 +22,30 @@
         android:theme="@style/Theme.PastillApp"
         tools:targetApi="31">
 
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/celeste" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="canal_de_notificacion_ppal" />
+
+        <service
+            android:name=".services.ReminderService"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <activity
             android:name=".HomeScreenActivity"
             android:exported="true"
             android:label="@string/title_activity_home_screen"
-            android:theme="@style/AppTheme">
-
-
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -30,9 +54,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
-    <!--permissions for INTERNET-->
-    <uses-permission android:name="android.permission.INTERNET"/>
+
 </manifest>
