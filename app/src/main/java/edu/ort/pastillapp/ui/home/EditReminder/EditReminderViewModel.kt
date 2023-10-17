@@ -1,4 +1,4 @@
-package edu.ort.pastillapp.ui.EditReminder
+package edu.ort.pastillapp.ui.home.EditReminder
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

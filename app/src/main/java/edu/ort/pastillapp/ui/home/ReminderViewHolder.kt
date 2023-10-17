@@ -14,9 +14,10 @@ class ReminderViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     private val medName : TextView = view.findViewById(R.id.medName)
     private val medDosage : TextView = view.findViewById(R.id.medDosage)
     val updateBtn: ImageView = view.findViewById(R.id.updateBtn)
+    val archiveBtn: ImageView = view.findViewById(R.id.archivedBtn)
     fun render(reminder: Reminder){
-        medName.text = reminder.medicine
-        medDosage.text = reminder.quantity
+        medName.text = reminder.presentation
+        medDosage.text = reminder.quantity.toString()
 
 
     }

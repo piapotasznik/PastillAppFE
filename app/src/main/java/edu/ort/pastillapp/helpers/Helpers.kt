@@ -57,31 +57,44 @@ fun dayToday (): Int{
 
         return dias
     }
+    fun convertirFecha(fechaString: String): String {
+        val formatoEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val formatoSalida = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
 
-    fun crearDateTimeManualmente(year: Int, month: Int, day: Int, hour: Int, minute: Int): Date {
-        val calendar = Calendar.getInstance()
-        calendar.set(year, month, day, hour, minute)
-
-        return calendar.time
+        val fecha: Date = formatoEntrada.parse(fechaString) ?: Date()
+        return formatoSalida.format(fecha)
     }
 
-    fun dateToString(date: Date?): String {
-        if (date == null) return ""
 
-        val formato = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
-        return formato.format(date)
+    fun convertirFechaInversa(fechaString: String): String {
+        val formatoEntrada = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+        val formatoSalida = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault())
+
+        val fecha: Date = formatoEntrada.parse(fechaString) ?: Date()
+        return formatoSalida.format(fecha)
     }
 
-    fun stringToDate(dateString: String): Date? {
-        val format = "dd-MM-yyyy HH:mm"
-        val sdf = SimpleDateFormat(format, Locale.getDefault())
-
-        return try {
-            sdf.parse(dateString)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
+    fun translateFrequency(englishText: String): String {
+        return when (englishText) {
+            "DAY" -> "Dias"
+            "HOURS" -> "Horas"
+            "MONTH" -> "Meses"
+            "WEEK" -> "Semanas"
+            "YEAR" -> "Años"
+            else -> "no se pudo traducir" // Por si acaso no hay una traducción definida
         }
     }
+
+    fun translateFrequencyEn(englishText: String): String {
+        return when (englishText) {
+            "Dias" -> "DAY"
+            "Horas" -> "HOURS"
+            "Meses" -> "MONTH"
+            "Semanas" -> "WEEK"
+            "Años" -> "YEAR"
+            else -> "no se pudo traducir" // Por si acaso no hay una traducción definida
+        }
+    }
+
 
 }

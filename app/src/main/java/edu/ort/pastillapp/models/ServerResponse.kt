@@ -1,4 +1,7 @@
 package edu.ort.pastillapp.models
 
-class ServerResponse {
-}
+data class  ServerResponse  (
+        val isSuccess: Boolean,
+        val message: String
+    )
+

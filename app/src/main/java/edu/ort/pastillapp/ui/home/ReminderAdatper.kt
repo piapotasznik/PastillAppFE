@@ -23,8 +23,13 @@ class ReminderAdatper  (private val reminders:List<Reminder>,private val navCont
 
         holder.updateBtn.setOnClickListener{
             val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminders[position])
-            Log.e("reminderAdapter", "el reminder que se esta pasando es  ${reminders[position].medicine}")
             navController.navigate(action)
+        }
+
+        holder.archiveBtn.setOnClickListener {
+            val action = HomeFragmentDirections.actionNavigationHomeToReminderFragment(reminders[position])
+            navController.navigate(action)
+
         }
     }
 

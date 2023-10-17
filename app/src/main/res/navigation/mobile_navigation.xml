@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_editReminderFragment"
             app:destination="@id/editReminderFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_symptoms"
@@ -37,9 +40,21 @@
         tools:layout="@layout/fragment_calendar" />
     <fragment
         android:id="@+id/editReminderFragment"
-        android:name="edu.ort.pastillapp.ui.EditReminder.EditReminderFragment"
+        android:name="edu.ort.pastillapp.ui.home.EditReminder.EditReminderFragment"
         android:label="fragment_edit_reminder"
         tools:layout="@layout/fragment_edit_reminder" >
+        <argument
+            android:name="reminder"
+            app:argType="edu.ort.pastillapp.models.Reminder" />
+        <action
+            android:id="@+id/action_editReminderFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/reminderFragment"
+        android:name="edu.ort.pastillapp.ui.home.ReminderFragment"
+        android:label="fragment_reminder"
+        tools:layout="@layout/fragment_reminder" >
         <argument
             android:name="reminder"
             app:argType="edu.ort.pastillapp.models.Reminder" />

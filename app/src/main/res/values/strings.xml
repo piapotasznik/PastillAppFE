@@ -73,13 +73,13 @@
         <item>31</item>
     </string-array>
     <string-array name="med_presentation">
-        <item>Polvos</item>
-        <item>Granulados</item>
-        <item>Comprimidos</item>
-        <item>Cápsulas</item>
-        <item>Jarabes</item>
-        <item>Suspensiones</item>
-        <item>Emulsiones</item>
+        <item>polvos</item>
+        <item>granulados</item>
+        <item>comprimidos</item>
+        <item>capsulas</item>
+        <item>jarabes</item>
+        <item>suspensiones</item>
+        <item>emulsiones</item>
     </string-array>
 
 </resources>

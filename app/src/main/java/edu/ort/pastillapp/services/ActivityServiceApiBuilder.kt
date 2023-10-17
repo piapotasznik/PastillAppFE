@@ -57,18 +57,9 @@ object ActivityServiceApiBuilder {
 
     }
 
-    fun createMedicine(): MedicineService {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(getUnsafeOkHttpClient())
-            //PARA ACTIVAR SEGURIDAD DE NUEVO: COMENTAR LINEA 41
-            // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
-            .build()
 
-        return retrofit.create(MedicineService::class.java)
 
-    }
+
 
 
     private fun getUnsafeOkHttpClient(): OkHttpClient? {

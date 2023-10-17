@@ -5,23 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
-    tools:context=".ui.EditReminder.EditReminderFragment">
-
-
-<!--    <TextView-->
-<!--        android:id="@+id/tvReminder"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Editar Recordatorio"-->
-<!--        android:textColor="@color/celesteClaro"-->
-<!--        android:textSize="18dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/cvReminderEdit"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.133"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.197" />-->
-
+    tools:context=".ui.home.EditReminder.EditReminderFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvReminderEdit"
@@ -110,11 +94,11 @@
 
             <EditText
                 android:id="@+id/editDosis"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="48dp"
                 android:background="@drawable/edit_text_background"
-                android:inputType="text"
-                android:text=" 20 mgr"
+                android:text=" 20"
+                android:inputType="number"
                 android:textSize="20sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
@@ -164,39 +148,42 @@
                 app:layout_constraintHorizontal_bias="0.096"
                 app:layout_constraintStart_toStartOf="parent" />
 
+
             <Spinner
                 android:id="@+id/editFrecuencyInterval"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
                 android:backgroundTint="@color/grey"
                 android:entries="@array/frecuency_intake_type"
                 android:minHeight="48dp"
                 android:textColor="@color/grey"
-
                 android:textStyle="bold"
                 android:theme="@style/Theme.PastillApp.Spinner"
                 app:layout_constraintBottom_toTopOf="@+id/saveBtn"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.107"
+                app:layout_constraintHorizontal_bias="0.094"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editDateIntake"
                 app:layout_constraintVertical_bias="0.183" />
 
-
             <Spinner
                 android:id="@+id/editFrecuencyInt"
-                android:layout_width="80dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
                 android:backgroundTint="@color/grey"
                 android:entries="@array/frecuency_intake_duration"
+                android:minHeight="48dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:theme="@style/Theme.PastillApp.Spinner"
                 app:layout_constraintBottom_toTopOf="@+id/saveBtn"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.024"
+                app:layout_constraintHorizontal_bias="0.084"
                 app:layout_constraintStart_toEndOf="@+id/editFrecuencyInterval"
                 app:layout_constraintTop_toBottomOf="@+id/editDateIntake"
-                app:layout_constraintVertical_bias="0.18" />
+                app:layout_constraintVertical_bias="0.183" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -269,6 +256,8 @@
                 android:id="@+id/editNotes"
                 android:background="@drawable/custom_rectangle"
                 android:hint="Agrega notas"
+                android:gravity="top"
+                android:paddingTop="5dp"
                 android:paddingStart="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -340,7 +329,6 @@
                 android:background="@drawable/edit_text_background"
                 android:paddingStart="5dp"
                 android:textSize="18sp"
-                android:text="22-10-23"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/saveBtn"
                 app:layout_constraintEnd_toEndOf="parent"

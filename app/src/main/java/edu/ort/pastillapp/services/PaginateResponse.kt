@@ -1,4 +1,5 @@
 package edu.ort.pastillapp.services
 
-class PaginateResponse {
-}
+data class  PaginateResponse <T>(
+    val results: List<T>
+)

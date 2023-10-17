@@ -5,66 +5,64 @@ import android.os.Parcelable
 import java.util.Date
 
 data class Reminder (
+    val reminderId: Int,
     val userId: Int,
     var medicineId: Int,
-    var quantity: String?,
+    var quantity: Int,
     var presentation: String?,
-    var dateTimeStart: Date?,
-    var frequencyInterval: String?,
-    var frequencyInt: Int,
+    var dateTimeStart: String?, // Cambiado a Date
+    var frequencyNumber: Int,
+    var frequencyText: String?,
     var emergencyAlert: Boolean,
     var observation: String?,
-    var durationType: String?,
-    var durationInt: Int,
-    val user: String?,
+    var intakeTimeNumber: Int,
+    var intakeTimeText: String?,
+    var endDateTime: String?, // Cambiado a Date
+    var user:String?,
     var medicine:String?,
-
-    ): Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
-        parcel.readString(),
-        parcel.readString(),
-        null,
-        parcel.readString(),
         parcel.readInt(),
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readString(), // Cambiado a readDate
+        parcel.readInt(),
+        parcel.readString(),
         parcel.readByte() != 0.toByte(),
         parcel.readString(),
-        parcel.readString(),
         parcel.readInt(),
         parcel.readString(),
+        parcel.readString(), // Cambiado a readDate
+        parcel.readString(),
         parcel.readString()
-    ) {
-        dateTimeStart = parcel.readDate()
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(reminderId)
         parcel.writeInt(userId)
         parcel.writeInt(medicineId)
-        parcel.writeString(quantity)
+        parcel.writeInt(quantity)
         parcel.writeString(presentation)
-        parcel.writeString(frecuencyInterval)
-        parcel.writeInt(frequencyInt)
+        parcel.writeString(dateTimeStart)  // Cambiado a writeDate
+        parcel.writeInt(frequencyNumber)
+        parcel.writeString(frequencyText)
         parcel.writeByte(if (emergencyAlert) 1 else 0)
         parcel.writeString(observation)
-        parcel.writeString(durationType)
-        parcel.writeInt(durationInt)
+        parcel.writeInt(intakeTimeNumber)
+        parcel.writeString(intakeTimeText)
+        parcel.writeString(endDateTime)// Cambiado a writeDate
         parcel.writeString(user)
         parcel.writeString(medicine)
     }
-    fun Parcel.writeDate(date: Date?) {
-        if (date != null) {
-            this.writeLong(date.time)
-        } else {
-            this.writeLong(-1)
-        }
-    }
+
+
 
     fun Parcel.readDate(): Date? {
         val time = this.readLong()
         return if (time != -1L) Date(time) else null
     }
-
 
     override fun describeContents(): Int {
         return 0
@@ -80,4 +78,3 @@ data class Reminder (
         }
     }
 }
-
