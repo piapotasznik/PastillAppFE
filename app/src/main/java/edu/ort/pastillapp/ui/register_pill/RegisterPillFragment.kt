@@ -1,5 +1,7 @@
 package edu.ort.pastillapp.ui.register_pill
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +10,15 @@ import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import edu.ort.pastillapp.R
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import edu.ort.pastillapp.databinding.FragmentRegisterPillBinding
+import java.time.LocalTime
+import edu.ort.pastillapp.helpers.formatter
+import edu.ort.pastillapp.helpers.setTime
+import java.time.LocalDate
 
 
 class RegisterPillFragment : Fragment() {
@@ -21,8 +28,8 @@ class RegisterPillFragment : Fragment() {
     private var notifyCheckBox: CheckBox? = null
     private var doseInput: EditText? = null
     private var presentationSpinner: Spinner? = null
-    private var dateInput: EditText? = null
-    private var timeInput: EditText? = null
+    private var dateInput: TextView? = null
+    private var timeInput: TextView? = null
     private var quantityFrequencySpinner: Spinner? = null
     private var valueFrequencySpinner: Spinner? = null
     private var valueDurationSpinner: Spinner? = null
@@ -56,6 +63,10 @@ class RegisterPillFragment : Fragment() {
         quantityDurationSpinner = binding.quantityDurationSpinner
         extraNotesInput = binding.extraNotesInput
 
+        fillSpinnerValues()
+        setUpTime()
+        setUpDate()
+
         return root
     }
 
@@ -63,8 +74,7 @@ class RegisterPillFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    private fun fillValues() {
+    private fun fillSpinnerValues() {
         activity?.let {
             ArrayAdapter.createFromResource(
                 it,
@@ -85,7 +95,48 @@ class RegisterPillFragment : Fragment() {
                 this.valueFrequencySpinner?.adapter = adapter
                 this.valueDurationSpinner?.adapter = adapter
             }
+
+            ArrayAdapter.createFromResource(
+                it,
+                R.array.presentation_array,
+                android.R.layout.simple_spinner_item
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                this.presentationSpinner?.adapter = adapter
+            }
         }
-        
+    }
+    private fun setUpTime() {
+        timeInput?.text = LocalTime.now().format(formatter)
+        timeInput?.setOnClickListener {
+            showTimePicker()
+        }
+    }
+    private fun showTimePicker() {
+        showDialog { _, hour, minute ->
+            val currentTime = LocalTime.of(hour, minute)
+            timeInput?.setTime(currentTime)
+        }
+    }
+    private fun showDialog(observer: TimePickerDialog.OnTimeSetListener) {
+        TimePickerFragment.newInstance(observer)
+            .show(getParentFragmentManager(), "time-picker")
+    }
+    private fun setUpDate() {
+        dateInput?.text = LocalDate.now().toString()
+        dateInput?.setOnClickListener {
+            showDatePicker()
+        }
+    }
+    private fun showDateDialog(observer: DatePickerDialog.OnDateSetListener) {
+        DatePickerFragment.newInstance(observer)
+        .show(getParentFragmentManager(), "date-picker")
+    }
+    private fun showDatePicker() {
+        showDateDialog { _, year, month, day ->
+            // +1 because January is zero
+            val selectedDate = day.toString() + " / " + (month + 1) + " / " + year
+            dateInput?.text = selectedDate
+        }
     }
 }

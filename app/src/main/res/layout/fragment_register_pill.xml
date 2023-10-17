@@ -39,7 +39,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Medicamento"
-                android:textColor="@color/grey"
+                android:textColor="@color/gray_with_transparency"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Dosis"
-                android:textColor="@color/grey"
+                android:textColor="@color/gray_with_transparency"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Fecha y Hora Inicio de Toma"
-                android:textColor="@color/grey"
+                android:textColor="@color/gray_with_transparency"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
                 android:layout_marginStart="228dp"
                 android:layout_marginTop="20dp"
                 android:text="Presentacion"
-                android:textColor="@color/grey"
+                android:textColor="@color/gray_with_transparency"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -148,46 +148,13 @@
 
             <Spinner
                 android:id="@+id/presentationSpinner"
-                android:layout_width="110dp"
+                style="@style/GrayText"
+                android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-            <EditText
-                android:id="@+id/dateInput"
-                style="@style/GrayText"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:inputType="text"
-                android:text="Fecha"
-                android:textColor="@color/grey"
-                android:focusable="false"
-                android:clickable="true"
-                android:maxLines="1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-            <EditText
-                android:id="@+id/timeInput"
-                style="@style/GrayText"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:clickable="true"
-                android:ems="10"
-                android:focusable="false"
-                android:inputType="text"
-                android:maxLines="1"
-                android:text="Hora"
-                android:textColor="@color/grey"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -197,7 +164,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Frecuencia de toma"
-                android:textColor="@color/grey"
+                android:textColor="@color/gray_with_transparency"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -205,6 +172,7 @@
 
             <Spinner
                 android:id="@+id/quantityFrequencySpinner"
+                style="@style/GrayText"
                 android:layout_width="110dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
@@ -214,7 +182,8 @@
 
             <Spinner
                 android:id="@+id/valueFrequencySpinner"
-                android:layout_width="110dp"
+                style="@style/GrayText"
+                android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
@@ -226,16 +195,18 @@
                 style="@style/GrayText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Duracion de toma"
-                android:textColor="@color/grey"
+                android:textColor="@color/gray_with_transparency"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/quantityFrequencySpinner"
-                tools:layout_editor_absoluteX="19dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quantityFrequencySpinner" />
 
             <Spinner
                 android:id="@+id/quantityDurationSpinner"
+                style="@style/GrayText"
                 android:layout_width="110dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
@@ -245,7 +216,8 @@
 
             <Spinner
                 android:id="@+id/valueDurationSpinner"
-                android:layout_width="110dp"
+                style="@style/GrayText"
+                android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
@@ -290,6 +262,34 @@
                 app:layout_constraintStart_toEndOf="@+id/saveReminderBtn"
                 app:layout_constraintTop_toBottomOf="@+id/quantityDurationSpinner"
                 app:layout_constraintVertical_bias="0.833" />
+
+            <TextView
+                android:id="@+id/dateInput"
+                style="@style/GrayText"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Seleccionar dia"
+                android:textAlignment="center"
+                android:textColor="@color/grey"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <TextView
+                android:id="@+id/timeInput"
+                style="@style/GrayText"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Seleccionar hora"
+                android:textAlignment="center"
+                android:textColor="@color/grey"
+                android:textSize="18dp"
+                app:layout_constraintStart_toEndOf="@+id/dateInput"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
