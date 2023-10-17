@@ -3,14 +3,17 @@ package edu.ort.pastillapp.ui.register_pill
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.core.view.isVisible
 import edu.ort.pastillapp.R
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -34,6 +37,8 @@ class RegisterPillFragment : Fragment() {
     private var valueFrequencySpinner: Spinner? = null
     private var valueDurationSpinner: Spinner? = null
     private var quantityDurationSpinner: Spinner? = null
+    private var savebtn: Button? = null
+    private var errorMsg: TextView? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -56,10 +61,16 @@ class RegisterPillFragment : Fragment() {
         presentationSpinner = binding.presentationSpinner
         dateInput = binding.dateInput
         timeInput = binding.timeInput
-        this.quantityFrequencySpinner = binding.quantityFrequencySpinner
+        quantityFrequencySpinner = binding.quantityFrequencySpinner
         valueFrequencySpinner = binding.valueFrequencySpinner
         valueDurationSpinner = binding.valueDurationSpinner
         quantityDurationSpinner = binding.quantityDurationSpinner
+        errorMsg = binding.errorMsg
+        errorMsg?.visibility = View.INVISIBLE
+        savebtn = binding.saveReminderBtn
+        savebtn?.setOnClickListener {
+            saveReminder()
+        }
 
         fillSpinnerValues()
         setUpTime()
@@ -135,6 +146,29 @@ class RegisterPillFragment : Fragment() {
             // +1 because January is zero
             val selectedDate = day.toString() + " / " + (month + 1) + " / " + year
             dateInput?.text = selectedDate
+        }
+    }
+    private fun saveReminder() {
+        val medicine: String = medicineSpinner?.selectedItem.toString()
+        val notify: Boolean = notifyCheckBox?.isChecked == true
+        val dose: String = doseInput?.text.toString()
+        val presentation: String = presentationSpinner?.selectedItem.toString()
+        val date: String = dateInput?.text.toString()
+        val time: String = timeInput?.text.toString()
+        val quantityFrequency: String = quantityFrequencySpinner?.selectedItem.toString()
+        val valueFrequency: String = valueFrequencySpinner?.selectedItem.toString()
+        val quantityDuration: String = quantityDurationSpinner?.selectedItem.toString()
+        val valueDuration: String = valueDurationSpinner?.selectedItem.toString()
+        if (dose.isEmpty()) {
+            doseInput?.setError("Campo obligatorio")
+            errorMsg?.visibility = View.VISIBLE
+            errorMsg?.text =
+                "Todos los campos deben ser completados"
+            Handler().postDelayed({
+                errorMsg?.visibility = View.INVISIBLE
+            }, 3000)
+        } else {
+
         }
     }
 }
