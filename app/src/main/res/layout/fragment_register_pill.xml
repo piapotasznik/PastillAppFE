@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
@@ -29,7 +35,6 @@
             android:layout_marginBottom="8dp"
             android:gravity="center"
             android:orientation="vertical">
-
 
             <TextView
                 android:id="@+id/textView6"
@@ -76,15 +81,15 @@
             <TextView
                 android:id="@+id/textView8"
                 style="@style/GrayText"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="228dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="25dp"
                 android:text="Presentacion"
                 android:textColor="@color/gray_with_transparency"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/notifyCheckBox" />
 
             <TextView
@@ -229,10 +234,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="180dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="70dp"
+                android:layout_marginBottom="25dp"
                 android:backgroundTint="@color/pink"
                 android:gravity="center"
                 android:padding="12dp"
@@ -245,23 +250,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/quantityDurationSpinner" />
-
-            <EditText
-                android:id="@+id/extraNotesInput"
-                android:layout_width="130dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/saveReminderBtn"
-                app:layout_constraintTop_toBottomOf="@+id/quantityDurationSpinner"
-                app:layout_constraintVertical_bias="0.833" />
 
             <TextView
                 android:id="@+id/dateInput"
@@ -291,7 +279,7 @@
                 app:layout_constraintStart_toEndOf="@+id/dateInput"
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>

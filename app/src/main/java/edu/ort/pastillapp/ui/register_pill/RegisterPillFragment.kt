@@ -34,7 +34,6 @@ class RegisterPillFragment : Fragment() {
     private var valueFrequencySpinner: Spinner? = null
     private var valueDurationSpinner: Spinner? = null
     private var quantityDurationSpinner: Spinner? = null
-    private var extraNotesInput: EditText? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -61,7 +60,6 @@ class RegisterPillFragment : Fragment() {
         valueFrequencySpinner = binding.valueFrequencySpinner
         valueDurationSpinner = binding.valueDurationSpinner
         quantityDurationSpinner = binding.quantityDurationSpinner
-        extraNotesInput = binding.extraNotesInput
 
         fillSpinnerValues()
         setUpTime()
