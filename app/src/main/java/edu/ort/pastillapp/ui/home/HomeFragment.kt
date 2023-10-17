@@ -117,12 +117,14 @@ class HomeFragment : Fragment() , OnClickNavigate {
 
 
     fun getMockReminder(){
-Log.e("lista","Entrando al getmocjReminder")
+        // ojo que calendar toma los meses de 0 a 11  y no de 1 a 12
+        val fecha1 = Helpers().crearDateTimeManualmente(2023, 9, 20, 19, 0) // Año, mes (0-11), día, hora, minuto
+        val fecha2 = Helpers().crearDateTimeManualmente(2023, 10, 20, 8, 30)
         if(reminderList.isEmpty()){
             reminderList.add(Reminder(1,
                                     2,"20 grm",
                                     "Comprimidos",
-                                    "20-11-23",
+                                    fecha1,
                                     "Dias",
                                     8,
                                     false,
@@ -136,7 +138,7 @@ Log.e("lista","Entrando al getmocjReminder")
             reminderList.add(Reminder(1,
                 3,"5 grm",
                 "Comprimidos",
-                "20-11-23",
+                fecha2,
                 "Horas",
                 12,
                 false,

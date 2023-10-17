@@ -14,7 +14,7 @@ fun dayToday (): Int{
 
     val formato = SimpleDateFormat("d")
     val diaNumerico = formato.format(fechaActual).toInt()
-        return diaNumerico
+    return diaNumerico
 }
 
     fun getDayOfMoth(): List<Dia> {
@@ -56,6 +56,32 @@ fun dayToday (): Int{
         }
 
         return dias
+    }
+
+    fun crearDateTimeManualmente(year: Int, month: Int, day: Int, hour: Int, minute: Int): Date {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, day, hour, minute)
+
+        return calendar.time
+    }
+
+    fun dateToString(date: Date?): String {
+        if (date == null) return ""
+
+        val formato = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+        return formato.format(date)
+    }
+
+    fun stringToDate(dateString: String): Date? {
+        val format = "dd-MM-yyyy HH:mm"
+        val sdf = SimpleDateFormat(format, Locale.getDefault())
+
+        return try {
+            sdf.parse(dateString)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 
 }

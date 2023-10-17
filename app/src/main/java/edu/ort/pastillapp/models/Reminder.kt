@@ -6,26 +6,26 @@ import java.util.Date
 
 data class Reminder (
     val userId: Int,
-    val medicineId: Int,
-    val quantity: String?,
-    val presentation: String?,
-    val dateTimeStart: String?,
-    val frecuencyInterval: String?,
-    val frequencyInt: Int,
-    val emergencyAlert: Boolean,
-    val observation: String?,
-    val durationType: String?,
-    val durationInt: Int,
+    var medicineId: Int,
+    var quantity: String?,
+    var presentation: String?,
+    var dateTimeStart: Date?,
+    var frequencyInterval: String?,
+    var frequencyInt: Int,
+    var emergencyAlert: Boolean,
+    var observation: String?,
+    var durationType: String?,
+    var durationInt: Int,
     val user: String?,
-    val medicine:String?,
+    var medicine:String?,
 
-): Parcelable {
+    ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
+        null,
         parcel.readString(),
         parcel.readInt(),
         parcel.readByte() != 0.toByte(),
@@ -35,6 +35,7 @@ data class Reminder (
         parcel.readString(),
         parcel.readString()
     ) {
+        dateTimeStart = parcel.readDate()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -42,7 +43,6 @@ data class Reminder (
         parcel.writeInt(medicineId)
         parcel.writeString(quantity)
         parcel.writeString(presentation)
-        parcel.writeString(dateTimeStart)
         parcel.writeString(frecuencyInterval)
         parcel.writeInt(frequencyInt)
         parcel.writeByte(if (emergencyAlert) 1 else 0)
@@ -52,6 +52,19 @@ data class Reminder (
         parcel.writeString(user)
         parcel.writeString(medicine)
     }
+    fun Parcel.writeDate(date: Date?) {
+        if (date != null) {
+            this.writeLong(date.time)
+        } else {
+            this.writeLong(-1)
+        }
+    }
+
+    fun Parcel.readDate(): Date? {
+        val time = this.readLong()
+        return if (time != -1L) Date(time) else null
+    }
+
 
     override fun describeContents(): Int {
         return 0
@@ -67,3 +80,4 @@ data class Reminder (
         }
     }
 }
+

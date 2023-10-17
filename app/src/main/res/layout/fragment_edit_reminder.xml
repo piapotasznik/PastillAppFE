@@ -260,7 +260,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.91"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/minutePicker"
+                app:layout_constraintTop_toBottomOf="@+id/editDateIntake"
                 app:layout_constraintVertical_bias="0.034" />
 
             <EditText
@@ -322,10 +322,8 @@
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
                 android:text="Inicio de toma"
-
                 android:textColor="@color/white_white_transparency"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -337,7 +335,7 @@
             <TextView
                 android:id="@+id/editDateIntake"
                 android:gravity="center"
-                android:layout_width="110dp"
+                android:layout_width="210dp"
                 android:layout_height="48dp"
                 android:background="@drawable/edit_text_background"
                 android:paddingStart="5dp"
@@ -351,28 +349,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"
                 app:layout_constraintVertical_bias="0.166" />
 
-            <NumberPicker
-                android:id="@+id/hourPicker"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:theme="@style/Theme.PastillApp.Picker"
-                app:layout_constraintBottom_toTopOf="@+id/editFrecuencyInterval"
-                app:layout_constraintStart_toEndOf="@+id/editDateIntake"
-                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"
-                app:layout_constraintVertical_bias="0.615" />
+<!--            <NumberPicker-->
+<!--                android:id="@+id/hourPicker"-->
+<!--                android:layout_width="48dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:theme="@style/Theme.PastillApp.Picker"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/editFrecuencyInterval"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/editDateIntake"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"-->
+<!--                app:layout_constraintVertical_bias="0.615" />-->
 
-            <NumberPicker
-                android:id="@+id/minutePicker"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:textColor="@color/grey"
-                android:theme="@style/Theme.PastillApp.Picker"
-                app:layout_constraintBottom_toTopOf="@+id/editFrecuencyInterval"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/hourPicker"
-                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"
-                app:layout_constraintVertical_bias="0.615" />
+<!--            <NumberPicker-->
+<!--                android:id="@+id/minutePicker"-->
+<!--                android:layout_width="48dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:textColor="@color/grey"-->
+<!--                android:theme="@style/Theme.PastillApp.Picker"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/editFrecuencyInterval"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/hourPicker"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/presentationSpinner"-->
+<!--                app:layout_constraintVertical_bias="0.615" />-->
 
             <TextView
                 android:id="@+id/checkedTextView"
