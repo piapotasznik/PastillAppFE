@@ -18,19 +18,16 @@
             android:name=".HomeScreenActivity"
             android:exported="true"
             android:label="@string/title_activity_home_screen"
-            android:theme="@style/AppTheme">
-
-
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
     <!--permissions for INTERNET-->
