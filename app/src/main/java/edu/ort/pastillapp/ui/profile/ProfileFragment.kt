@@ -1,4 +1,5 @@
 package edu.ort.pastillapp.ui.profile
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,26 +11,25 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.RemoteMessage
-import edu.ort.pastillapp.NotificationUtils
+import edu.ort.pastillapp.UserSingleton
 import edu.ort.pastillapp.databinding.FragmentProfileBinding
-import edu.ort.pastillapp.models.ApiTokenResponse
 import edu.ort.pastillapp.models.ApiUserResponse
+import edu.ort.pastillapp.models.ContactEmergencyRequest
 import edu.ort.pastillapp.services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.services.TokenService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+import androidx.navigation.fragment.findNavController
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private lateinit var databaseReference: DatabaseReference
     private lateinit var tokenService: TokenService
-    private var TAG = "ProfileFragment"
 
+    // PIA ACORDATE DE CAMBIAR EL CORREO CUANDO ESTE LA PERSISTENCIA OK!!
+    private var userMail = UserSingleton.currentUserEmail.toString()
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -43,7 +43,7 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Inicializo la referencia a Firebase
+    // Inicializo la referencia a Firebase
         databaseReference = FirebaseDatabase.getInstance().reference
 
         // Inicializar tokenService
@@ -53,6 +53,17 @@ class ProfileFragment : Fragment() {
 //        dashboardViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
 //        }
+        val buttonContacts = binding.ContactsBtn
+        buttonContacts.setOnClickListener {
+            // Navegar al otro fragmento
+            //ProfileFragmentDirections.
+            val action = ProfileFragmentDirections.actionNavigationProfileToContactRequests2()
+            findNavController().navigate(action)
+           // val action = ProfileFragmentDirections.
+
+            // actionProfileFragmentToContactRequests()
+            //
+        }
 
         val buttonSaveEmergencyContact = binding.saveBtn
         buttonSaveEmergencyContact.setOnClickListener {
@@ -82,21 +93,60 @@ class ProfileFragment : Fragment() {
                         val name = user.name
                         val lastName = user.lastName
 
-                        val alertDialog = AlertDialog.Builder(requireContext())
-                        alertDialog.setTitle("Confirmación")
-                        alertDialog.setMessage("¿Desea agregar a $name $lastName como contacto de referencia?")
+                        if (userMail == emailContactoEmergencia) {
+                            mostrarMensaje(
+                                requireContext(),
+                                "No puedes agregar tu propio correo como contacto de emergencia"
+                            )
+                        }else {
+                            val alertDialog = AlertDialog.Builder(requireContext())
+                            alertDialog.setTitle("Confirmación")
+                            alertDialog.setMessage("¿Desea agregar a $name $lastName como contacto de referencia?")
 
-                        alertDialog.setPositiveButton("Sí") { _, _ ->
-                            obtenerTokenPorEmail(emailContactoEmergencia)
+                            alertDialog.setPositiveButton("Sí") { _, _ ->
+
+                                val contactRequest = ContactEmergencyRequest(
+                                    userMail = userMail,
+                                    contactEmergencyMail = emailContactoEmergencia,
+                                )
+                                val call = userService.contactEmergency(contactRequest)
+
+                                call.enqueue(object : Callback<Void> {
+                                    override fun onResponse(
+                                        call: Call<Void>,
+                                        response: Response<Void>
+                                    ) {
+                                        if (response.isSuccessful) {
+                                            mostrarMensaje(
+                                                requireContext(),
+                                                "Notificación enviada con éxito"
+                                            )
+                                        } else {
+                                            mostrarMensaje(
+                                                requireContext(),
+                                                "Error al enviar la notificación"
+                                            )
+                                        }
+                                    }
+
+                                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                                        // Ocurrió un error en la solicitud (por ejemplo, problemas de red)
+                                        mostrarMensaje(
+                                            requireContext(),
+                                            "Error al enviar la notificación"
+                                        )
+                                    }
+                                })
+                            }
+
+                            alertDialog.setNegativeButton("No") { _, _ ->
+                                // El usuario seleccionó "No", no hacemos ninguna acción adicional.
+                            }
+
+                            alertDialog.show()
                         }
-
-                        alertDialog.setNegativeButton("No") { _, _ ->
-                            // El usuario seleccionó "No", no hacemos ninguna acción adicional.
-                        }
-
-                        alertDialog.show()
                     } else {
-                        // El correo no existe en la base de datos o hubo un error en la solicitud
+                        // El correo no existe en la base de datos
                         Toast.makeText(
                             requireContext(),
                             "La persona no fue encontrada en la base de datos",
@@ -112,8 +162,17 @@ class ProfileFragment : Fragment() {
             }
         })
     }
+    fun mostrarMensaje(context: Context, mensaje: String) {
+        val builder = AlertDialog.Builder(context)
+        builder.setMessage(mensaje)
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
 
-private fun obtenerTokenPorEmail(emailContactoEmergencia: String) {
+        val dialog = builder.create()
+        dialog.show()
+    }
+/* private fun obtenerTokenPorEmail(emailContactoEmergencia: String) {
     val call = tokenService.getUserEmail(emailContactoEmergencia)
 
     call.enqueue(object : Callback<ApiTokenResponse> {
@@ -170,37 +229,5 @@ private fun enviarNotificacionPush(token: String) {
         // Manejar el error
     }
 
-    // Crear un mensaje FCM con los datos de la notificación
-    /*val notificationMessage = RemoteMessage.Builder(token)
-        .setData(notificationData)
-        .build()
-
-    // Intenta enviar el mensaje FCM
-    try {
-        FirebaseMessaging.getInstance().send(notificationMessage)
-
-        val alertDialog = AlertDialog.Builder(requireContext())
-        alertDialog.setTitle("Notificación Enviada")
-        alertDialog.setMessage("La notificación se ha enviado correctamente.")
-        alertDialog.setPositiveButton("Aceptar") { _, _ ->
-            // Aquí puedes realizar acciones adicionales si el usuario acepta la notificación enviada.
-        }
-        alertDialog.show()
-
-        // Aquí puedes realizar las acciones adicionales, como actualizar la base de datos y notificar al usuario
-    } catch (e: Exception) {
-        // Hubo un error al enviar la notificación
-        Log.e("Notificación", "Error al enviar la notificación: ${e.message}", e)
-        val alertDialog = AlertDialog.Builder(requireContext())
-        alertDialog.setTitle("Error")
-        alertDialog.setMessage("Hubo un error al enviar la notificación.")
-        Log.e(TAG, "Error al enviar la notificación: ${e.message}", e)
-        alertDialog.setPositiveButton("Aceptar") { _, _ ->
-            // Aquí puedes realizar acciones adicionales si el usuario acepta la notificación enviada.
-        }
-        alertDialog.show()
-
-    }
 }*/
-}
 }

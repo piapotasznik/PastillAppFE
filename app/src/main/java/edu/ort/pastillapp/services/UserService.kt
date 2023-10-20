@@ -1,5 +1,6 @@
       package edu.ort.pastillapp.services
       import edu.ort.pastillapp.models.ApiUserResponse
+      import edu.ort.pastillapp.models.ContactEmergencyRequest
       import edu.ort.pastillapp.models.Token
       import edu.ort.pastillapp.models.User
       import retrofit2.Call
@@ -26,5 +27,6 @@
             fun updateUser(@Path("userId") userId: Int, @Body user: User): Call<Void>
             @POST("api/Token")
             fun sendTokenToServer(@Body token: Token): Call<Void>
-
+            @POST("api/User/contact-emergency")
+            fun contactEmergency(@Body contactEmergencyRequest: ContactEmergencyRequest): Call<Void>
       }

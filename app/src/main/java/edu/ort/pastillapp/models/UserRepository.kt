@@ -67,7 +67,6 @@ class UserRepository(private val context: Context) {
     }
 
 
-
     private fun showErrorToast(message: String) {
       Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
   }
