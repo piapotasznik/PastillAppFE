@@ -12,7 +12,6 @@
       import retrofit2.http.Path
 
       interface UserService {
-
             @GET("api/User/{userId}")
             fun getUserId(@Path("userId") userId: Int): Call<ApiUserResponse>
             @GET("api/User/{email}/user")

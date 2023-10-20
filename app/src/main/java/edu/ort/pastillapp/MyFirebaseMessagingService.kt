@@ -27,6 +27,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             mostrarNotificacion(title, body, tipo, reminderLogId)
         }
     }
+
     override fun onNewToken(token: String) {
         // Este método se llama cuando se genera un nuevo token o se actualiza el token
         // Aquí puedes obtener y manejar el token
@@ -35,12 +36,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         // Puedes hacer lo que necesites con el token, como enviarlo a tu servidor
     }
 
-    private fun mostrarNotificacion(
-        title: String?,
-        body: String?,
-        tipo: String?,
-        reminderLogId: String?
-    ) {
+    private fun mostrarNotificacion(title: String?, body: String?, tipo: String?, reminderLogId: String?) {
         val channelId = "canal_de_notificacion_ppal"
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.logo)
@@ -84,12 +80,10 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         )
         notificationBuilder.setContentIntent(pendingIntent)
         notificationBuilder.setAutoCancel(true)
-
         notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
     companion object {
         private const val TAG = "MyFirebaseMessagingService"
     }
-
 }

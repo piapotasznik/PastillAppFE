@@ -22,7 +22,6 @@ class login : Fragment() {
     lateinit var v: View
     private lateinit var auth: FirebaseAuth
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

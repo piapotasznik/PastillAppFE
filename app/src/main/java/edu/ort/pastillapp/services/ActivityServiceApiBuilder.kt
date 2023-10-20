@@ -19,7 +19,10 @@ import javax.net.ssl.X509TrustManager
 object ActivityServiceApiBuilder {
 
     // CAMBIAR POR DIRECCION IP LOCAL PROPIA!!!!!!!!!!!!! HABILITAR FIREWALL DE WINDOWS
+
      private val BASE_URL = "https://192.168.0.96:7067"
+    //127.0.0.1
+
     val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
@@ -40,6 +43,18 @@ object ActivityServiceApiBuilder {
          return retrofit.create(UserService::class.java)
 
      }
+
+    fun createReminder(): ReminderService {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getUnsafeOkHttpClient())
+            //PARA ACTIVAR SEGURIDAD DE NUEVO: COMENTAR LINEA 41
+            // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
+            .build()
+        return retrofit.create(ReminderService::class.java)
+    }
+
     fun createToken(): TokenService {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -48,11 +63,10 @@ object ActivityServiceApiBuilder {
             //PARA ACTIVAR SEGURIDAD DE NUEVO: COMENTAR LINEA 41
             // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
             .build()
-
         return retrofit.create(TokenService::class.java)
-
     }
-private fun getUnsafeOkHttpClient(): OkHttpClient? {
+
+    private fun getUnsafeOkHttpClient(): OkHttpClient? {
         return try {
             // Create a trust manager that does not validate certificate chains
             val trustAllCerts =

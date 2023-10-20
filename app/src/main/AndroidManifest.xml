@@ -40,7 +40,6 @@
             android:name=".services.ReminderService"
             android:enabled="true"
             android:exported="true">
-
         </service>
 
         <activity
@@ -48,7 +47,6 @@
             android:exported="true"
             android:label="@string/title_activity_home_screen"
             android:theme="@style/AppTheme">
-
         </activity>
 
         <activity
