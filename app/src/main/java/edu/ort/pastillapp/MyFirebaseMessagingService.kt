@@ -1,16 +1,14 @@
 package edu.ort.pastillapp
-import android.util.Log
-import com.google.firebase.messaging.FirebaseMessagingService
-import com.google.firebase.messaging.RemoteMessage
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AlertDialog
+import android.util.Log
 import androidx.core.app.NotificationCompat
-import edu.ort.pastillapp.fragments.forgotPassword
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
 import edu.ort.pastillapp.fragments.homePageUser
 
 class MyFirebaseMessagingService: FirebaseMessagingService() {
@@ -61,10 +59,6 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
         val notificationId = System.currentTimeMillis().toInt()
-        Log.d(
-            "tipo",
-            tipo.toString()
-        )
 
         val resultIntent = when (tipo) {
             "alarm" -> {
@@ -77,8 +71,8 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
                 Intent(this, homePageUser::class.java)
             }
             else -> {
-                // Configurar la acción predeterminada (puedes ajustarla según tus necesidades
-                Intent(this, forgotPassword::class.java)
+                // Configurar la acción predeterminada (puedes ajustarla según tus necesidades)
+                Intent(this, MainActivity::class.java)
             }
         }
 
