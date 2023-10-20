@@ -35,6 +35,6 @@
             fun getEmergencyRequests(@Query("userMail") userMail: String): Call<EmergencyRequestResponse>
             //cambiar cuando TOMY tenga el PR
             @POST("api/User/contact-emergency/request")
-            fun sendEmergencyRequest(@Body request: EmergencyRequest): Call<Void>
+            fun sendEmergencyRequestResponse(@Body request: EmergencyRequest): Call<Void>
 
       }
