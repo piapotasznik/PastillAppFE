@@ -1,6 +1,8 @@
       package edu.ort.pastillapp.services
       import edu.ort.pastillapp.models.ApiUserResponse
       import edu.ort.pastillapp.models.ContactEmergencyRequest
+      import edu.ort.pastillapp.models.EmergencyRequest
+      import edu.ort.pastillapp.models.EmergencyRequestResponse
       import edu.ort.pastillapp.models.Token
       import edu.ort.pastillapp.models.User
       import retrofit2.Call
@@ -10,6 +12,7 @@
       import retrofit2.http.POST
       import retrofit2.http.PUT
       import retrofit2.http.Path
+      import retrofit2.http.Query
 
       interface UserService {
             @GET("api/User/{userId}")
@@ -28,4 +31,10 @@
             fun sendTokenToServer(@Body token: Token): Call<Void>
             @POST("api/User/contact-emergency")
             fun contactEmergency(@Body contactEmergencyRequest: ContactEmergencyRequest): Call<Void>
+            @GET("api/User/contact-emergency/request")
+            fun getEmergencyRequests(@Query("userMail") userMail: String): Call<EmergencyRequestResponse>
+            //cambiar cuando TOMY tenga el PR
+            @POST("api/User/contact-emergency/request")
+            fun sendEmergencyRequest(@Body request: EmergencyRequest): Call<Void>
+
       }

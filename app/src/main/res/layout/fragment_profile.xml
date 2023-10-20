@@ -138,34 +138,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/myProfileLastName" />
 
-            <EditText
-                android:id="@+id/myProfileEmergencyContact"
-                style="@style/GrayText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="60dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/edit_text_background"
-                android:ems="10"
-                android:hint="@string/emergency_contact"
-                android:inputType="text"
-                android:minHeight="48dp"
-                android:paddingStart="10dp"
-                android:textColor="@color/grey"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/saveBtn"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/myProfileEmail" />
-
             <Button
                 android:id="@+id/saveBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="72dp"
                 android:backgroundTint="@color/pink"
                 android:gravity="center"
                 android:padding="12dp"
@@ -176,8 +154,43 @@
                 app:fontFamily="@font/francois_one"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.157"
+                app:layout_constraintHorizontal_bias="0.473"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/myProfileEmergencyContact"
+                style="@style/GrayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/emergency_contact"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/saveContactBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/saveBtn" />
+
+            <Button
+                android:id="@+id/saveContactBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="72dp"
+                android:layout_marginEnd="5dp"
+                android:backgroundTint="@color/pink"
+                android:text="@string/new_mergency_contact"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:fontFamily="@font/francois_one"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/saveBtn"
+                app:layout_constraintVertical_bias="0.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

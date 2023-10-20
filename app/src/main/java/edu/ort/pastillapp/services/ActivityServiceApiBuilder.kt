@@ -20,8 +20,8 @@ object ActivityServiceApiBuilder {
 
     // CAMBIAR POR DIRECCION IP LOCAL PROPIA!!!!!!!!!!!!! HABILITAR FIREWALL DE WINDOWS
 
-     private val BASE_URL = "https://192.168.0.96:7067"
-    //127.0.0.1
+     private val BASE_URL = "https://77f5-2800-21c1-c400-77b-44c3-2117-2cf5-63a7.ngrok-free.app"
+
 
     val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

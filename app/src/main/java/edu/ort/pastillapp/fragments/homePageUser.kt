@@ -42,9 +42,6 @@ class   homePageUser : Fragment() {
             v.findNavController().navigate(action)
         }
 
-
-
     }
-
 
 }

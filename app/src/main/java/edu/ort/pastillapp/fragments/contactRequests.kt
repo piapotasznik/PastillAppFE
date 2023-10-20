@@ -1,33 +1,35 @@
 package edu.ort.pastillapp.fragments
-
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import edu.ort.pastillapp.R
+import edu.ort.pastillapp.UserSingleton
+import edu.ort.pastillapp.adapters.contactRequestAdapter
+import edu.ort.pastillapp.models.EmergencyRequestResponse
+import edu.ort.pastillapp.services.ActivityServiceApiBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [contactRequests.newInstance] factory method to
- * create an instance of this fragment.
- */
 class contactRequests : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    lateinit var v: View
+
+    //CAMBIAR CUANDO ESTE LA PERSISTENC
+    private var Correo: String = UserSingleton.currentUserEmail.toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -35,26 +37,41 @@ class contactRequests : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact_requests, container, false)
-    }
+        v = inflater.inflate(R.layout.fragment_contact_requests, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment contactRequests.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            contactRequests().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        val backButton = v.findViewById<Button>(R.id.backButton)
+        backButton.setOnClickListener {
+            findNavController().navigate(R.id.action_contactRequests2_to_navigation_profile)
+        }
+
+        val userService = ActivityServiceApiBuilder.create()
+        val userMail = Correo
+        val call = userService.getEmergencyRequests(userMail)
+
+        call.enqueue(object : Callback<EmergencyRequestResponse> {
+            override fun onResponse(call: Call<EmergencyRequestResponse>, response: Response<EmergencyRequestResponse>) {
+
+                val emergencyRequestResponse = response.body()
+                val emergencyRequests = emergencyRequestResponse?.emergencyRequestList
+                Log.d("contactRequests", "Tamaño de la lista de solicitudes: ${emergencyRequests?.size ?: 0}")
+
+                val recyclerView = v.findViewById<RecyclerView>(R.id.recyclerView)
+                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+                if (emergencyRequests != null && emergencyRequests.isNotEmpty()) {
+                    val adapter = contactRequestAdapter(emergencyRequests)
+                    recyclerView.adapter = adapter
+                } else {
+                    val textViewNoRequests = v.findViewById<TextView>(R.id.textViewNoRequests)
+                    textViewNoRequests.visibility = View.VISIBLE
+                    Log.d("contactRequests", "Llegó a 'No hay solicitudes pendientes'")
                 }
             }
+            override fun onFailure(call: Call<EmergencyRequestResponse>, t: Throwable) {
+                // Maneja errores de comunicación aquí
+            }
+        })
+
+        return v
     }
 }

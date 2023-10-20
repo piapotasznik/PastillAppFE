@@ -24,8 +24,10 @@
     <string name="title_register">Registrar</string>
     <string name="my_data">MIS DATOS</string>
     <string name="my_profile">MI PERFIL</string>
+    <string name="my_request">Personas que quieren agregarte como contacto de emergencia:</string>
     <string name="sign_out">CERRAR SESION</string>
-    <string name="emergency_contact">Contacto de Emergencia</string>
+    <string name="emergency_contact">Contacto de Emergencia actual</string>
+    <string name="new_mergency_contact"> Agregar nuevo </string>
     <string name="save">Guardar</string>
     <string-array name="frecuency_intake_type">
         <item>Horas</item>
