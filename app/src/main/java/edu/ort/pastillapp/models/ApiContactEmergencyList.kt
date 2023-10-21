@@ -1,5 +1,5 @@
 package edu.ort.pastillapp.models
 
-data class EmergencyRequestResponse(
+data class ApiContactEmergencyList(
     val emergencyRequestList: List<EmergencyRequestData>
 )

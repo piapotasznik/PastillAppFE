@@ -1,8 +1,9 @@
       package edu.ort.pastillapp.services
       import edu.ort.pastillapp.models.ApiUserResponse
-      import edu.ort.pastillapp.models.ContactEmergencyRequest
-      import edu.ort.pastillapp.models.EmergencyRequest
-      import edu.ort.pastillapp.models.EmergencyRequestResponse
+      import edu.ort.pastillapp.models.ApiContactEmergencyRequest
+      import edu.ort.pastillapp.models.ApiEmergencyContactResponseDTO
+      import edu.ort.pastillapp.models.ApiContactEmergencyList
+      import edu.ort.pastillapp.models.ApiContactEmergencyServerResponse
       import edu.ort.pastillapp.models.Token
       import edu.ort.pastillapp.models.User
       import retrofit2.Call
@@ -30,11 +31,10 @@
             @POST("api/Token")
             fun sendTokenToServer(@Body token: Token): Call<Void>
             @POST("api/User/contact-emergency")
-            fun contactEmergency(@Body contactEmergencyRequest: ContactEmergencyRequest): Call<Void>
+            fun contactEmergency(@Body contactEmergencyRequest: ApiContactEmergencyRequest): Call<Void>
             @GET("api/User/contact-emergency/request")
-            fun getEmergencyRequests(@Query("userMail") userMail: String): Call<EmergencyRequestResponse>
-            //cambiar cuando TOMY tenga el PR
+            fun getEmergencyRequests(@Query("userMail") userMail: String): Call<ApiContactEmergencyList>
             @POST("api/User/contact-emergency/request")
-            fun sendEmergencyRequestResponse(@Body request: EmergencyRequest): Call<Void>
+            fun sendEmergencyRequestResponse(@Body request: ApiEmergencyContactResponseDTO): Call<ApiContactEmergencyServerResponse>
 
       }

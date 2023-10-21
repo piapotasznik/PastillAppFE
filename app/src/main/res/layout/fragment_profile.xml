@@ -213,7 +213,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:text="Ver Solicitudes de Contacto"
+        android:text="Ver Solicitudes de Contacto pendientes"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:backgroundTint="@color/pink"

@@ -6,6 +6,5 @@ data class ApiUserResponse(
     val email: String,
     val emergencyUserId: Int?,
     val emergencyUser: String,
-
 )
 

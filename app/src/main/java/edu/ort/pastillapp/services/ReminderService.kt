@@ -2,11 +2,9 @@ package edu.ort.pastillapp.services
 
 import edu.ort.pastillapp.models.Reminder
 import edu.ort.pastillapp.models.ReminderUpdate
-import edu.ort.pastillapp.models.ServerResponse
-import edu.ort.pastillapp.models.User
+import edu.ort.pastillapp.models.ApiContactEmergencyServerResponse
 import retrofit2.Call
 import retrofit2.http.Body
-import edu.ort.pastillapp.models.ApiReminderResponse
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -24,7 +22,7 @@ interface ReminderService {
     @DELETE("api/Reminder/{reminderId}")
     fun deleteReminderId(@Path("reminderId") userId: Int): Call<Void>
     @PUT("api/Reminder/{reminderId}")
-    fun putReminderId(@Path("reminderId") reminderId: Int, @Body body:ReminderUpdate): Call<ServerResponse>
+    fun putReminderId(@Path("reminderId") reminderId: Int, @Body body:ReminderUpdate): Call<ApiContactEmergencyServerResponse>
     @POST("api/Reminder")
     fun createReminder(@Body reminder: Reminder): Call<Void>
 }

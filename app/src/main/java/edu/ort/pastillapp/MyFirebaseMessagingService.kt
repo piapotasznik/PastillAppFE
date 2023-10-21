@@ -76,7 +76,8 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             this,
             0,
             resultIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE
+                //    PendingIntent.FLAG_UPDATE_CURRENT
         )
         notificationBuilder.setContentIntent(pendingIntent)
         notificationBuilder.setAutoCancel(true)

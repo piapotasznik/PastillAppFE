@@ -4,16 +4,11 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.res.Configuration
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.NumberPicker
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import edu.ort.pastillapp.R
@@ -21,7 +16,7 @@ import edu.ort.pastillapp.databinding.FragmentEditReminderBinding
 import edu.ort.pastillapp.helpers.Helpers
 import edu.ort.pastillapp.models.Reminder
 import edu.ort.pastillapp.models.ReminderUpdate
-import edu.ort.pastillapp.models.ServerResponse
+import edu.ort.pastillapp.models.ApiContactEmergencyServerResponse
 import edu.ort.pastillapp.services.ActivityServiceApiBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -211,8 +206,8 @@ class EditReminderFragment : Fragment() {
         val reminderId = updateReminder.reminderId
         val call = service.putReminderId( reminderId, updateReminder)
 
-        call.enqueue(object : Callback<ServerResponse> {
-            override fun onResponse(call: Call<ServerResponse>, response: Response<ServerResponse>) {
+        call.enqueue(object : Callback<ApiContactEmergencyServerResponse> {
+            override fun onResponse(call: Call<ApiContactEmergencyServerResponse>, response: Response<ApiContactEmergencyServerResponse>) {
                 if (response.isSuccessful) {
                     val respuesta = response.body()
                     Log.e("put33",respuesta.toString())
@@ -225,7 +220,7 @@ class EditReminderFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ApiContactEmergencyServerResponse>, t: Throwable) {
                 // Manejar el error de la solicitud
                 Log.e("put33", "respuesta fallo en el failure")
             }
