@@ -39,7 +39,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="480dp"
+        android:layout_height="410dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
@@ -142,6 +142,10 @@
                 style="@style/GrayText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/edit_text_background"
                 android:ems="10"
                 android:hint="@string/emergency_contact"
@@ -153,7 +157,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/saveBtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/myProfilePassword" />
+                app:layout_constraintTop_toBottomOf="@+id/myProfileEmail" />
 
             <Button
                 android:id="@+id/saveBtn"
@@ -161,37 +165,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="5dp"
+                android:backgroundTint="@color/pink"
                 android:gravity="center"
                 android:padding="12dp"
                 android:text="@string/save"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:backgroundTint="@color/pink"
                 app:fontFamily="@font/francois_one"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.157"
                 app:layout_constraintStart_toStartOf="parent" />
-
-            <EditText
-                android:id="@+id/myProfilePassword"
-                style="@style/GrayText"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="60dp"
-                android:background="@drawable/edit_text_background"
-                android:ems="10"
-                android:hint="@string/Contraseña"
-                android:inputType="textPassword"
-                android:paddingStart="10dp"
-                android:textColor="@color/grey"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/myProfileEmail" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -207,4 +192,19 @@
         app:layout_constraintHeight_percent=".5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/errorMsg"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="60dp"
+        android:text="TextView"
+        android:textColor="#00BCD4"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
