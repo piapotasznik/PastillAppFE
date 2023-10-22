@@ -59,6 +59,19 @@ object ActivityServiceApiBuilder {
         return retrofit.create(ReminderService::class.java)
     }
 
+    fun createReminderLogService(): ReminderLogService {
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getUnsafeOkHttpClient())
+
+            //PARA ACTIVAR SEGURIDAD DE NUEVO: COMENTAR LINEA 41
+            // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
+            .build()
+        return retrofit.create(ReminderLogService::class.java)
+    }
+
     fun createToken(): TokenService {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)

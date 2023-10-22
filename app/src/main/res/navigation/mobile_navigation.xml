@@ -43,7 +43,7 @@
         android:name="edu.ort.pastillapp.fragments.medicationReminder"
         android:label="fragment_medication_reminder"
         tools:layout="@layout/fragment_medication_reminder" />
-
+    <fragment
         android:id="@+id/editReminderFragment"
         android:name="edu.ort.pastillapp.ui.home.EditReminder.EditReminderFragment"
         android:label="fragment_edit_reminder"
