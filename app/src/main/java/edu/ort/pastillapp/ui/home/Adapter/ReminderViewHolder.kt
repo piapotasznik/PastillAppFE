@@ -1,4 +1,4 @@
-package edu.ort.pastillapp.ui.home
+package edu.ort.pastillapp.ui.home.Adapter
 
 import android.view.View
 import android.widget.ImageView

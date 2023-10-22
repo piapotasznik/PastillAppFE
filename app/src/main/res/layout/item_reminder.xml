@@ -13,9 +13,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:backgroundTint="@color/celesteItem"
         android:paddingBottom="10dp"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="0.11in"
+        app:cardBackgroundColor="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,6 +24,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/celesteItem"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,15 +40,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Med"-->
-<!--                android:textColor="@color/white"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toStartOf="@+id/medName"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/medName"-->
-<!--                app:layout_constraintVertical_bias="0.0" />-->
+            <!--            <TextView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="Med"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toStartOf="@+id/medName"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/medName"-->
+            <!--                app:layout_constraintVertical_bias="0.0" />-->
 
             <TextView
                 android:id="@+id/medName"
@@ -57,7 +58,9 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="7dp"
                 android:gravity="center"
+                android:letterSpacing="0.1"
                 android:textColor="@color/white"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/medDosage"
                 app:layout_constraintEnd_toStartOf="@+id/updateBtn"
@@ -70,30 +73,47 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cantidad"
+                android:text="Tomado"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/medDosage"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/tvPill"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.269"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/medName"
-                app:layout_constraintVertical_bias="0.837" />
+                app:layout_constraintVertical_bias="0.74" />
 
-            <TextView
+            <CheckBox
                 android:id="@+id/medDosage"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+
+                android:backgroundTint="@color/white"
+                android:enabled="false"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/archivedBtn"
-                app:layout_constraintHorizontal_bias="0.778"
+                app:layout_constraintHorizontal_bias="0.324"
                 app:layout_constraintStart_toEndOf="@+id/tvPill"
                 app:layout_constraintTop_toTopOf="@+id/medName"
                 app:layout_constraintVertical_bias="0.824"
-                tools:text="Dosage" />
+                tools:text="Dos" />
+
+            <TextView
+                android:id="@+id/nextIntake"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/medDosage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.188"
+                app:layout_constraintStart_toEndOf="@+id/medDosage"
+                app:layout_constraintTop_toTopOf="@+id/medName"
+                app:layout_constraintVertical_bias="0.844"
+                tools:text="Proxima" />
 
             <ImageView
                 android:id="@+id/updateBtn"
@@ -103,11 +123,11 @@
                 android:paddingEnd="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.938"
+                app:layout_constraintHorizontal_bias="0.941"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvPill"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.41" />
+                app:layout_constraintVertical_bias="0.181" />
 
             <ImageView
                 android:id="@+id/archivedBtn"
@@ -117,11 +137,12 @@
                 android:paddingEnd="20dp"
                 android:textColor="@color/grey"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/updateBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.831"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/medName"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.4" />
+                app:layout_constraintVertical_bias="0.854" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

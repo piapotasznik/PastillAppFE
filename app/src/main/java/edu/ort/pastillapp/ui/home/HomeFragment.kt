@@ -12,21 +12,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import edu.ort.pastillapp.databinding.FragmentHomeBinding
 import edu.ort.pastillapp.helpers.Helpers
 import edu.ort.pastillapp.listener.OnClickNavigate
-import edu.ort.pastillapp.models.Medicine
 import edu.ort.pastillapp.models.Reminder
+import edu.ort.pastillapp.models.ReminderLogToday
 import edu.ort.pastillapp.services.ActivityServiceApiBuilder
-import edu.ort.pastillapp.services.PaginateResponse
+import edu.ort.pastillapp.ui.home.Adapter.DateAdapter
+import edu.ort.pastillapp.ui.home.Adapter.ReminderAdatper
+import edu.ort.pastillapp.ui.home.Adapter.TodayReminderAdapter
 
-import edu.ort.pastillapp.ui.symtoms_.SymtomsViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class HomeFragment : Fragment() , OnClickNavigate {
 
-    private lateinit var adapter: ReminderAdatper
+    private lateinit var adapter: TodayReminderAdapter
 
-    private val reminderList = mutableListOf<Reminder>()
+    //private val reminderList = mutableListOf<Reminder>()
+    private val todayReminderList = mutableListOf<ReminderLogToday>()
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -59,7 +61,7 @@ class HomeFragment : Fragment() , OnClickNavigate {
     override fun onStart() {
         super.onStart()
 
-            getAllReminders()
+        getTodayReminders()
 
         intiRecylcerView()
 
@@ -69,9 +71,9 @@ class HomeFragment : Fragment() , OnClickNavigate {
     override fun onResume() {
         super.onResume()
 
-        getAllReminders()
-
-        intiRecylcerView()
+//        getTodayReminders()
+//
+//        intiRecylcerView()
 
 
     }
@@ -90,7 +92,7 @@ class HomeFragment : Fragment() , OnClickNavigate {
         binding.rvDate.smoothScrollToPosition(posicionInicial)
 
 
-        adapter = ReminderAdatper(reminderList, findNavController())
+        adapter = TodayReminderAdapter(todayReminderList, findNavController())
 
         binding.medList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.medList.adapter = adapter
@@ -106,13 +108,50 @@ class HomeFragment : Fragment() , OnClickNavigate {
         this.findNavController().navigate(action)
     }
 
-    fun getAllReminders(){
-        val service = ActivityServiceApiBuilder.createReminder()
+//    fun getAllReminders(){
+//        val service = ActivityServiceApiBuilder.createReminder()
+//
+//        service.getReminders().enqueue(object : Callback<List<Reminder>> {
+//            override fun onResponse(
+//                call: Call<List<Reminder>>,
+//                response: Response<List<Reminder>>
+//            ) {
+//                if (response.isSuccessful && response.body() != null) {
+//                    val responseReminders = response.body()
+//                    Log.e("chau", response.body().toString())
+//                    Log.e("chau", "estoy dentrod e la respuesta")
+//
+//                    if (responseReminders != null) {
+//                        reminderList.clear()
+//                        reminderList.addAll(responseReminders)
+//
+//                    }
+//
+//                    // Actualizar el RecyclerView
+//                    adapter.notifyDataSetChanged()
+//
+//
+//                } else {
+//                    Log.e("chau", "respuesta no exitosa")
+//                    Log.e("Respuesta no exitosa", " esta es la respuesta $response")
+//                }
+//
+//            }
+//
+//            override fun onFailure(call: Call<List<Reminder>>, t: Throwable) {
+//                Log.e("Example", t.stackTraceToString())
+//            }
+//        })
+//
+//    }
 
-        service.getReminders().enqueue(object : Callback<List<Reminder>> {
+    fun getTodayReminders(){
+        val service = ActivityServiceApiBuilder.createReminderLogService()
+
+        service.getTodayReminders(1).enqueue(object : Callback<List<ReminderLogToday>> {
             override fun onResponse(
-                call: Call<List<Reminder>>,
-                response: Response<List<Reminder>>
+                call: Call<List<ReminderLogToday>>,
+                response: Response<List<ReminderLogToday>>
             ) {
                 if (response.isSuccessful && response.body() != null) {
                     val responseReminders = response.body()
@@ -120,8 +159,8 @@ class HomeFragment : Fragment() , OnClickNavigate {
                     Log.e("chau", "estoy dentrod e la respuesta")
 
                     if (responseReminders != null) {
-                        reminderList.clear()
-                        reminderList.addAll(responseReminders)
+                        todayReminderList.clear()
+                        todayReminderList.addAll(responseReminders)
 
                     }
 
@@ -136,7 +175,7 @@ class HomeFragment : Fragment() , OnClickNavigate {
 
             }
 
-            override fun onFailure(call: Call<List<Reminder>>, t: Throwable) {
+            override fun onFailure(call: Call<List<ReminderLogToday>>, t: Throwable) {
                 Log.e("Example", t.stackTraceToString())
             }
         })
