@@ -6,7 +6,7 @@
     <color name="pink">#FF81CF</color>
     <color name="pinkError">#F7F2AEAE</color>
     <color name="celeste">#387DA8</color>
-    <color name="celesteItem">#E5387DA8</color>
+    <color name="celesteItem">#E5387DA8</color> //#E5387DA8
     <color name="celesteClaro">#6AE4EB</color>
     <color name="grey">#CCCCCC</color>
     <color name="gray_with_transparency">#80CCCCCC</color>

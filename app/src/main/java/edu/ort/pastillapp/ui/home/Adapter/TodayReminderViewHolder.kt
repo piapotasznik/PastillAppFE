@@ -20,9 +20,9 @@ class TodayReminderViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     val updateBtn: ImageView = view.findViewById(R.id.updateBtn)
     val archiveBtn: ImageView = view.findViewById(R.id.archivedBtn)
     fun render(reminder: ReminderLogToday){
-        medName.text = reminder.name
+        medName.text = "${reminder.name}" // - ${reminder.dosage}
         checkBox.isChecked = reminder.taken
-        nextIntake.text = "Horario:${Helpers().convertirFechaSoloHora( reminder.dateTime)}"
+        nextIntake.text = "Horario: ${Helpers().convertirFechaSoloHora( reminder.dateTime)}"
 
 
     }
