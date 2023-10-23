@@ -39,6 +39,7 @@ class RegisterPillFragment : Fragment() {
     private var quantityDurationSpinner: Spinner? = null
     private var savebtn: Button? = null
     private var errorMsg: TextView? = null
+    //private var medicines: [Medicine]? = null // CUANDO SE CREE LA CLASE MEDICINE DESCOMENTAR ESTA VARIABLE
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -122,6 +123,8 @@ class RegisterPillFragment : Fragment() {
                 this.presentationSpinner?.adapter = adapter
             }
         }
+        this.getMedicines()
+        // ACA RELLENAR EL "medicineSpinner" CON LOS VALORES DE LA VARIABLE "medicines"
     }
     private fun setUpTime() {
         timeInput?.text = LocalTime.now().format(formatter)
@@ -156,8 +159,11 @@ class RegisterPillFragment : Fragment() {
             dateInput?.text = selectedDate
         }
     }
+    private fun getMedicines() {
+        // ACA HACER LA PEGADA DE GET MEDICINES Y CON LA RESPUESTA GUARDAR EN LA VARIABLE "medicines"
+    }
     private fun saveReminder() {
-        val medicine: String = medicineSpinner?.selectedItem.toString()
+        val medicine: String = medicineSpinner?.selectedItem.toString() // ACA EN VEZ DEL NOMBRE IRIA EL MEDICINE_ID
         val notify: Boolean = notifyCheckBox?.isChecked == true
         val dose: String = doseInput?.text.toString()
         val presentation: String = presentationSpinner?.selectedItem.toString()
@@ -176,7 +182,7 @@ class RegisterPillFragment : Fragment() {
                 errorMsg?.visibility = View.INVISIBLE
             }, 3000)
         } else {
-
+            // CREAR EL OBJETO REMINDER Y LA PEGADA DE CREATE REMINDER
         }
     }
 }
