@@ -22,10 +22,72 @@
     <string name="title_calendar">Calendario</string>
     <string name="title_sintomas">Sintomas</string>
     <string name="title_register">Registrar</string>
+    <string name="title_medication_reminder">Hora de tomar la Medicación!</string>
     <string name="my_data">MIS DATOS</string>
     <string name="my_profile">MI PERFIL</string>
     <string name="sign_out">CERRAR SESION</string>
     <string name="emergency_contact">Contacto de Emergencia</string>
     <string name="save">Guardar</string>
     <string name="register_pill_title">REGISTRAR</string>
+    <string name="Posponer">Posponer</string>
+    <string name="Tomado">Tomado</string>
+    <string name="reminder_name">Nombre del medicamento:</string>
+    <string name="reminder_dose">Dosis:</string>
+    <string name="reminder_presentation">Presentación:</string>
+    <string name="reminder_date">Fecha programada:</string>
+    <string-array name="frecuency_intake_type">
+        <item>Horas</item>
+        <item>Dias</item>
+        <item>Meses</item>
+    </string-array>
+
+    <string-array name="duration_intake">
+        <item>Dias</item>
+        <item>Semanas</item>
+        <item>Meses</item>
+        <item>Años</item>
+    </string-array>
+    <string-array name="frecuency_intake_duration">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+    </string-array>
+    <string-array name="med_presentation">
+        <item>polvos</item>
+        <item>granulados</item>
+        <item>comprimidos</item>
+        <item>capsulas</item>
+        <item>jarabes</item>
+        <item>suspensiones</item>
+        <item>emulsiones</item>
+    </string-array>
+>>>>>>> develop
 </resources>
