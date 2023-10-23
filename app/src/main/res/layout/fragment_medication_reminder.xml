@@ -43,7 +43,7 @@
 
 
             <TextView
-                android:id="@+id/textViewReminder"
+                android:id="@+id/textViewChangePass"
                 android:layout_width="353dp"
                 android:layout_height="56dp"
                 android:layout_marginStart="64dp"
@@ -72,7 +72,7 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewReminder" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewChangePass" />
 
             <TextView
                 android:id="@+id/textView3"

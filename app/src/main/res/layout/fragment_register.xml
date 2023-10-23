@@ -85,7 +85,7 @@
 
 
             <TextView
-                android:id="@+id/textViewReminder"
+                android:id="@+id/textViewChangePass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
@@ -120,7 +120,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/signUpLastName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewReminder"
+                app:layout_constraintTop_toBottomOf="@+id/textViewChangePass"
                 app:layout_constraintVertical_bias="1.0" />
 
             <EditText
@@ -139,7 +139,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/signUpemail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewReminder"
+                app:layout_constraintTop_toBottomOf="@+id/textViewChangePass"
                 app:layout_constraintVertical_bias="1.0" />
 
             <EditText

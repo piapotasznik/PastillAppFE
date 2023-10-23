@@ -9,6 +9,8 @@
     <string name="Confirmar_Contraseña">Confirmar contraseña</string>
     <string name="Acceder">Ingresar</string>
     <string name="olvide_contraseña">¿Olvidaste tu contraseña?</string>
+    <string name="contraseña_actual">Contraseña actual</string>
+    <string name="nueva_contraseña">Nueva contraseña</string>
     <string name="Bienvenido">BIENVENIDO</string>
     <string name="Sin_cuenta">¿No tenés una cuenta? </string>
     <string name="Con_cuenta">¿Ya tenés una cuenta? </string>
@@ -34,6 +36,7 @@
     <string name="reminder_dose">Dosis:</string>
     <string name="reminder_presentation">Presentación:</string>
     <string name="reminder_date">Fecha programada:</string>
+    <string name="change_pass">CAMBIAR CONTRASEÑA</string>
     <string-array name="frecuency_intake_type">
         <item>Horas</item>
         <item>Dias</item>
