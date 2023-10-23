@@ -1,6 +1,5 @@
-package edu.ort.pastillapp.ui.home
+package edu.ort.pastillapp.ui.home.Adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
@@ -22,13 +21,13 @@ class ReminderAdatper  (private val reminders:List<Reminder>,private val navCont
         holder.render(reminders[position])
 
         holder.updateBtn.setOnClickListener{
-            val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminders[position])
-            navController.navigate(action)
+//            val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminders[position])
+//            navController.navigate(action)
         }
 
         holder.archiveBtn.setOnClickListener {
-            val action = HomeFragmentDirections.actionNavigationHomeToReminderFragment(reminders[position])
-            navController.navigate(action)
+//            val action = HomeFragmentDirections.actionNavigationHomeToReminderFragment(reminders[position])
+//            navController.navigate(action)
 
         }
     }
