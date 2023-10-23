@@ -44,13 +44,17 @@ class contactRequestAdapter (private val emergencyRequests: MutableList <Emergen
 
         // Define las acciones para los botones de aceptar y rechazar aquí
         holder.acceptButton.setOnClickListener {
-            sendResponseToContact(request.emergencyRequestId, true, correo)
-            removeRequest(position)
+            if (request != null) {
+                sendResponseToContact(request.emergencyRequestId, true, correo)
+                removeRequest(position)
+            }
         }
 
         holder.rejectButton.setOnClickListener {
-            sendResponseToContact(request.emergencyRequestId, false, correo)
-            removeRequest(position)
+            if (request != null) {
+                sendResponseToContact(request.emergencyRequestId, false, correo)
+                removeRequest(position)
+            }
         }
     }
     private fun removeRequest(position: Int) {
@@ -63,25 +67,28 @@ class contactRequestAdapter (private val emergencyRequests: MutableList <Emergen
     fun sendResponseToContact(emergencyRequestId: Int, response: Boolean, userMail: String){
         val userService = ActivityServiceApiBuilder.create()
 
-        val emergencyContactResponse = ApiEmergencyContactResponseDTO(userMail, emergencyRequestId, response)
-        val call = userService.sendEmergencyRequestResponse(emergencyContactResponse)
+        if (emergencyRequestId != null){
+            val emergencyContactResponse = ApiEmergencyContactResponseDTO(userMail, emergencyRequestId, response)
+            val call = userService.sendEmergencyRequestResponse(emergencyContactResponse)
 
-        call.enqueue(object : Callback<ApiContactEmergencyServerResponse> {
-            override fun onResponse(call: Call<ApiContactEmergencyServerResponse>, response: Response<ApiContactEmergencyServerResponse>) {
-                if (response.isSuccessful) {
-                    val apiResponse = response.body()
-                    if (apiResponse != null && apiResponse.isSuccess) {
-                        // Procesar la respuesta exitosa del servidor
+            call.enqueue(object : Callback<ApiContactEmergencyServerResponse> {
+                override fun onResponse(call: Call<ApiContactEmergencyServerResponse>, response: Response<ApiContactEmergencyServerResponse>) {
+                    if (response.isSuccessful) {
+                        val apiResponse = response.body()
+                        if (apiResponse != null && apiResponse.isSuccess) {
+                            // Procesar la respuesta exitosa del servidor
 
+                        }
+                    } else {
+                        // Procesar una respuesta de error
                     }
-                } else {
-                    // Procesar una respuesta de error
                 }
-            }
-            override fun onFailure(call: Call<ApiContactEmergencyServerResponse>, t: Throwable) {
-                // Manejar errores en la comunicación con el servidor
-            }
-        })
+                override fun onFailure(call: Call<ApiContactEmergencyServerResponse>, t: Throwable) {
+                    // Manejar errores en la comunicación con el servidor
+                }
+            })
+        }
+
     }
 
 }

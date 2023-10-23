@@ -72,15 +72,16 @@ class contactRequests : Fragment() {
                 }
             })
         }
-       // Handler para ejecutar la actualización periódica
+         // Handler para ejecutar la actualización periódica
         val handler = Handler()
-        val delay: Long = 60000 // Actualiza cada 60 seg. 1000 para pruebas
+         val delay: Long = 2000
+           //60000 // Actualiza cada 60 seg. 1000 para pruebas
 
-        handler.postDelayed(object : Runnable {
+       handler.postDelayed(object : Runnable {
             override fun run() {
-                updateEmergencyRequestList()
-                handler.postDelayed(this, delay)
-            }
+               updateEmergencyRequestList()
+                 handler.postDelayed(this, delay)
+             }
         }, delay)
         return v
     }
