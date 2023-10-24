@@ -65,7 +65,6 @@
 
             <TextView
                 android:id="@+id/nameMed"
-                android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginTop="32dp"
@@ -73,6 +72,7 @@
                 android:inputType="text"
                 android:text="Paracetamol"
                 android:textColor="@color/white"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.114"
@@ -83,8 +83,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dosis"
-                android:textSize="16dp"
                 android:textColor="@color/grey"
+                android:textSize="16dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/tvDosis"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -100,8 +100,8 @@
                 android:background="@drawable/edit_text_background"
 
                 android:text=" 20 mgr"
-                android:textSize="20sp"
                 android:textColor="@color/white"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/intakeStart"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -128,10 +128,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginTop="60dp"
-                android:textSize="20sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
                 android:text="Aca va eltexto"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:theme="@style/Theme.PastillApp.Spinner"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.919"
@@ -162,7 +162,7 @@
                 android:theme="@style/Theme.PastillApp.Spinner"
                 app:layout_constraintBottom_toTopOf="@+id/cxlBtn2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.096"
+                app:layout_constraintHorizontal_bias="0.12"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dateIntakeStart"
                 app:layout_constraintVertical_bias="0.179" />
@@ -171,13 +171,13 @@
                 android:id="@+id/frequencyInt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aca va"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/cxlBtn2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.078"
+                app:layout_constraintHorizontal_bias="0.302"
                 app:layout_constraintStart_toEndOf="@+id/frequencyInterval"
                 app:layout_constraintTop_toBottomOf="@+id/dateIntakeStart"
                 app:layout_constraintVertical_bias="0.187" />
@@ -202,31 +202,29 @@
                 android:id="@+id/durationIntake"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
                 android:text="Sca va "
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/cxlBtn2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.094"
+                app:layout_constraintHorizontal_bias="0.122"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvPresentation1"
-                app:layout_constraintVertical_bias="0.852" />
+                app:layout_constraintVertical_bias="0.837" />
 
             <TextView
                 android:id="@+id/durationNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aca va"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.309"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView7"
-                app:layout_constraintVertical_bias="0.063" />
+                app:layout_constraintVertical_bias="0.168" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -243,9 +241,9 @@
                 app:layout_constraintVertical_bias="0.034" />
 
             <TextView
+                android:id="@+id/notes"
                 android:layout_width="110dp"
                 android:layout_height="120dp"
-                android:id="@+id/notes"
                 android:background="@drawable/custom_rectangle"
                 android:paddingStart="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -299,9 +297,9 @@
                 android:gravity="left|center"
                 android:paddingStart="5dp"
                 android:text="22-10-23"
-                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/cxlBtn2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.18"
@@ -325,10 +323,10 @@
                 app:layout_constraintVertical_bias="0.342" />
 
             <CheckBox
+                android:id="@+id/emergencyCheckBox2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@android:color/white"
-                android:id="@+id/emergencyCheckBox2"
                 android:enabled="false"
                 app:layout_constraintBottom_toTopOf="@+id/tvPresentation"
                 app:layout_constraintEnd_toStartOf="@+id/alertCheckbox"

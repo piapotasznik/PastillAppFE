@@ -26,6 +26,8 @@ object ActivityServiceApiBuilder {
     // "https://192.168.0.96:7067"
     //https://3fe3-2800-21c1-c400-77b-49d4-7abe-8867-ed8c.ngrok-free.app/swagger/index.html
 
+
+
     val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
@@ -44,18 +46,33 @@ object ActivityServiceApiBuilder {
              .build()
 
          return retrofit.create(UserService::class.java)
-
      }
 
+
     fun createReminder(): ReminderService {
+
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(getUnsafeOkHttpClient())
+
             //PARA ACTIVAR SEGURIDAD DE NUEVO: COMENTAR LINEA 41
             // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
             .build()
         return retrofit.create(ReminderService::class.java)
+    }
+
+    fun createReminderLogService(): ReminderLogService {
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getUnsafeOkHttpClient())
+
+            //PARA ACTIVAR SEGURIDAD DE NUEVO: COMENTAR LINEA 41
+            // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
+            .build()
+        return retrofit.create(ReminderLogService::class.java)
     }
 
     fun createToken(): TokenService {
@@ -68,6 +85,7 @@ object ActivityServiceApiBuilder {
             .build()
         return retrofit.create(TokenService::class.java)
     }
+
 
     private fun getUnsafeOkHttpClient(): OkHttpClient? {
         return try {

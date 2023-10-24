@@ -22,6 +22,7 @@ class login : Fragment() {
     lateinit var v: View
     private lateinit var auth: FirebaseAuth
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -78,6 +79,7 @@ class login : Fragment() {
                         UserSingleton.currentUser = user
                         UserSingleton.currentUserEmail = email
 
+
                         // En la primera actividad, al crear el Intent
                         val intent = Intent(context, HomeScreenActivity::class.java)
                         intent.putExtra(
@@ -131,5 +133,12 @@ class login : Fragment() {
                 }
             }
         }
+
+
+
     }
+
+
+
+
 }

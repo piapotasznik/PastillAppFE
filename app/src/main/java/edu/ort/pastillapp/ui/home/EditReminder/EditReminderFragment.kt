@@ -28,7 +28,7 @@ import java.util.Locale
 class EditReminderFragment : Fragment() {
     private lateinit var viewModel: EditReminderViewModel
     private lateinit var binding: FragmentEditReminderBinding // Referencia al ViewBinding
-
+    private var reminder: Reminder? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,28 +36,29 @@ class EditReminderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
+        val reminderId = EditReminderFragmentArgs.fromBundle(requireArguments()).reminderId
+        getReminderByID(reminderId)
         binding = FragmentEditReminderBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(EditReminderViewModel::class.java)
-       val reminder = EditReminderFragmentArgs.fromBundle(requireArguments()).reminder
 
 
-        reminder?.let {
-            viewModel.setReminder(it)
-            setReminderValues(it)
-        }
+        //trae el reminder del server y lo setea al lateinit reminder de arrriba con ese reminder
+
+
+
 //
 
-        if (reminder != null) {
-            setReminderValues(reminder)
-
-        }
+//        if (reminder != null) {
+//            setReminderValues(reminder)
+//
+//        }
 
         val btnCxl = binding.cxlBtn
         btnCxl.setOnClickListener {
@@ -66,17 +67,11 @@ class EditReminderFragment : Fragment() {
 
         val btnSave = binding.saveBtn
         btnSave.setOnClickListener {
-//            val editedReminder=getReminderValues()
-//            if(editedReminder !=null){
-//                Log.e("edited", "este es el editado ${editedReminder.toString()}")
-//                val action = EditReminderFragmentDirections.actionEditReminderFragmentToNavigationHome(editedReminder)
-//                findNavController().navigate(action)
-//            }
-            val values = getReminderValues()
-           if (values != null) {
-               update(values)
-               val action = EditReminderFragmentDirections.actionEditReminderFragmentToNavigationHome()
-                findNavController().navigate(action)
+            val editedReminder=getReminderValues()
+            Log.e("edited", "este es el editado ${editedReminder.toString()}")
+           if (editedReminder != null) {
+               update(editedReminder)
+                findNavController().popBackStack()
            }
 
 
@@ -92,6 +87,10 @@ class EditReminderFragment : Fragment() {
     }
     override fun onStart() {
         super.onStart()
+        reminder?.let {
+            viewModel.setReminder(it)
+            setReminderValues(it)
+        }
         val dateText =binding.editDateIntake
 
         dateText.setOnClickListener{
@@ -166,27 +165,29 @@ class EditReminderFragment : Fragment() {
 
 
     fun getReminderValues():ReminderUpdate?{
-        var editedReminder = viewModel.getReminder()// Supongo que hay un método para obtener el reminder en tu ViewModel
-                val reminderid = editedReminder!!.reminderId
+
+                val reminderid = reminder?.reminderId
 
 
         val frequencyEnglish = Helpers().translateFrequencyEn(binding.editFrecuencyInterval.selectedItem.toString())
         val durationEnglish = Helpers().translateFrequencyEn(binding.editDurationIntake.selectedItem.toString()
         )
-            Log.e("put33", binding.editDateIntake.text.toString())
+        Log.e("put33", binding.editDateIntake.text.toString())
 
         val dateFromat =Helpers().convertirFechaInversa(binding.editDateIntake.text.toString())
-        var updateReminder = ReminderUpdate(
-            reminderid,
-            binding.editDosis.text.toString().toInt(),
-            binding.presentationSpinner.selectedItem.toString(),
-            dateFromat,
-            binding.editFrecuencyInt.selectedItem.toString().toInt(),
-            frequencyEnglish,
-            binding.editDurationNum.selectedItem.toString().toInt(),
-            durationEnglish,
-            binding.emergencyCheckBox.isChecked
+        var updateReminder = reminderid?.let {
+            ReminderUpdate(
+                it,
+                binding.editDosis.text.toString().toInt(),
+                binding.presentationSpinner.selectedItem.toString(),
+                dateFromat,
+                binding.editFrecuencyInt.selectedItem.toString().toInt(),
+                frequencyEnglish,
+                binding.editDurationNum.selectedItem.toString().toInt(),
+                durationEnglish,
+                binding.emergencyCheckBox.isChecked
             )
+        }
 
 
         return updateReminder
@@ -225,6 +226,42 @@ class EditReminderFragment : Fragment() {
                 Log.e("put33", "respuesta fallo en el failure")
             }
         })
+    }
+
+
+        fun getReminderByID(reminderId:Int){
+            Log.e("llamando al reminder","llamado exitoso id :${reminderId}")
+        val service = ActivityServiceApiBuilder.createReminder()
+
+        service.getReminderId(reminderId).enqueue(object : Callback<Reminder> {
+            override fun onResponse(
+                call: Call<Reminder>,
+                response: Response<Reminder>
+            ) {
+                if (response.isSuccessful && response.body() != null) {
+                    val responseReminder = response.body()
+                    Log.e("llamando","responde del reminder${responseReminder.toString()}")
+                    if (responseReminder != null) {
+                    reminder = responseReminder
+                Log.e("llamando","responde no es null ${reminder.toString()}")
+                    }
+                    reminder?.let {
+                        setReminderValues(it)
+                    }
+
+
+                } else {
+                    Log.e("llamando", "respuesta no exitosa ${response}")
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<Reminder>, t: Throwable) {
+                Log.e("Example", t.stackTraceToString())
+            }
+        })
+
     }
 
 }

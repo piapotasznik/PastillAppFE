@@ -64,6 +64,13 @@ fun dayToday (): Int{
         val fecha: Date = formatoEntrada.parse(fechaString) ?: Date()
         return formatoSalida.format(fecha)
     }
+    fun convertirFechaSoloHora(fechaString: String): String {
+        val formatoEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val formatoSalida = SimpleDateFormat("HH:mm", Locale.getDefault())
+
+        val fecha: Date = formatoEntrada.parse(fechaString) ?: Date()
+        return formatoSalida.format(fecha)
+    }
 
 
     fun convertirFechaInversa(fechaString: String): String {
@@ -76,8 +83,9 @@ fun dayToday (): Int{
 
     fun translateFrequency(englishText: String): String {
         return when (englishText) {
-            "DAY" -> "Dias"
+            "DAY" -> "Dia"
             "HOURS" -> "Horas"
+            "HOUR" -> "Horas"
             "MONTH" -> "Meses"
             "WEEK" -> "Semanas"
             "YEAR" -> "Años"
