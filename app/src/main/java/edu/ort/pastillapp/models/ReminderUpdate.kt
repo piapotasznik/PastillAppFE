@@ -9,6 +9,8 @@ data class ReminderUpdate (
         val frequencyText: String,
         val intakeTimeNumber: Int,
         val intakeTimeText: String,
-        val emergencyAlert: Boolean
+        val emergencyAlert: Boolean,
+        val keepPendingLogs: Boolean,
+        val observation: String
     )
 

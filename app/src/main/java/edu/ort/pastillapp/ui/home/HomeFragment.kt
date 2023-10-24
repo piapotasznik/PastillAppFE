@@ -34,7 +34,8 @@ class HomeFragment : Fragment() , OnClickNavigate {
     private lateinit var adapter: TodayReminderAdapter
     private val homeViewModel: HomeViewModel by viewModels()
     private var _binding: FragmentHomeBinding? = null
-    private lateinit var reminderList : List<ReminderLogToday>
+    private var reminderList : MutableList<ReminderLogToday> = mutableListOf()
+    private var backFromFragment = false
 
 
 
@@ -78,21 +79,29 @@ class HomeFragment : Fragment() , OnClickNavigate {
 //        homeViewModel.isLoading.observe(viewLifecycleOwner, Observer {
 //            binding.loading.isVisible = it
 //        })
-
+        initRecylcerView()
         return root
     }
 
+    override fun onPause() {
+        super.onPause()
+        backFromFragment =true
+    }
+    override fun onResume() {
+        super.onResume()
+        if(backFromFragment) {
+            getTodayReminders()
+            Log.e("backFromFragment", "esto es true")
+            backFromFragment = false
+        }
+
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    override fun onResume() {
-        super.onResume()
-        if(UserSingleton.userId!=null){
-           initRecylcerView()
-        }
-    }
+
 
     fun initRecylcerView(){
         val dateAdapter = DateAdapter(Helpers().getDayOfMoth())
@@ -130,8 +139,7 @@ class HomeFragment : Fragment() , OnClickNavigate {
 
                     if (responseReminders != null) {
                       //  remidersLogs.postValue(responseReminders!!) // Actualiza el valor de remindersLogs
-                        reminderList = responseReminders
-                        initRecylcerView()
+                        adapter.actualizarDatos(responseReminders)
                         Log.e("remindersLogs", "la respuesta esl ${responseReminders}")
                     }
 

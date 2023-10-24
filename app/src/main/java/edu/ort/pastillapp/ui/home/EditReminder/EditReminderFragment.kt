@@ -151,8 +151,9 @@ class EditReminderFragment : Fragment() {
        val positionToSelectFrInterval = frecuencyIntervalValues.indexOf(Helpers().translateFrequency(frquencyInEn))
 
         val durationIntakeValues = resources.getStringArray(R.array.duration_intake)
-        val durationInEn = reminder.frequencyText.toString()
+        val durationInEn = reminder.intakeTimeText.toString()
        val positionToSelectDuration = durationIntakeValues.indexOf(Helpers().translateFrequency(durationInEn))
+
 
         binding.editNameMed.setText(reminder.medicineId.toString()) /// ver de corregir cuando tenga el nombre
         binding.editDosis.setText(reminder.quantity.toString())
@@ -190,7 +191,9 @@ class EditReminderFragment : Fragment() {
                 frequencyEnglish,
                 binding.editDurationNum.selectedItem.toString().toInt(),
                 durationEnglish,
-                binding.emergencyCheckBox.isChecked
+                binding.emergencyCheckBox.isChecked,
+                binding.KeepsLogsCheckBox.isChecked,
+                binding.editNotes.text.toString()
             )
         }
 
