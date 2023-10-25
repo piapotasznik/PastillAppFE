@@ -95,29 +95,6 @@ class RegisterPillFragment : Fragment() {
         _binding = null
     }
 
-    private fun getMedicines() {
-        medicines?.let {
-            this.medicineService?.getAllMedicines()?.enqueue(object: Callback<List<Medicine>> {
-                override fun onResponse(
-                    call: Call<List<Medicine>>,
-                    response: Response<List<Medicine>>
-                ) {
-                    if (response.isSuccessful) {
-                        if (response.body() != null) {
-                            medicines = response.body();
-                            print(medicines);
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<List<Medicine>>, t: Throwable) {
-                    // Manejar errores de red o solicitud
-                    Toast.makeText(requireContext(), "Error de red", Toast.LENGTH_SHORT).show()
-                }
-            })
-        }
-    }
-
     private fun fillSpinnerValues() {
         activity?.let {
             ArrayAdapter.createFromResource(
@@ -157,7 +134,33 @@ class RegisterPillFragment : Fragment() {
                 this.presentationSpinner?.adapter = adapter
             }
         }
+        this.getMedicines()
+        // ACA RELLENAR EL "medicineSpinner" CON LOS VALORES DE LA VARIABLE "medicines"
     }
+
+    private fun getMedicines() {
+        medicines?.let {
+            this.medicineService?.getAllMedicines()?.enqueue(object: Callback<List<Medicine>> {
+                override fun onResponse(
+                    call: Call<List<Medicine>>,
+                    response: Response<List<Medicine>>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.body() != null) {
+                            medicines = response.body();
+                            print(medicines);
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Medicine>>, t: Throwable) {
+                    // Manejar errores de red o solicitud
+                    Toast.makeText(requireContext(), "Error de red", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+    }
+
     private fun setUpTime() {
         timeInput?.text = LocalTime.now().format(formatter)
         timeInput?.setOnClickListener {
@@ -191,8 +194,9 @@ class RegisterPillFragment : Fragment() {
             dateInput?.text = selectedDate
         }
     }
+
     private fun saveReminder() {
-        val medicine: String = medicineSpinner?.selectedItem.toString()
+        val medicine: String = medicineSpinner?.selectedItem.toString() // ACA EN VEZ DEL NOMBRE IRIA EL MEDICINE_ID
         val notify: Boolean = notifyCheckBox?.isChecked == true
         val dose: String = doseInput?.text.toString()
         val presentation: String = presentationSpinner?.selectedItem.toString()
@@ -211,7 +215,7 @@ class RegisterPillFragment : Fragment() {
                 errorMsg?.visibility = View.INVISIBLE
             }, 3000)
         } else {
-
+            // CREAR EL OBJETO REMINDER Y LA PEGADA DE CREATE REMINDER
         }
     }
 }
