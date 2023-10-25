@@ -5,4 +5,8 @@ data class Medicine (
     val name: String,
     val dosage: String,
     val presentation: String,
-)
+) {
+    override fun toString(): String {
+        return name
+    }
+}
