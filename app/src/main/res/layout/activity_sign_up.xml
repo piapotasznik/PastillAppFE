@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/frameLayout2"
     android:background="@color/blue"
-    tools:context=".SignUpActivity">
+    tools:context=".Activities.SignUpActivity">
 
     <ImageView
         android:id="@+id/imageView2"
