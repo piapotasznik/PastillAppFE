@@ -13,14 +13,23 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import edu.ort.pastillapp.R
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import edu.ort.pastillapp.UserSingleton
 import edu.ort.pastillapp.databinding.FragmentRegisterPillBinding
 import java.time.LocalTime
 import edu.ort.pastillapp.helpers.formatter
 import edu.ort.pastillapp.helpers.setTime
+import edu.ort.pastillapp.models.ApiUserResponse
+import edu.ort.pastillapp.models.Medicine
+import edu.ort.pastillapp.services.MedicineService
+import edu.ort.pastillapp.services.UserService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.time.LocalDate
 
 
@@ -29,6 +38,7 @@ class RegisterPillFragment : Fragment() {
     private var _binding: FragmentRegisterPillBinding? = null
     private var medicineSpinner: Spinner? = null
     private var notifyCheckBox: CheckBox? = null
+    private var medicineService: MedicineService? = null
     private var doseInput: EditText? = null
     private var presentationSpinner: Spinner? = null
     private var dateInput: TextView? = null
@@ -39,6 +49,7 @@ class RegisterPillFragment : Fragment() {
     private var quantityDurationSpinner: Spinner? = null
     private var savebtn: Button? = null
     private var errorMsg: TextView? = null
+    private var medicines: List<Medicine>? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -83,6 +94,30 @@ class RegisterPillFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun getMedicines() {
+        medicines?.let {
+            this.medicineService?.getAllMedicines()?.enqueue(object: Callback<List<Medicine>> {
+                override fun onResponse(
+                    call: Call<List<Medicine>>,
+                    response: Response<List<Medicine>>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.body() != null) {
+                            medicines = response.body();
+                            print(medicines);
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Medicine>>, t: Throwable) {
+                    // Manejar errores de red o solicitud
+                    Toast.makeText(requireContext(), "Error de red", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+    }
+
     private fun fillSpinnerValues() {
         activity?.let {
             ArrayAdapter.createFromResource(
