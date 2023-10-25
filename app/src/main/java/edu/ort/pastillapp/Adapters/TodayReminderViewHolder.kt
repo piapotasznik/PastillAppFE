@@ -1,4 +1,4 @@
-package edu.ort.pastillapp.Adapter
+package edu.ort.pastillapp.Adapters
 
 import android.view.View
 import android.widget.CheckBox

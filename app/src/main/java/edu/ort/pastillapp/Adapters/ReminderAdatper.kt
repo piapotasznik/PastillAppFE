@@ -1,4 +1,4 @@
-package edu.ort.pastillapp.Adapter
+package edu.ort.pastillapp.Adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -21,15 +21,15 @@ class ReminderAdatper  (private val reminders:List<Reminder>,private val navCont
     override fun onBindViewHolder(holder: ReminderViewHolder, position: Int) {
         holder.render(reminders[position])
 
-        holder.updateBtn.setOnClickListener{
-            val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminders[position])
-            navController.navigate(action)
-        }
+//        holder.updateBtn.setOnClickListener{
+//            val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminders[position])
+//            navController.navigate(action)
+//        }
 
-        holder.archiveBtn.setOnClickListener {
-            val action = HomeFragmentDirections.actionNavigationHomeToReminderFragment(reminders[position])
-            navController.navigate(action)
-        }
+//        holder.archiveBtn.setOnClickListener {
+//            val action = HomeFragmentDirections.actionNavigationHomeToReminderFragment(reminders[position])
+//            navController.navigate(action)
+//        }
     }
 
 }

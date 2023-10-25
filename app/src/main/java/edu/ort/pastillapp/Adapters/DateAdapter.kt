@@ -1,4 +1,4 @@
-package edu.ort.pastillapp.Adapter
+package edu.ort.pastillapp.Adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

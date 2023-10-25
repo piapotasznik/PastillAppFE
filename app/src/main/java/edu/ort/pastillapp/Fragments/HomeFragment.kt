@@ -18,8 +18,8 @@ import edu.ort.pastillapp.Models.ApiUserResponse
 import edu.ort.pastillapp.Models.Reminder
 import edu.ort.pastillapp.Models.ReminderLogToday
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
-import edu.ort.pastillapp.Adapter.DateAdapter
-import edu.ort.pastillapp.Adapter.TodayReminderAdapter
+import edu.ort.pastillapp.Adapters.DateAdapter
+import edu.ort.pastillapp.Adapters.TodayReminderAdapter
 import edu.ort.pastillapp.ViewModels.HomeViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

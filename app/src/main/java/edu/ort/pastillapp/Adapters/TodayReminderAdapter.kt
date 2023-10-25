@@ -1,12 +1,12 @@
-package edu.ort.pastillapp.Adapter
+package edu.ort.pastillapp.Adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
+import edu.ort.pastillapp.Fragments.HomeFragmentDirections
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.Models.ReminderLogToday
-//import edu.ort.pastillapp.ui.home.HomeFragmentDirections
 
 class TodayReminderAdapter(
     private var reminders: MutableList<ReminderLogToday>,
@@ -31,13 +31,13 @@ class TodayReminderAdapter(
         holder.render(reminders[position])
 
         holder.updateBtn.setOnClickListener {
-//            val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminders[position].reminderId)
-//            navController.navigate(action)
+            val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminders[position].reminderId)
+            navController.navigate(action)
         }
 
         holder.archiveBtn.setOnClickListener {
-//            val action = HomeFragmentDirections.actionNavigationHomeToReminderFragment(reminders[position].reminderId)
-//            navController.navigate(action)
+            val action = HomeFragmentDirections.actionNavigationHomeToReminderFragment(reminders[position].reminderId)
+            navController.navigate(action)
         }
     }
 }
