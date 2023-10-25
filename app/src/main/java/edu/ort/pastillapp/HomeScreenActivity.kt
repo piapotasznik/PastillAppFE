@@ -23,15 +23,12 @@ class HomeScreenActivity : AppCompatActivity() {
             val valorRecibido = extras.getString("user") // "clave" debe ser la misma que usaste para enviar el dato
         }
 
-
         binding = ActivityHomeScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_home_screen)
-
 
         getSupportActionBar()?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar()?.setCustomView(R.layout.toolbar_layout);

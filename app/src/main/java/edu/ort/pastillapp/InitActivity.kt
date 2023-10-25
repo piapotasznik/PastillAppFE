@@ -3,6 +3,8 @@ package edu.ort.pastillapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import edu.ort.pastillapp.databinding.ActivityInitBinding
 
 class InitActivity : AppCompatActivity() {
@@ -22,5 +24,14 @@ class InitActivity : AppCompatActivity() {
             startActivity(Intent(this, SignUpActivity::class.java))
             finish()
         }
+
+        val auth = Firebase.auth
+
+//        if(auth.currentUser != null) {
+//            val intent = Intent(this, HomeScreenActivity::class.java)
+//            intent.putExtra("user", auth.currentUser)
+//            startActivity(intent)
+//            finish()
+//        }
     }
 }

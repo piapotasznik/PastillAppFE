@@ -1,7 +1,6 @@
 package edu.ort.pastillapp.fragments
 
 import android.content.ContentValues
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -14,17 +13,14 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.actionCodeSettings
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.UserSingleton
 import edu.ort.pastillapp.ValidationEmail
 import edu.ort.pastillapp.models.User
 import edu.ort.pastillapp.models.UserRepository
-import edu.ort.pastillapp.services.ActivityServiceApiBuilder
 
 class RegisterFragment : Fragment() {
 

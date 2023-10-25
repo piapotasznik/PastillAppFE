@@ -1,4 +1,5 @@
 package edu.ort.pastillapp.ui.profile
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -13,10 +14,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.RemoteMessage
+import edu.ort.pastillapp.InitActivity
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.UserSingleton
 import edu.ort.pastillapp.ValidationEmail
@@ -36,6 +41,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var databaseReference: DatabaseReference
     private lateinit var tokenService: TokenService
+    private lateinit var auth: FirebaseAuth
 
     private var _binding: FragmentProfileBinding? = null
     private var userService: UserService? = null
@@ -48,7 +54,6 @@ class ProfileFragment : Fragment() {
     private var email: String? = UserSingleton.currentUserEmail
 
     private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,6 +74,8 @@ class ProfileFragment : Fragment() {
 
         userService = ActivityServiceApiBuilder.create()
 
+        auth = Firebase.auth
+
         val buttonUpdateInformation = binding.saveBtn
         buttonUpdateInformation.setOnClickListener {
             updateUserInformation()
@@ -80,6 +87,12 @@ class ProfileFragment : Fragment() {
         profileEmail?.isEnabled = false
         errorMsg = binding.errorMsg
         errorMsg?.isVisible = false
+        binding.txtSignOut.setOnClickListener {
+            if (auth.currentUser != null) {
+                auth.signOut()
+                startActivity(Intent(context, InitActivity::class.java))
+            }
+        }
 
         this.setUserInformation()
 

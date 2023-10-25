@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import edu.ort.pastillapp.databinding.ActivityForgotPasswordBinding
 
-class ForgotPasswordActivity : AppCompatActivity() {
+class ForgotPasswordActivity: BaseActivity() {
 
     private var binding: ActivityForgotPasswordBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
