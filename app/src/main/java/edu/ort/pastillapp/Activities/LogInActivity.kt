@@ -57,14 +57,6 @@ class LogInActivity: BaseActivity() {
                         UserSingleton.currentUser = user
                         UserSingleton.currentUserEmail = email
 
-                        // En la primera actividad, al crear el Intent
-                        val intent = Intent(this, HomeScreenActivity::class.java)
-                        intent.putExtra(
-                            "user",
-                            user
-                        )
-                        startActivity(intent)
-
                         // Obtengo el token FCM del dispositivo.
                         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
@@ -76,10 +68,10 @@ class LogInActivity: BaseActivity() {
                                         // Manejar éxito
                                         Log.d("LoginFragment", "Token enviado con éxito al servidor")
 
-                                        // Continúa con la navegación u otras acciones necesarias después del inicio de sesión
-                                        val intent = Intent(this, HomeScreenActivity::class.java)
-                                        intent.putExtra("user", user)
-                                        startActivity(intent)
+//                                        // Continúa con la navegación u otras acciones necesarias después del inicio de sesión
+//                                        val intent = Intent(this, HomeScreenActivity::class.java)
+//                                        intent.putExtra("user", user)
+//                                        startActivity(intent)
                                     },
                                     onError = {
                                         // Manejar error
@@ -93,6 +85,13 @@ class LogInActivity: BaseActivity() {
                                 )
                             }
                         }
+
+                        val intent = Intent(this, HomeScreenActivity::class.java)
+                        intent.putExtra(
+                            "user",
+                            user
+                        )
+                        startActivity(intent)
                         finish()
                         hideProgressBar()
                     } else {

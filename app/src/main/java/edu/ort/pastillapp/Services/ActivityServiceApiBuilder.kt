@@ -21,7 +21,7 @@ object ActivityServiceApiBuilder {
     // CAMBIAR POR DIRECCION IP LOCAL PROPIA!!!!!!!!!!!!! HABILITAR FIREWALL DE WINDOWS
 
 
-     private val BASE_URL = "https://192.168.1.2:7067"
+     private val BASE_URL = "https://d422-2800-21c1-c400-77b-5914-1e6a-e350-e754.ngrok-free.app"
     //127.0.0.1
 
 

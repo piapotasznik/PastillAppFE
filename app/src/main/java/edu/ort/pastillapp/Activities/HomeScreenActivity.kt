@@ -7,6 +7,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.databinding.ActivityHomeScreenBinding
