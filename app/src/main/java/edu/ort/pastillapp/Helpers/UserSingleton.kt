@@ -4,5 +4,4 @@ object UserSingleton {
     var currentUser: FirebaseUser? = null
     var currentUserEmail: String? = null
     var userId:Int? = null
-
 }

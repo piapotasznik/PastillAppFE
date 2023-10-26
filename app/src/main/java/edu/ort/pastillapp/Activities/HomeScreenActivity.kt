@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.databinding.ActivityHomeScreenBinding
@@ -16,8 +17,6 @@ import edu.ort.pastillapp.databinding.ActivityHomeScreenBinding
 class HomeScreenActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeScreenBinding
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val extras = intent.extras
@@ -41,7 +40,7 @@ class HomeScreenActivity : AppCompatActivity() {
 
      // Verificar si el TextView fue encontrado
         if (textViewTitulo != null) {
-            textViewTitulo.text = UserSingleton.currentUser?.email
+            textViewTitulo.text = SharedPref.read("EMAIL", UserSingleton.currentUser?.email)
         }
 
         // Configura el BottomNavigationView con el NavController

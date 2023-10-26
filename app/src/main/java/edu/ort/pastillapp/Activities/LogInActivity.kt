@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.databinding.ActivityLogInBinding
 import edu.ort.pastillapp.Models.UserRepository
@@ -57,6 +58,8 @@ class LogInActivity: BaseActivity() {
                         UserSingleton.currentUser = user
                         UserSingleton.currentUserEmail = email
 
+                        SharedPref.write(SharedPref.EMAIL, email)
+
                         // Obtengo el token FCM del dispositivo.
                         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
@@ -67,11 +70,6 @@ class LogInActivity: BaseActivity() {
                                     onSuccess = {
                                         // Manejar éxito
                                         Log.d("LoginFragment", "Token enviado con éxito al servidor")
-
-//                                        // Continúa con la navegación u otras acciones necesarias después del inicio de sesión
-//                                        val intent = Intent(this, HomeScreenActivity::class.java)
-//                                        intent.putExtra("user", user)
-//                                        startActivity(intent)
                                     },
                                     onError = {
                                         // Manejar error

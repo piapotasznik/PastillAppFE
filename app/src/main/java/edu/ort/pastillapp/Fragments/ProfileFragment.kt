@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import edu.ort.pastillapp.Activities.InitActivity
+import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.databinding.FragmentProfileBinding
 import edu.ort.pastillapp.Models.ApiUserResponse
@@ -44,7 +45,7 @@ class ProfileFragment : Fragment() {
     private var profileEmail: EditText? = null
     private var errorMsg: TextView? = null
     private var userCreatedInformation: ApiUserResponse? = null
-    private var email: String? = UserSingleton.currentUserEmail
+    private var email: String = SharedPref.read("EMAIL", UserSingleton.currentUserEmail)
 
     private val binding get() = _binding!!
 
@@ -77,6 +78,8 @@ class ProfileFragment : Fragment() {
         binding.txtSignOut.setOnClickListener {
             if (auth.currentUser != null) {
                 auth.signOut()
+                SharedPref.delete("EMAIL")
+                SharedPref.delete("ID")
                 startActivity(Intent(context, InitActivity::class.java))
                 Toast.makeText(context, "Sesion cerrada exitosamente", Toast.LENGTH_SHORT).show()
             }

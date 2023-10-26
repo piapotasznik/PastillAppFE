@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.databinding.ActivityInitBinding
 
 
@@ -17,6 +18,8 @@ class InitActivity : AppCompatActivity() {
         binding = ActivityInitBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+        SharedPref.init(applicationContext);
+
         binding?.btnLogIn?.setOnClickListener {
             startActivity(Intent(this, LogInActivity::class.java))
             finish()
@@ -27,24 +30,16 @@ class InitActivity : AppCompatActivity() {
             finish()
         }
 
-//        val auth = Firebase.auth
-//        if (auth.currentUser != null) {
-//            val intent = Intent(this, HomeScreenActivity::class.java)
-//            intent.putExtra("user", auth.currentUser)
-//            startActivity(intent)
-//            finish()
-//        }
-
-//        val user = FirebaseAuth.getInstance().currentUser
-//        if (user != null) {
-//            // User is signed in
-//            val i = Intent(this@InitActivity, HomeScreenActivity::class.java)
-//            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//            i.putExtra("user", user)
-//            startActivity(i)
-//        } else {
-//            // User is signed out
-//            Log.d(TAG, "onAuthStateChanged:signed_out")
-//        }
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            // User is signed in
+            val i = Intent(this@InitActivity, HomeScreenActivity::class.java)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            i.putExtra("user", user)
+            startActivity(i)
+        } else {
+            // User is signed out
+            Log.d(TAG, "onAuthStateChanged:signed_out")
+        }
     }
 }
