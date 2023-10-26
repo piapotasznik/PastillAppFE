@@ -1,4 +1,4 @@
-package edu.ort.pastillapp
+package edu.ort.pastillapp.Services
 
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -12,6 +12,7 @@ import android.os.Build
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
 import edu.ort.pastillapp.Activities.InitActivity
+import edu.ort.pastillapp.R
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -62,8 +63,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             )
             notificationManager.createNotificationChannel(channel)
         }
-        val notificationId = System.currentTimeMillis().toInt()
 
+        val notificationId = System.currentTimeMillis().toInt()
         val resultIntent = when (tipo) {
             "alarm" -> {
                 // Configurar la acción para abrir el fragmento de alarma y pasar el ID
@@ -75,7 +76,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 // Configurar la acción para abrir el fragmento de contacto de emergencia
                 Intent(this, InitActivity::class.java)
             }
-
             else -> {
                 // Configurar la acción predeterminada (puedes ajustarla según tus necesidades)
                 Intent(this, InitActivity::class.java)
