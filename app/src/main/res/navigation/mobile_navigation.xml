@@ -27,7 +27,11 @@
         android:id="@+id/navigation_profile"
         android:name="edu.ort.pastillapp.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_contactRequests2"
+            app:destination="@id/contactRequests2" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_registerPill"
         android:name="edu.ort.pastillapp.ui.register_pill.RegisterPillFragment"
@@ -64,6 +68,13 @@
             android:name="reminderId"
             app:argType="integer" />
     </fragment>
-
-
+    <fragment
+    android:id="@+id/contactRequests2"
+    android:name="edu.ort.pastillapp.fragments.contactRequests"
+    android:label="fragment_contact_requests"
+    tools:layout="@layout/fragment_contact_requests" >
+        <action
+            android:id="@+id/action_contactRequests2_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
 </navigation>
