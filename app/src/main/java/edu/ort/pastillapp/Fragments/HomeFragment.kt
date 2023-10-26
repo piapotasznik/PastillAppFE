@@ -29,25 +29,20 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeFragment : Fragment() , OnClickNavigate {
+class HomeFragment : Fragment(), OnClickNavigate {
 
-    private lateinit var adapter: TodayReminderAdapter
     private val homeViewModel: HomeViewModel by viewModels()
-    private var _binding: FragmentHomeBinding? = null
-    private var reminderList : MutableList<ReminderLogToday> = mutableListOf()
-    private var backFromFragment = false
-
-
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
+    private var _binding: FragmentHomeBinding? = null
+    private var reminderList: MutableList<ReminderLogToday> = mutableListOf()
+    private var backFromFragment = false
+    private lateinit var adapter: TodayReminderAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        executeFunctions()
+        executeFunctions()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,7 +52,6 @@ class HomeFragment : Fragment() , OnClickNavigate {
 //            ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
 
 //        homeViewModel.remidersLogs.observe(viewLifecycleOwner, Observer { reminders ->
 //            reminders?.let {
@@ -76,40 +70,44 @@ class HomeFragment : Fragment() , OnClickNavigate {
 
     override fun onPause() {
         super.onPause()
-        backFromFragment =true
+        backFromFragment = true
     }
+
     override fun onResume() {
         super.onResume()
-        if(backFromFragment) {
-//            getTodayReminders()
+        if (backFromFragment) {
+            getTodayReminders()
             Log.e("backFromFragment", "esto es true")
             backFromFragment = false
         }
 
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
 
-
-    fun initRecylcerView(){
+    fun initRecylcerView() {
         val dateAdapter = DateAdapter(Helpers().getDayOfMoth())
-        val posicionInicial = Helpers().dayToday()+2
+        val posicionInicial = Helpers().dayToday() + 2
 
-        binding.rvDate.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvDate.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvDate.adapter = dateAdapter
         binding.rvDate.smoothScrollToPosition(posicionInicial)
 
         adapter = TodayReminderAdapter(reminderList, findNavController())
-        binding.medList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.medList.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.medList.adapter = adapter
     }
 
-    override fun OnClickNavigate(reminder :Reminder) {
-        val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminder.reminderId)
-        Log.e("click","estoy clickeando aqui!!!")
+    override fun OnClickNavigate(reminder: Reminder) {
+        val action =
+            HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminder.reminderId)
+        Log.e("click", "estoy clickeando aqui!!!")
         this.findNavController().navigate(action)
     }
 
@@ -117,15 +115,16 @@ class HomeFragment : Fragment() , OnClickNavigate {
         Log.e("remindersLogs", "ejecuto el get today reminders")
         val service = ActivityServiceApiBuilder.createReminderLogService()
         var id = SharedPref.read(SharedPref.ID, UserSingleton.userId!!)
-//        service.getTodayReminders(UserSingleton.userId!!).enqueue(object :
         service.getTodayReminders(id).enqueue(object :
             Callback<List<ReminderLogToday>> {
-            override fun onResponse(call: Call<List<ReminderLogToday>>, response: Response<List<ReminderLogToday>>) {
+            override fun onResponse(
+                call: Call<List<ReminderLogToday>>,
+                response: Response<List<ReminderLogToday>>
+            ) {
                 if (response.isSuccessful && response.body() != null) {
                     val responseReminders = response.body()
-
                     if (responseReminders != null) {
-                      //  remidersLogs.postValue(responseReminders!!) // Actualiza el valor de remindersLogs
+                        //  remidersLogs.postValue(responseReminders!!) // Actualiza el valor de remindersLogs
                         adapter.actualizarDatos(responseReminders)
                         Log.e("remindersLogs", "la respuesta esl ${responseReminders}")
                     }
@@ -141,18 +140,15 @@ class HomeFragment : Fragment() , OnClickNavigate {
         })
     }
 
-
     fun executeFunctions() {
         CoroutineScope(Dispatchers.Main).launch {
             saveUserId() // Espera a que saveUserId() termine antes de continuar
         }
     }
 
-     fun saveUserId() {
-//        var email = UserSingleton.currentUserEmail
+    fun saveUserId() {
         var email = SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail)
-        var id = SharedPref.read(SharedPref.ID, UserSingleton.userId!!)
-        if (email != null && id == null) {
+        if (email != null) {
             val service = ActivityServiceApiBuilder.create()
             service?.getUserEmail(email)?.enqueue(object : Callback<ApiUserResponse> {
                 override fun onResponse(
@@ -162,10 +158,10 @@ class HomeFragment : Fragment() , OnClickNavigate {
                     if (response.isSuccessful) {
                         if (response.body() != null) {
                             var userCreatedInformation = response.body()
-                            UserSingleton.userId= userCreatedInformation?.userId
+                            UserSingleton.userId = userCreatedInformation?.userId
                             SharedPref.write(SharedPref.ID, userCreatedInformation?.userId)
-                            Log.e("tarde pero seguro","el user id es ${UserSingleton.userId}")
-//                            getTodayReminders()
+                            Log.e("tarde pero seguro", "el user id es ${ UserSingleton.userId }")
+                            getTodayReminders()
                         }
                     }
                 }
@@ -175,8 +171,6 @@ class HomeFragment : Fragment() , OnClickNavigate {
                     Log.e("error al taer id", "error al taer id user")
                 }
             })
-        } else {
-//            getTodayReminders()
         }
     }
 }

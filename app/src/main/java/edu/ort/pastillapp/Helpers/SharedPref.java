@@ -47,8 +47,9 @@ public class SharedPref
         prefsEditor.putInt(key, value).commit();
     }
 
-    public static void delete(String key) {
+    public static void delete() {
         SharedPreferences.Editor prefsEditor = mSharedPref.edit();
-        prefsEditor.remove(key);
+        prefsEditor.clear();
+        prefsEditor.apply();
     }
 }

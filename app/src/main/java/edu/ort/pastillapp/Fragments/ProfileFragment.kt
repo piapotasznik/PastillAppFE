@@ -45,7 +45,7 @@ class ProfileFragment : Fragment() {
     private var profileEmail: EditText? = null
     private var errorMsg: TextView? = null
     private var userCreatedInformation: ApiUserResponse? = null
-    private var email: String = SharedPref.read("EMAIL", UserSingleton.currentUserEmail)
+    private var email: String? = null
 
     private val binding get() = _binding!!
 
@@ -78,13 +78,13 @@ class ProfileFragment : Fragment() {
         binding.txtSignOut.setOnClickListener {
             if (auth.currentUser != null) {
                 auth.signOut()
-                SharedPref.delete("EMAIL")
-                SharedPref.delete("ID")
+                SharedPref.delete()
                 startActivity(Intent(context, InitActivity::class.java))
                 Toast.makeText(context, "Sesion cerrada exitosamente", Toast.LENGTH_SHORT).show()
             }
         }
 
+        email = SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail)
         profileName = binding.myProfileName
         profileSurname = binding.myProfileLastName
         profileEmail = binding.myProfileEmail
@@ -93,7 +93,6 @@ class ProfileFragment : Fragment() {
         errorMsg?.isVisible = false
 
         this.setUserInformation()
-
         return root
     }
 
