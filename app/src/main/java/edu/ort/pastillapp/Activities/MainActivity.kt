@@ -2,6 +2,7 @@ package edu.ort.pastillapp.Activities
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import edu.ort.pastillapp.Helpers.NotificationUtils
 import edu.ort.pastillapp.R
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-//        NotificationUtils.createNotificationChannels(this)
+        NotificationUtils.createNotificationChannels(this)
     }
 }

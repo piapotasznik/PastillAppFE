@@ -16,8 +16,6 @@ class ReminderAdatper  (private val reminders:List<Reminder>,private val navCont
 
     override fun getItemCount(): Int  = reminders.size
 
-
-
     override fun onBindViewHolder(holder: ReminderViewHolder, position: Int) {
         holder.render(reminders[position])
 

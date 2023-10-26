@@ -18,8 +18,6 @@ class ReminderViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     fun render(reminder: Reminder){
         medName.text = reminder.presentation
         medDosage.text = reminder.quantity.toString()
-
-
     }
 
     fun setOnMedicineClickListener (listener: OnClickNavigate) {

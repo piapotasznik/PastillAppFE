@@ -18,32 +18,28 @@ import javax.net.ssl.X509TrustManager
 
 object ActivityServiceApiBuilder {
 
-    // CAMBIAR POR DIRECCION IP LOCAL PROPIA!!!!!!!!!!!!! HABILITAR FIREWALL DE WINDOWS
-
-
-     private val BASE_URL = "https://d422-2800-21c1-c400-77b-5914-1e6a-e350-e754.ngrok-free.app"
+    private val BASE_URL = "https://d422-2800-21c1-c400-77b-5914-1e6a-e350-e754.ngrok-free.app"
     //127.0.0.1
 
-
-    val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+    val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-    var client : OkHttpClient = OkHttpClient.Builder().apply {
+    var client: OkHttpClient = OkHttpClient.Builder().apply {
         addInterceptor(interceptor).addInterceptor(interceptor)
     }.build()
 
-     fun create(): UserService {
-         val retrofit = Retrofit.Builder()
-             .baseUrl(BASE_URL)
-             .addConverterFactory(GsonConverterFactory.create())
-             .client(getUnsafeOkHttpClient())
-             //PARA ACTIVAR SEGURIDAD DE NUEVO: COMENTAR LINEA 41
-             // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
-             .build()
+    fun create(): UserService {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getUnsafeOkHttpClient())
+            //PARA ACTIVAR SEGURIDAD DE NUEVO: COMENTAR LINEA 41
+            // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
+            .build()
 
-         return retrofit.create(UserService::class.java)
-     }
+        return retrofit.create(UserService::class.java)
+    }
 
 
     fun createReminder(): ReminderService {

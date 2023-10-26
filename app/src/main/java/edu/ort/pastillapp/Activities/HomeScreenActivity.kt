@@ -21,7 +21,8 @@ class HomeScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val extras = intent.extras
         if (extras != null) {
-            val valorRecibido = extras.getString("user") // "clave" debe ser la misma que usaste para enviar el dato
+            val valorRecibido =
+                extras.getString("user") // "clave" debe ser la misma que usaste para enviar el dato
         }
 
         binding = ActivityHomeScreenBinding.inflate(layoutInflater)
@@ -38,12 +39,12 @@ class HomeScreenActivity : AppCompatActivity() {
         val customToolbar = supportActionBar?.customView
         val textViewTitulo = customToolbar?.findViewById<TextView>(R.id.tvToolbar)
 
-     // Verificar si el TextView fue encontrado
+        // Verificar si el TextView fue encontrado
         if (textViewTitulo != null) {
             textViewTitulo.text = SharedPref.read("EMAIL", UserSingleton.currentUser?.email)
         }
 
         // Configura el BottomNavigationView con el NavController
-           navView.setupWithNavController(navController)
+        navView.setupWithNavController(navController)
     }
 }

@@ -14,10 +14,7 @@ class DateAdapter (private val dates:List<Dia>) : RecyclerView.Adapter<DateViewH
 
     override fun getItemCount(): Int  = dates.size
 
-
-
     override fun onBindViewHolder(holder: DateViewHolder, position: Int) {
         holder.render(dates[position])
     }
-
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import edu.ort.pastillapp.Helpers.NotificationUtils
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.databinding.ActivityInitBinding
 
@@ -17,6 +18,8 @@ class InitActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInitBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+
+        NotificationUtils.createNotificationChannels(this)
 
         SharedPref.init(applicationContext);
 

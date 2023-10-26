@@ -22,8 +22,6 @@ class TodayReminderViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         medName.text = "${reminder.name}" // - ${reminder.dosage}
         checkBox.isChecked = reminder.taken
         nextIntake.text = "Horario: ${Helpers().convertirFechaSoloHora( reminder.dateTime)}"
-
-
     }
 
     fun setOnMedicineClickListener (listener: OnClickNavigate) {

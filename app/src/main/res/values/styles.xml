@@ -19,6 +19,10 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:contentInsetStart">0dp</item>
         <item name="colorPrimary">@color/blue</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="FullScreenTheme" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="MyTimePickerDialogStyle" parent="Theme.AppCompat.Light.Dialog">
@@ -52,7 +56,4 @@
         <!-- Cambiar el color del texto -->
         <item name="android:textColor">@color/grey</item>
     </style>
-
-
-
 </resources>

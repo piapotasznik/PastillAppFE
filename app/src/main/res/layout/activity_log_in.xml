@@ -29,6 +29,8 @@
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/cardView" />
 
+
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="387dp"
@@ -38,7 +40,6 @@
         app:cardBackgroundColor="@color/celeste"
         app:cardCornerRadius="20dp"
         app:cardUseCompatPadding="true"
-
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,7 +127,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:fontFamily="@font/francois_one" />
-
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
