@@ -2,6 +2,7 @@ package edu.ort.pastillapp.Services
 
 import edu.ort.pastillapp.Models.ApiContactEmergencyServerResponse
 import edu.ort.pastillapp.Models.Reminder
+import edu.ort.pastillapp.Models.ReminderResponseById
 import edu.ort.pastillapp.Models.ReminderUpdate
 import retrofit2.Call
 import retrofit2.http.Body
@@ -15,8 +16,8 @@ interface ReminderService {
     // profe fun getUser(): Call<ApiResponse<User>>
     @GET("api/Reminder/{reminderId}")
     fun getReminderId(@Path("reminderId") userId: Int): Call<Reminder>
-    @GET("api/Reminder/{userId}/reminder")
-    fun getUserReminder(@Path("userId") email: String): Call<List<Reminder>>
+    @GET("api/Reminder/{id}/reminder")
+    fun getUserReminder(@Path("id") id: Int): Call<ReminderResponseById>
     @GET("api/Reminder")
     fun getReminders(): Call<List<Reminder>>
     @DELETE("api/Reminder/{reminderId}")

@@ -9,8 +9,10 @@
     <color name="celesteItem">#E5387DA8</color> //#E5387DA8
     <color name="celesteClaro">#6AE4EB</color>
     <color name="grey">#CCCCCC</color>
+    <color name="historical">#D9D9D9</color>
     <color name="gray_with_transparency">#80CCCCCC</color>
     <color name="blue">#206A98</color>
+    <color name="red">#E23636</color>
     <color name="transparent">#0076C6F8</color>
 
 </resources>
