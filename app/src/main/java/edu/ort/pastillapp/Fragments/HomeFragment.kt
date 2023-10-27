@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.databinding.FragmentHomeBinding
 import edu.ort.pastillapp.Helpers.Helpers
@@ -21,6 +22,7 @@ import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.Adapters.DateAdapter
 import edu.ort.pastillapp.Adapters.TodayReminderAdapter
 import edu.ort.pastillapp.Helpers.SharedPref
+import edu.ort.pastillapp.Models.ApiContactEmergencyServerResponse
 import edu.ort.pastillapp.ViewModels.HomeViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -64,6 +66,12 @@ class HomeFragment : Fragment(), OnClickNavigate {
 //        homeViewModel.isLoading.observe(viewLifecycleOwner, Observer {
 //            binding.loading.isVisible = it
 //        })
+
+        val emergencyContactBtn = binding.emergencyContactButton
+        emergencyContactBtn.setOnClickListener {
+            contactEmergencyUser(root)
+        }
+
         initRecylcerView()
         return root
     }
@@ -160,7 +168,7 @@ class HomeFragment : Fragment(), OnClickNavigate {
                             var userCreatedInformation = response.body()
                             UserSingleton.userId = userCreatedInformation?.userId
                             SharedPref.write(SharedPref.ID, userCreatedInformation?.userId)
-                            Log.e("tarde pero seguro", "el user id es ${ UserSingleton.userId }")
+                            Log.e("tarde pero seguro", "el user id es ${UserSingleton.userId}")
                             getTodayReminders()
                         }
                     }
@@ -173,4 +181,33 @@ class HomeFragment : Fragment(), OnClickNavigate {
             })
         }
     }
-}
+    fun contactEmergencyUser(view: View) {
+        val email = SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail)
+        if (email != null) {
+            val service = ActivityServiceApiBuilder.create()
+            service?.sendEmergencyMessage(email)?.enqueue(object : Callback<ApiContactEmergencyServerResponse> {
+                override fun onResponse(
+                    call: Call<ApiContactEmergencyServerResponse>,
+                    response: Response<ApiContactEmergencyServerResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val message = "Solicitud de emergencia enviada"
+                        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+                    } else {
+                        val message = "Error en la solicitud"
+                        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<ApiContactEmergencyServerResponse>, t: Throwable) {
+                    // Manejar errores de red o solicitud
+                    val message = "Error de comunicación"
+                    Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+                }
+            })
+        }
+    }
+    }
+
+
+
