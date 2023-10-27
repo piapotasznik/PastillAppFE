@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
-    tools:context=".ui.profile.ProfileFragment">
+    tools:context=".Fragments.ProfileFragment">
 
 
     <TextView
@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.197" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/txtSignOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sign_out"
