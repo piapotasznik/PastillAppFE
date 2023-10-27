@@ -20,12 +20,14 @@ import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.Models.ApiContactEmergencyList
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.Adapters.contactRequestAdapter
+import edu.ort.pastillapp.Helpers.SharedPref
+import edu.ort.pastillapp.Models.EmergencyRequestData
 
 class contactRequests : Fragment() {
     lateinit var v: View
 
-    //CAMBIAR CUANDO ESTE LA PERSISTENC
-    private var Correo: String = UserSingleton.currentUserEmail.toString()
+    private var email: String = SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail.toString())
+    private var list: MutableList<EmergencyRequestData> = mutableListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,58 +43,60 @@ class contactRequests : Fragment() {
 
         val backButton = v.findViewById<Button>(R.id.backButton)
         backButton.setOnClickListener {
-            findNavController().navigate(R.id.action_contactRequests2_to_navigation_profile)
+            findNavController().navigateUp()
         }
-        fun updateEmergencyRequestList() {
-            val userService = ActivityServiceApiBuilder.create()
-            val userMail = Correo
-            val call = userService.getEmergencyRequests(userMail)
 
+        val recyclerView = v.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val adapter = contactRequestAdapter(list)
+        recyclerView.adapter = adapter
 
-            call.enqueue(object : Callback<ApiContactEmergencyList> {
-                override fun onResponse(
-                    call: Call<ApiContactEmergencyList>,
-                    response: Response<ApiContactEmergencyList>
-                ) {
-
-                    val emergencyRequestResponse = response.body()
-                    val emergencyRequests =
-                        emergencyRequestResponse?.emergencyRequestList?.toMutableList()
-                    Log.d(
-                        "contactRequests",
-                        "Tamaño de la lista de solicitudes: ${emergencyRequests?.size ?: 0}"
-                    )
-
-                    val recyclerView = v.findViewById<RecyclerView>(R.id.recyclerView)
-                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-                    if (emergencyRequests != null && emergencyRequests.isNotEmpty()) {
-                        val adapter = contactRequestAdapter(emergencyRequests)
-                        recyclerView.adapter = adapter
-                    } else {
-                        val textViewNoRequests = v.findViewById<TextView>(R.id.textViewNoRequests)
-                        textViewNoRequests.visibility = View.VISIBLE
-                        Log.d("contactRequests", "Llegó a 'No hay solicitudes pendientes'")
-                    }
-                }
-
-                override fun onFailure(call: Call<ApiContactEmergencyList>, t: Throwable) {
-                    // Maneja errores de comunicación aquí
-                }
-            })
-        }
         // Handler para ejecutar la actualización periódica
         val handler = Handler()
         val delay: Long = 2000
         //60000 // Actualiza cada 60 seg. 1000 para pruebas
-
         handler.postDelayed(object : Runnable {
             override fun run() {
                 updateEmergencyRequestList()
                 handler.postDelayed(this, delay)
             }
         }, delay)
+        updateEmergencyRequestList()
         return v
     }
 
+    fun updateEmergencyRequestList() {
+        val userService = ActivityServiceApiBuilder.create()
+        val call = userService.getEmergencyRequests(email)
+
+
+        call.enqueue(object : Callback<ApiContactEmergencyList> {
+            override fun onResponse(
+                call: Call<ApiContactEmergencyList>,
+                response: Response<ApiContactEmergencyList>
+            ) {
+
+                val emergencyRequestResponse = response.body()
+                val emergencyRequests =
+                    emergencyRequestResponse?.emergencyRequestList?.toMutableList()
+                Log.d(
+                    "contactRequests",
+                    "Tamaño de la lista de solicitudes: ${emergencyRequests?.size ?: 0}"
+                )
+
+                if (emergencyRequests != null && emergencyRequests.isNotEmpty()) {
+                    list.clear()
+                    list.addAll(emergencyRequests)
+                } else {
+                    val textViewNoRequests = v.findViewById<TextView>(R.id.textViewNoRequests)
+                    textViewNoRequests.visibility = View.VISIBLE
+                    Log.d("contactRequests", "Llegó a 'No hay solicitudes pendientes'")
+                }
+            }
+
+            override fun onFailure(call: Call<ApiContactEmergencyList>, t: Throwable) {
+                // Maneja errores de comunicación aquí
+            }
+        })
+    }
 }
