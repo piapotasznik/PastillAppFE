@@ -19,8 +19,6 @@ class InitActivity : AppCompatActivity() {
         binding = ActivityInitBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        NotificationUtils.createNotificationChannels(this)
-
         SharedPref.init(applicationContext);
 
         binding?.btnLogIn?.setOnClickListener {

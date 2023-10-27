@@ -1,4 +1,4 @@
-package edu.ort.pastillapp.fragments
+package edu.ort.pastillapp.Fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.ort.pastillapp.R
-import edu.ort.pastillapp.adapters.contactRequestAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,6 +19,7 @@ import android.os.Handler
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.Models.ApiContactEmergencyList
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
+import edu.ort.pastillapp.Adapters.contactRequestAdapter
 
 class contactRequests : Fragment() {
     lateinit var v: View

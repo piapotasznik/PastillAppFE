@@ -1,4 +1,4 @@
-package edu.ort.pastillapp.adapters
+package edu.ort.pastillapp.Adapters
 
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView

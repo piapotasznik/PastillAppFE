@@ -132,7 +132,6 @@ class ProfileFragment : Fragment() {
                             profileSurname?.setText(userCreatedInformation?.lastName)
                             profileEmail?.setText(userCreatedInformation?.email)
                             contEmer?.setText(userCreatedInformation?.emergencyUser)
-                            //getEmergencyContactInformation(userMail)
                         }
                     }
                 }
