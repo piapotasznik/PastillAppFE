@@ -122,7 +122,7 @@ class RegisterPillFragment : Fragment() {
 
             ArrayAdapter.createFromResource(
                 it,
-                R.array.med_presentation,
+                R.array.medication_presentation,
                 android.R.layout.simple_spinner_item
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
