@@ -25,8 +25,10 @@
     <string name="title_medication_reminder">Hora de tomar la Medicación!</string>
     <string name="my_data">MIS DATOS</string>
     <string name="my_profile">MI PERFIL</string>
+    <string name="my_request">Personas con solicitud pendiente:</string>
     <string name="sign_out">CERRAR SESION</string>
-    <string name="emergency_contact">Contacto de Emergencia</string>
+    <string name="emergency_contact">Contacto de Emergencia actual</string>
+    <string name="new_mergency_contact"> Agregar nuevo </string>
     <string name="save">Guardar</string>
     <string name="register_pill_title">REGISTRAR</string>
     <string name="Posponer">Posponer</string>
@@ -35,6 +37,15 @@
     <string name="reminder_dose">Dosis:</string>
     <string name="reminder_presentation">Presentación:</string>
     <string name="reminder_date">Fecha programada:</string>
+    <string name="medicamento">Medicamento</string>
+    <string name="dosis">Dosis</string>
+    <string name="notificar_contacto">Notificar Contacto</string>
+    <string name="mantener_recordatorios_pendientes">Mantener Recordatorios Pendientes</string>
+    <string name="inicio_de_toma">Inicio de toma</string>
+    <string name="frecuencia">Frecuencia</string>
+    <string name="duraci_n_de_toma">Duración de toma</string>
+    <string name="notas_adicionales">Notas Adicionales</string>
+    <string name="presentacion">Presentacion</string>
     <string-array name="frecuency_intake_type">
         <item>Horas</item>
         <item>Dias</item>
