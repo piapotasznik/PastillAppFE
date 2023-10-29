@@ -23,7 +23,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvSearch"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="80dp"
         app:cardCornerRadius="15dp"
         android:layout_marginTop="30dp"
         android:layout_marginHorizontal="15dp"
@@ -35,20 +35,7 @@
     android:layout_height="match_parent"
     android:background="@color/celeste">
 
-<!--    <EditText-->
-<!--        android:id="@+id/searchMedName"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginHorizontal="15dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:backgroundTint="@color/grey"-->
-<!--        android:hint="@string/nombre_de_medicamento"-->
-<!--        android:textColor="@color/grey"-->
-<!--        android:textSize="23dp"-->
-<!--        android:fontFamily="@font/francois_one"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
     <SearchView
         android:id="@+id/serachView"
         android:layout_marginHorizontal="15dp"
@@ -64,37 +51,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-<!--    <Button-->
-<!--        android:id="@+id/btnSearch"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:text="@string/buscar"-->
-<!--        android:background="@drawable/round_button"-->
-<!--        android:backgroundTint="@color/white"-->
-<!--        android:textColor="@color/blue"-->
-<!--        android:fontFamily="@font/francois_one"-->
-<!--        android:textSize="20dp"-->
-<!--        style="@style/Theme.PastillApp.ButtonHistorical"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.156"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/serachView" />-->
 
-    <CheckBox
-        android:id="@+id/cbActive"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="@string/solo_activos"
-        android:textColor="@color/white"
-        android:textSize="16dp"
-        android:fontFamily="@font/francois_one"
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.877"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/serachView" />
+
 
 
 
@@ -105,7 +64,23 @@
 
     </androidx.cardview.widget.CardView>
 
+    <CheckBox
+        android:id="@+id/cbActive"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:fontFamily="@font/francois_one"
+        android:text="@string/solo_activos"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@id/cvListReminder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvSearch"
+        app:layout_constraintVertical_bias="0.235" />
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvListReminder"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:backgroundTint="@color/blue"
