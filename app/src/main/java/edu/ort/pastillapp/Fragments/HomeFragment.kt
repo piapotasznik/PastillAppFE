@@ -137,6 +137,7 @@ class HomeFragment : Fragment(), OnClickNavigate {
                     if (responseReminders != null) {
                         //  remidersLogs.postValue(responseReminders!!) // Actualiza el valor de remindersLogs
                         adapter.actualizarDatos(responseReminders)
+
                         Log.e("remindersLogs", "la respuesta esl ${responseReminders}")
                     }
                 } else {

@@ -129,7 +129,7 @@ class EditReminderFragment : Fragment() {
         val durationInEn = reminder.intakeTimeText.toString()
         val positionToSelectDuration =
             durationIntakeValues.indexOf(Helpers().translateFrequency(durationInEn))
-        binding.editNameMed.setText(reminder.medicineId.toString()) /// ver de corregir cuando tenga el nombre
+        binding.editNameMed.setText(reminder.medicineName.toString()) /// ver de corregir cuando tenga el nombre
         binding.editDosis.setText(reminder.quantity.toString())
         binding.emergencyCheckBox.isChecked = reminder.emergencyAlert
         binding.presentationSpinner.setSelection(positionToSelectPresentation)

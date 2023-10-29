@@ -17,21 +17,32 @@ import retrofit2.Response
 
 class HistoricalReminderViewModel : ViewModel() {
 
-    val remindersList = MutableLiveData<List<Reminder>>()
-
-
+    val remindersList = MutableLiveData<List<Reminder>?>()
+    val originalReminderList = MutableLiveData<List<Reminder>>()
+    val onlyActive = MutableLiveData<Boolean>()
 
     fun onCreate() {
-        //Aca creo ese objecto
+        onlyActive.postValue(false)
 
         viewModelScope.launch {
              getAllReminders { responseReminders ->
                  remindersList.postValue(responseReminders)
-                 Log.d("que pasa", responseReminders.toString())
+                 originalReminderList.postValue(responseReminders)
+
              }
         }
     }
 
+    fun resetOriginalList() {
+        val originalReminders = originalReminderList.value
+        Log.d("original", "la lista esta ${originalReminders.toString()}")
+        if (!originalReminders.isNullOrEmpty()){
+            remindersList.postValue(originalReminders)
+            Log.d("original", "paso el null or empty ${originalReminders.toString()}")
+
+        }
+
+    }
 
     private fun getAllReminders(callback: (List<Reminder>) -> Unit) {
         val service = ActivityServiceApiBuilder.createReminder()
@@ -57,6 +68,13 @@ class HistoricalReminderViewModel : ViewModel() {
                 Log.e("Example", t.stackTraceToString())
             }
         })
+    }
+    fun updateState(state : Boolean){
+        onlyActive.postValue(state)
+        if (!state){
+            resetOriginalList()
+
+        }
     }
 
 
