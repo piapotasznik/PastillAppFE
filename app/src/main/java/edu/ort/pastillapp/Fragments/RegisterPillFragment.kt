@@ -16,8 +16,6 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.ui.text.capitalize
-import androidx.compose.ui.text.toLowerCase
 import edu.ort.pastillapp.R
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -25,11 +23,8 @@ import androidx.navigation.fragment.findNavController
 import edu.ort.pastillapp.Helpers.Helpers
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Helpers.UserSingleton
-import edu.ort.pastillapp.Helpers.formatter
-import edu.ort.pastillapp.Helpers.setTime
 import edu.ort.pastillapp.Models.ApiContactEmergencyServerResponse
 import edu.ort.pastillapp.Models.Medicine
-import edu.ort.pastillapp.Models.Reminder
 import edu.ort.pastillapp.Models.ReminderCreation
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder.createReminder
@@ -38,12 +33,9 @@ import edu.ort.pastillapp.databinding.FragmentRegisterPillBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.LocalDate
 import edu.ort.pastillapp.ViewModels.RegisterPillViewModel
-import java.time.LocalTime
 import java.util.Calendar
 import java.util.Locale
-import kotlin.math.log
 
 
 class RegisterPillFragment : Fragment() {
@@ -93,15 +85,9 @@ class RegisterPillFragment : Fragment() {
         savebtn = binding.saveReminderBtn
         savebtn?.setOnClickListener {
             saveReminder()
-            OnClickNavigate()
         }
 
-
         fillSpinnerValues()
-        /*
-        setUpTime()
-        setUpDate()
-         */
         return root
     }
 
@@ -110,7 +96,7 @@ class RegisterPillFragment : Fragment() {
         _binding = null
     }
 
-    fun OnClickNavigate() {
+    private fun onClickNavigate() {
         val action = RegisterPillFragmentDirections.actionNavigationRegisterPillToNavigationHome()
         this.findNavController().navigate(action)
     }
@@ -180,7 +166,7 @@ class RegisterPillFragment : Fragment() {
         }
     }
 
-    fun showDateTimePicker() {
+    private fun showDateTimePicker() {
         val currentLocale = Locale("es")
         Locale.setDefault(currentLocale)
         val config = Configuration()
@@ -223,15 +209,11 @@ class RegisterPillFragment : Fragment() {
         datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
         datePickerDialog.show()
     }
-    private fun showDialog(observer: TimePickerDialog.OnTimeSetListener) {
-        TimePickerFragment.newInstance(observer)
-            .show(getParentFragmentManager(), "time-picker")
-    }
 
     private fun saveReminder() {
         //val medicine: String = medicineSpinner?.selectedItem.toString() // ACA EN VEZ DEL NOMBRE IRIA EL MEDICINE_ID
         val medicine: Int = 1 //ESTO ESTÁ HARDCODEADO. PONER EL ID DE MEDICINA
-        val userId: Int? = UserSingleton.userId?.let { SharedPref.read(SharedPref.ID, it) }
+        val userId: Int? = SharedPref.read(SharedPref.ID, UserSingleton.userId!!)
         val emergencyAlert: Boolean = notifyCheckBox?.isChecked == true
         val dose: String = doseInput?.text.toString()
         val presentation: String = presentationSpinner?.selectedItem.toString()
@@ -242,7 +224,7 @@ class RegisterPillFragment : Fragment() {
         val valueDuration: Int = binding.quantityDurationSpinner.selectedItem.toString().toInt()
         val observation: String? = binding.editNotes3.text.toString()
 
-        if (dose.isEmpty()) {
+        if (dose.isEmpty() || dateTimeInput?.text.toString() == "Seleccionar fecha y hora") {
             doseInput?.setError("Campo obligatorio")
             errorMsg?.visibility = View.VISIBLE
             errorMsg?.text =
@@ -251,7 +233,6 @@ class RegisterPillFragment : Fragment() {
                 errorMsg?.visibility = View.INVISIBLE
             }, 3000)
         } else {
-            // CREAR EL OBJETO REMINDER Y LA PEGADA DE CREATE REMINDER
             val newReminderCreation = ReminderCreation(
                 userId ?: 0, // Asigna 0 si userId es nulo
                 medicineId = medicine,
@@ -261,16 +242,15 @@ class RegisterPillFragment : Fragment() {
                 frequencyType =  valueFrequency,
                 frequencyValue =  quantityFrequency,
                 durationType =  quantityDuration,
-                durationValue = valueDuration.toInt(), // Asegúrate de convertir a Int
+                durationValue = valueDuration, // Asegúrate de convertir a Int
                 emergencyAlert = emergencyAlert,
                 observation = observation
             )
             create(newReminderCreation)
-            Toast.makeText(requireContext(), "Recordatorio registrado!", Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun create(reminderCreation: ReminderCreation){
+    private fun create(reminderCreation: ReminderCreation){
         val service = ActivityServiceApiBuilder.createReminder()
         val call = service.createReminder(reminderCreation)
 
@@ -282,18 +262,21 @@ class RegisterPillFragment : Fragment() {
                 if (response.isSuccessful) {
                     val respuesta = response.body()
                     Log.e("put33", respuesta.toString())
-                    // Procesar la respuesta
+                    Toast.makeText(requireContext(), "Recordatorio registrado!", Toast.LENGTH_SHORT).show()
+                    onClickNavigate()
+
                 } else {
                     // Manejar la respuesta de error
                     val errorBody = response.errorBody()?.string()
                     Log.e("put33", "Respuesta fallo en el else: $errorBody")
                     Log.e("put33", createReminder().toString())
+                    Toast.makeText(requireContext(), "Error al registrar un recordatorio", Toast.LENGTH_SHORT).show()
                 }
             }
-
             override fun onFailure(call: Call<ApiContactEmergencyServerResponse>, t: Throwable) {
                 // Manejar el error de la solicitud
                 Log.e("put33", "respuesta fallo en el failure")
+                Toast.makeText(requireContext(), "Error al registrar un recordatorio", Toast.LENGTH_SHORT).show()
             }
         })
     }
