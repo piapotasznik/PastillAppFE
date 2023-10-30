@@ -21,6 +21,7 @@ import androidx.compose.ui.text.toLowerCase
 import edu.ort.pastillapp.R
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import edu.ort.pastillapp.Helpers.Helpers
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Helpers.UserSingleton
@@ -92,6 +93,7 @@ class RegisterPillFragment : Fragment() {
         savebtn = binding.saveReminderBtn
         savebtn?.setOnClickListener {
             saveReminder()
+            OnClickNavigate()
         }
 
 
@@ -106,6 +108,11 @@ class RegisterPillFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun OnClickNavigate() {
+        val action = RegisterPillFragmentDirections.actionNavigationRegisterPillToNavigationHome()
+        this.findNavController().navigate(action)
     }
 
     private fun fillSpinnerValues() {
@@ -259,7 +266,7 @@ class RegisterPillFragment : Fragment() {
                 observation = observation
             )
             create(newReminderCreation)
-            Log.d("Exito!", valueFrequency)
+            Toast.makeText(requireContext(), "Recordatorio registrado!", Toast.LENGTH_SHORT).show()
         }
     }
 
