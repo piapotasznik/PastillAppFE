@@ -26,7 +26,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="410dp"
+        android:layout_height="430dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
@@ -128,7 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="72dp"
+                android:layout_marginBottom="100dp"
                 android:backgroundTint="@color/pink"
                 android:gravity="center"
                 android:padding="12dp"
@@ -148,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="1dp"
                 android:layout_marginEnd="2dp"
                 android:background="@drawable/edit_text_background"
                 android:ems="10"
@@ -161,13 +161,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/saveContactBtn"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/saveBtn" />
+                app:layout_constraintTop_toBottomOf="@+id/saveBtn"
+                app:layout_constraintVertical_bias="0.176" />
 
             <Button
                 android:id="@+id/saveContactBtn"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="5dp"
                 android:backgroundTint="@color/pink"
@@ -178,7 +179,25 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/myProfileEmergencyContact"
-                app:layout_constraintTop_toBottomOf="@+id/saveBtn" />
+                app:layout_constraintTop_toBottomOf="@+id/saveBtn"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <Button
+                android:id="@+id/deteleContactBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="69dp"
+                android:backgroundTint="@color/pink"
+                android:text="Eliminar Contacto"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:fontFamily="@font/francois_one"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.39"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/myProfileEmergencyContact"
+                app:layout_constraintVertical_bias="0.875" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -200,13 +219,14 @@
         android:id="@+id/ContactsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/pink"
         android:text="Ver Solicitudes de Contacto pendientes"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:backgroundTint="@color/pink"
         app:fontFamily="@font/francois_one"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
