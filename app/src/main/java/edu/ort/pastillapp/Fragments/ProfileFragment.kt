@@ -239,13 +239,11 @@ class ProfileFragment : Fragment() {
                                         "El correo ya está agendado como contacto de emergencia"
                                     )
                                 } else {
-
                                     val alertDialog = AlertDialog.Builder(requireContext())
                                     alertDialog.setTitle("Confirmación")
                                     alertDialog.setMessage("¿Desea agregar a $name $lastName como contacto de referencia?")
 
                                     alertDialog.setPositiveButton("Sí") { _, _ ->
-
                                         val contactRequest = email?.let {
                                             ApiContactEmergencyRequest(
                                                 userMail = it,
@@ -257,7 +255,6 @@ class ProfileFragment : Fragment() {
                                                 it
                                             )
                                         }
-
                                         call?.enqueue(object : Callback<Void> {
                                             override fun onResponse(
                                                 call: Call<Void>,
@@ -312,7 +309,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun deleteContact(){
-        val userService = ActivityServiceApiBuilder.create()
         val emailToDelete = contEmer?.text.toString()
 
         if (emailToDelete.isEmpty()) {
@@ -321,17 +317,15 @@ class ProfileFragment : Fragment() {
             val alertDialog = AlertDialog.Builder(requireContext())
             alertDialog.setTitle("Confirmación")
             alertDialog.setMessage("¿Desea eliminar a $emailToDelete como contacto de emergencia?")
-
             alertDialog.setPositiveButton("Sí") { _, _ ->
                 email?.let {
-                    userService.deleteEmergencyContact(it)
-                        .enqueue(object : Callback<Void> {
+                    this.userService?.deleteEmergencyContact(it)
+                        ?.enqueue(object : Callback<Void> {
                             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                 if (response.isSuccessful) {
                                         mostrarMensaje(requireContext(), "Contacto de emergencia eliminado con éxito.")
                                     contEmer?.text = null
                                     setUserInformation()
-
                                 } else {
                                     mostrarMensaje(
                                         requireContext(),
@@ -339,7 +333,6 @@ class ProfileFragment : Fragment() {
                                     )
                                 }
                             }
-
                             override fun onFailure(call: Call<Void>, t: Throwable) {
                                 mostrarMensaje(
                                     requireContext(),

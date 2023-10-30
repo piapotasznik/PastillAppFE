@@ -73,7 +73,7 @@
     </fragment>
     <fragment
     android:id="@+id/contactRequests2"
-    android:name="edu.ort.pastillapp.fragments.contactRequests"
+    android:name="edu.ort.pastillapp.Fragments.contactRequests"
     android:label="fragment_contact_requests"
     tools:layout="@layout/fragment_contact_requests" >
         <action
