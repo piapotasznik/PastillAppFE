@@ -47,4 +47,6 @@ interface UserService {
     @POST("api/User/contact-emergency/request")
     fun sendEmergencyRequestResponse(@Body request: ApiEmergencyContactResponseDTO): Call<ApiContactEmergencyServerResponse>
 
+    @POST("api/User/SendEmergencyMessage")
+    fun sendEmergencyMessage(@Query("userMail") userMail: String): Call<ApiContactEmergencyServerResponse>
 }
