@@ -51,16 +51,16 @@ class ContactRequestsFragment : Fragment() {
         val adapter = ContactRequestAdapter(list)
         recyclerView.adapter = adapter
 
-        // Handler para ejecutar la actualización periódica
-        val handler = Handler()
-        val delay: Long = 2000
-        //60000 // Actualiza cada 60 seg. 1000 para pruebas
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                updateEmergencyRequestList()
-                handler.postDelayed(this, delay)
-            }
-        }, delay)
+//        // Handler para ejecutar la actualización periódica
+//        val handler = Handler()
+//        val delay: Long = 2000
+//        //60000 // Actualiza cada 60 seg. 1000 para pruebas
+//        handler.postDelayed(object : Runnable {
+//            override fun run() {
+//                updateEmergencyRequestList()
+//                handler.postDelayed(this, delay)
+//            }
+//        }, delay)
         updateEmergencyRequestList()
         return v
     }
