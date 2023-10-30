@@ -24,7 +24,7 @@
         android:id="@+id/navigation_symptoms"
         android:name="edu.ort.pastillapp.Fragments.SymptomsFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_symtoms" />
+        tools:layout="@layout/fragment_symptoms" />
 
     <fragment
         android:id="@+id/navigation_profile"

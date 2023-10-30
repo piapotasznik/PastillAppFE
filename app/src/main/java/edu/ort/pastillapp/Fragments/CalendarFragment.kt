@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import edu.ort.pastillapp.databinding.FragmentMedicationReminderBinding
-import edu.ort.pastillapp.ViewModels.SymtomsViewModel
+import edu.ort.pastillapp.ViewModels.SymptomsViewModel
 import edu.ort.pastillapp.databinding.FragmentCalendarBinding
 
 
@@ -25,7 +24,7 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(SymtomsViewModel::class.java)
+            ViewModelProvider(this).get(SymptomsViewModel::class.java)
 
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
         val root: View = binding.root
