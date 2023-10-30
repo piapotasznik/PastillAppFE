@@ -10,20 +10,6 @@
 
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/my_profile"
-        android:textColor="@color/celesteClaro"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.133"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.197" />
-
-    <TextView
         android:id="@+id/txtSignOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -96,7 +82,6 @@
                 android:textColor="@color/grey"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewReminder" />
 
@@ -162,7 +147,9 @@
                 style="@style/GrayText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="2dp"
                 android:background="@drawable/edit_text_background"
                 android:ems="10"
                 android:hint="@string/emergency_contact"
@@ -174,13 +161,14 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/saveContactBtn"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/saveBtn" />
+                app:layout_constraintTop_toBottomOf="@+id/saveBtn" />
 
             <Button
                 android:id="@+id/saveContactBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="72dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="5dp"
                 android:backgroundTint="@color/pink"
                 android:text="@string/new_mergency_contact"
@@ -189,8 +177,8 @@
                 app:fontFamily="@font/francois_one"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/saveBtn"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintStart_toEndOf="@+id/myProfileEmergencyContact"
+                app:layout_constraintTop_toBottomOf="@+id/saveBtn" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
