@@ -17,10 +17,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class contactRequestAdapter(private val emergencyRequests: MutableList<EmergencyRequestData>) :
-    RecyclerView.Adapter<contactRequestAdapter.ViewHolder>() {
+class ContactRequestAdapter(private val emergencyRequests: MutableList<EmergencyRequestData>) :
+    RecyclerView.Adapter<ContactRequestAdapter.ViewHolder>() {
 
-    //CAMBIAR CUANDO ESTE LA PERSISTENC
     private var email: String =
         SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail.toString())
 
@@ -39,7 +38,6 @@ class contactRequestAdapter(private val emergencyRequests: MutableList<Emergency
     override fun getItemCount(): Int {
         return emergencyRequests.size
     }
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val request = emergencyRequests[position]
@@ -71,7 +69,11 @@ class contactRequestAdapter(private val emergencyRequests: MutableList<Emergency
         }
     }
 
-    fun sendResponseToContact(emergencyRequestId: Int, response: Boolean, userMail: String) {
+    private fun sendResponseToContact(
+        emergencyRequestId: Int,
+        response: Boolean,
+        userMail: String
+    ) {
         val userService = ActivityServiceApiBuilder.create()
 
         if (emergencyRequestId != null) {

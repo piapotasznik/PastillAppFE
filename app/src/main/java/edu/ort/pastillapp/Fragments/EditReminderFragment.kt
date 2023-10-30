@@ -138,7 +138,7 @@ class EditReminderFragment : Fragment() {
         binding.editDurationIntake.setSelection(positionToSelectDuration)
         binding.editDurationNum.setSelection(reminder.intakeTimeNumber - 1)
         binding.editNotes.setText(reminder.observation)
-        val dateFormat = reminder.dateTimeStart?.let { Helpers().convertirFecha(it) }
+        val dateFormat = reminder.dateTimeStart?.let { Helpers().convertDate(it) }
         binding.editDateIntake.setText(dateFormat)
     }
 
@@ -151,7 +151,7 @@ class EditReminderFragment : Fragment() {
             binding.editDurationIntake.selectedItem.toString()
         )
         Log.e("put33", binding.editDateIntake.text.toString())
-        val dateFromat = Helpers().convertirFechaInversa(binding.editDateIntake.text.toString())
+        val dateFromat = Helpers().convertInvertDate(binding.editDateIntake.text.toString())
         var updateReminder = reminderid?.let {
             ReminderUpdate(
                 it,

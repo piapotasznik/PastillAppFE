@@ -16,14 +16,22 @@ interface ReminderService {
     // profe fun getUser(): Call<ApiResponse<User>>
     @GET("api/Reminder/{reminderId}")
     fun getReminderId(@Path("reminderId") userId: Int): Call<Reminder>
+
     @GET("api/Reminder/{id}/reminder")
     fun getUserReminder(@Path("id") id: Int): Call<ReminderResponseById>
+
     @GET("api/Reminder")
     fun getReminders(): Call<List<Reminder>>
+
     @DELETE("api/Reminder/{reminderId}")
     fun deleteReminderId(@Path("reminderId") reminderId: Int): Call<Void>
+
     @PUT("api/Reminder/{reminderId}")
-    fun putReminderId(@Path("reminderId") reminderId: Int, @Body body:ReminderUpdate): Call<ApiContactEmergencyServerResponse>
+    fun putReminderId(
+        @Path("reminderId") reminderId: Int,
+        @Body body: ReminderUpdate
+    ): Call<ApiContactEmergencyServerResponse>
+
     @POST("api/Reminder")
     fun createReminder(@Body reminder: Reminder): Call<Void>
 }

@@ -10,7 +10,7 @@ import edu.ort.pastillapp.databinding.FragmentSymtomsBinding
 import edu.ort.pastillapp.ViewModels.SymtomsViewModel
 
 
-class SymtomsFragment : Fragment()  {
+class SymptomsFragment : Fragment()  {
     private var _binding: FragmentSymtomsBinding? = null
 
     // This property is only valid between onCreateView and

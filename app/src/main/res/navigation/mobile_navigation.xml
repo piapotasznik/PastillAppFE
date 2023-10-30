@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_symptoms"
-        android:name="edu.ort.pastillapp.Fragments.SymtomsFragment"
+        android:name="edu.ort.pastillapp.Fragments.SymptomsFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_symtoms" />
 
@@ -47,7 +47,7 @@
         tools:layout="@layout/fragment_calendar" />
     <fragment
         android:id="@+id/medicationReminder"
-        android:name="edu.ort.pastillapp.Fragments.medicationReminder"
+        android:name="edu.ort.pastillapp.Fragments.MedicationReminderFragment"
         android:label="fragment_medication_reminder"
         tools:layout="@layout/fragment_medication_reminder" />
     <fragment
@@ -73,7 +73,7 @@
     </fragment>
     <fragment
     android:id="@+id/contactRequests2"
-    android:name="edu.ort.pastillapp.fragments.contactRequests"
+    android:name="edu.ort.pastillapp.Fragments.ContactRequestsFragment"
     android:label="fragment_contact_requests"
     tools:layout="@layout/fragment_contact_requests" >
         <action

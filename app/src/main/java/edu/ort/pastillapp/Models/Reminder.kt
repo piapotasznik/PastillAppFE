@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.util.Date
 
-data class Reminder (
+data class Reminder(
     val reminderId: Int,
     val userId: Int,
     var medicineId: Int,
@@ -18,8 +18,8 @@ data class Reminder (
     var intakeTimeNumber: Int,
     var intakeTimeText: String?,
     var endDateTime: String?, // Cambiado a Date
-    var user:String?,
-    var medicineName:String?,
+    var user: String?,
+    var medicineName: String?,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -56,7 +56,6 @@ data class Reminder (
         parcel.writeString(user)
         parcel.writeString(medicineName)
     }
-
 
 
     fun Parcel.readDate(): Date? {

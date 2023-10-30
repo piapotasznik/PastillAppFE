@@ -19,11 +19,11 @@ import android.os.Handler
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.Models.ApiContactEmergencyList
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
-import edu.ort.pastillapp.Adapters.contactRequestAdapter
+import edu.ort.pastillapp.Adapters.ContactRequestAdapter
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Models.EmergencyRequestData
 
-class contactRequests : Fragment() {
+class ContactRequestsFragment : Fragment() {
     lateinit var v: View
 
     private var email: String = SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail.toString())
@@ -48,7 +48,7 @@ class contactRequests : Fragment() {
 
         val recyclerView = v.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = contactRequestAdapter(list)
+        val adapter = ContactRequestAdapter(list)
         recyclerView.adapter = adapter
 
         // Handler para ejecutar la actualización periódica

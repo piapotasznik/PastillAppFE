@@ -58,6 +58,7 @@
     <string name="accion">Accion</string>
     <string name="ver_detalle">Ver Detalle</string>
     <string name="iniciado">Iniciado</string>
+
     <string-array name="frecuency_intake_type">
         <item>Horas</item>
         <item>Dias</item>
@@ -70,6 +71,7 @@
         <item>Meses</item>
         <item>Años</item>
     </string-array>
+
     <string-array name="frecuency_intake_duration">
         <item>1</item>
         <item>2</item>
@@ -103,6 +105,7 @@
         <item>30</item>
         <item>31</item>
     </string-array>
+
     <string-array name="med_presentation">
         <item>polvos</item>
         <item>granulados</item>

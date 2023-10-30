@@ -22,5 +22,4 @@ interface TokenService {
 
     @GET("api/Token/{email}")
     fun getUserEmail(@Path("email") email: String): Call<ApiTokenResponse>
-
 }

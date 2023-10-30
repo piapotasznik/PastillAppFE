@@ -10,7 +10,6 @@ object NotificationUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
             // Configura el canal de notificación predeterminado
             val defaultChannel = NotificationChannel(
                 "ppal",
@@ -19,7 +18,6 @@ object NotificationUtils {
             )
             defaultChannel.description = "Descripción del Canal Predeterminado"
             notificationManager.createNotificationChannel(defaultChannel)
-
             // Puedes agregar más canales de notificación si es necesario aquí
         }
     }
