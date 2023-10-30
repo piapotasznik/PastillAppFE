@@ -192,33 +192,38 @@ class HomeFragment : Fragment(), OnClickNavigate {
             })
         }
     }
+
     fun contactEmergencyUser() {
         val email = SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail)
         if (email != null) {
             val service = ActivityServiceApiBuilder.create()
-            service?.sendEmergencyMessage(email)?.enqueue(object : Callback<ApiContactEmergencyServerResponse> {
-                override fun onResponse(
-                    call: Call<ApiContactEmergencyServerResponse>,
-                    response: Response<ApiContactEmergencyServerResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val message = "Solicitud de emergencia enviada"
-                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                    } else {
-                        val message = "Error en la solicitud"
+            service?.sendEmergencyMessage(email)
+                ?.enqueue(object : Callback<ApiContactEmergencyServerResponse> {
+                    override fun onResponse(
+                        call: Call<ApiContactEmergencyServerResponse>,
+                        response: Response<ApiContactEmergencyServerResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            val message = "Solicitud de emergencia enviada"
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                        } else {
+                            val message = "Error en la solicitud"
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(
+                        call: Call<ApiContactEmergencyServerResponse>,
+                        t: Throwable
+                    ) {
+                        // Manejar errores de red o solicitud
+                        val message = "Error de comunicación"
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                     }
-                }
-
-                override fun onFailure(call: Call<ApiContactEmergencyServerResponse>, t: Throwable) {
-                    // Manejar errores de red o solicitud
-                    val message = "Error de comunicación"
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                }
-            })
+                })
         }
     }
-    }
+}
 
 
 
