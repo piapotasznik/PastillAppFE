@@ -99,6 +99,10 @@ class ProfileFragment : Fragment() {
         buttonUpdateContact.setOnClickListener {
             saveEmergencyContact()
         }
+        val buttonDeleteContact = binding.deteleContactBtn
+        buttonDeleteContact.setOnClickListener(){
+            deleteContact()
+        }
 
         binding.txtSignOut.setOnClickListener {
             if (auth.currentUser != null) {
@@ -307,6 +311,52 @@ class ProfileFragment : Fragment() {
             })
     }
 
+    private fun deleteContact(){
+        val userService = ActivityServiceApiBuilder.create()
+        val emailToDelete = contEmer?.text.toString()
+
+        if (emailToDelete.isEmpty()) {
+            mostrarMensaje(requireContext(), "No tienes un contacto de emergencia para eliminar.")
+        } else {
+            val alertDialog = AlertDialog.Builder(requireContext())
+            alertDialog.setTitle("Confirmación")
+            alertDialog.setMessage("¿Desea eliminar a $emailToDelete como contacto de emergencia?")
+
+            alertDialog.setPositiveButton("Sí") { _, _ ->
+                email?.let {
+                    userService.deleteEmergencyContact(it)
+                        .enqueue(object : Callback<Void> {
+                            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                if (response.isSuccessful) {
+                                        mostrarMensaje(requireContext(), "Contacto de emergencia eliminado con éxito.")
+                                    contEmer?.text = null
+                                    setUserInformation()
+
+                                } else {
+                                    mostrarMensaje(
+                                        requireContext(),
+                                        "Error al eliminar el contacto de emergencia. Inténtalo de nuevo."
+                                    )
+                                }
+                            }
+
+                            override fun onFailure(call: Call<Void>, t: Throwable) {
+                                mostrarMensaje(
+                                    requireContext(),
+                                    "Error al eliminar el contacto de emergencia. Inténtalo de nuevo."
+                                )
+                            }
+                        })
+                }
+            }
+
+            alertDialog.setNegativeButton("No") { _, _ ->
+                // El usuario seleccionó "No", no hacemos ninguna acción adicional.
+            }
+
+            alertDialog.show()
+        }
+    }
     fun mostrarMensaje(context: Context, mensaje: String) {
         val builder = AlertDialog.Builder(context)
         builder.setMessage(mensaje)
