@@ -49,4 +49,6 @@ interface UserService {
 
     @POST("api/User/SendEmergencyMessage")
     fun sendEmergencyMessage(@Query("userMail") userMail: String): Call<ApiContactEmergencyServerResponse>
+    @DELETE("api/User/DeleteEmergencyContact")
+    fun deleteEmergencyContact(@Query("userMail") userMail: String): Call<Void>
 }
