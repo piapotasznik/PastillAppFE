@@ -45,6 +45,19 @@
     <string name="duraci_n_de_toma">Duración de toma</string>
     <string name="notas_adicionales">Notas Adicionales</string>
     <string name="presentacion">Presentacion</string>
+    <string name="emergencias">Emergencias</string>
+    <string name="ver_recordatorios">Ver Recordatorios</string>
+    <string name="recordatorios">Recordatorios</string>
+    <string name="nombre_de_medicamento">Nombre de Medicamento</string>
+    <string name="buscar">Buscar</string>
+    <string name="solo_activos">Solo activos</string>
+    <string name="acciones">Acciones</string>
+    <string name="limpiar">Limpiar</string>
+    <string name="fecha_desde">"Fecha Desde "</string>
+    <string name="fecha">Fecha</string>
+    <string name="accion">Accion</string>
+    <string name="ver_detalle">Ver Detalle</string>
+    <string name="iniciado">Iniciado</string>
     <string-array name="frecuency_intake_type">
         <item>Horas</item>
         <item>Dias</item>

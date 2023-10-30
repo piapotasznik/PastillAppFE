@@ -2,6 +2,7 @@ package edu.ort.pastillapp.Helpers
 
 import edu.ort.pastillapp.Models.Dia
 import java.text.DateFormatSymbols
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -64,6 +65,14 @@ fun dayToday (): Int{
         val fecha: Date = formatoEntrada.parse(fechaString) ?: Date()
         return formatoSalida.format(fecha)
     }
+
+    fun convertirFechaSola(fechaString: String): String {
+        val formatoEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val formatoSalida = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+
+        val fecha: Date = formatoEntrada.parse(fechaString) ?: Date()
+        return formatoSalida.format(fecha)
+    }
     fun convertirFechaSoloHora(fechaString: String): String {
         val formatoEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
         val formatoSalida = SimpleDateFormat("HH:mm", Locale.getDefault())
@@ -79,6 +88,19 @@ fun dayToday (): Int{
 
         val fecha: Date = formatoEntrada.parse(fechaString) ?: Date()
         return formatoSalida.format(fecha)
+    }
+
+    fun fechaYaPaso(fechaAComparar:String) : Boolean{
+        val formato = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault())
+        return try {
+            val fecha = formato.parse(fechaAComparar)
+            val fechaActual = Date()
+
+            fecha != null && fecha.before(fechaActual)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            false
+        }
     }
 
     fun translateFrequency(englishText: String): String {

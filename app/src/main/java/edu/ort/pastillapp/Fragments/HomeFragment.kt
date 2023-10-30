@@ -68,6 +68,17 @@ class HomeFragment : Fragment(), OnClickNavigate {
         return root
     }
 
+    override fun onStart() {
+        super.onStart()
+        val btnReminderHistory = binding.btnReminderHistory
+
+        btnReminderHistory.setOnClickListener {
+            val action = HomeFragmentDirections.actionNavigationHomeToHistoricalReminderFragment()
+            findNavController().navigate(action)
+        }
+    }
+
+
     override fun onPause() {
         super.onPause()
         backFromFragment = true
@@ -126,6 +137,7 @@ class HomeFragment : Fragment(), OnClickNavigate {
                     if (responseReminders != null) {
                         //  remidersLogs.postValue(responseReminders!!) // Actualiza el valor de remindersLogs
                         adapter.actualizarDatos(responseReminders)
+
                         Log.e("remindersLogs", "la respuesta esl ${responseReminders}")
                     }
                 } else {
