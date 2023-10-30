@@ -2,6 +2,7 @@ package edu.ort.pastillapp.Services
 
 import edu.ort.pastillapp.Models.ApiContactEmergencyServerResponse
 import edu.ort.pastillapp.Models.Reminder
+import edu.ort.pastillapp.Models.ReminderCreation
 import edu.ort.pastillapp.Models.ReminderUpdate
 import retrofit2.Call
 import retrofit2.http.Body
@@ -25,4 +26,6 @@ interface ReminderService {
     fun putReminderId(@Path("reminderId") reminderId: Int, @Body body:ReminderUpdate): Call<ApiContactEmergencyServerResponse>
     @POST("api/Reminder")
     fun createReminder(@Body reminder: Reminder): Call<Void>
+    @POST("api/Reminder")
+    fun createReminder(@Body reminder: ReminderCreation): Call<ApiContactEmergencyServerResponse>
 }

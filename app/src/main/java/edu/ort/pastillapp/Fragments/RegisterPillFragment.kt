@@ -2,8 +2,10 @@ package edu.ort.pastillapp.Fragments
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +16,22 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.toLowerCase
 import edu.ort.pastillapp.R
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import edu.ort.pastillapp.Helpers.Helpers
+import edu.ort.pastillapp.Helpers.SharedPref
+import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.Helpers.formatter
 import edu.ort.pastillapp.Helpers.setTime
+import edu.ort.pastillapp.Models.ApiContactEmergencyServerResponse
 import edu.ort.pastillapp.Models.Medicine
+import edu.ort.pastillapp.Models.Reminder
+import edu.ort.pastillapp.Models.ReminderCreation
+import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
+import edu.ort.pastillapp.Services.ActivityServiceApiBuilder.createReminder
 import edu.ort.pastillapp.Services.MedicineService
 import edu.ort.pastillapp.databinding.FragmentRegisterPillBinding
 import retrofit2.Call
@@ -28,6 +40,9 @@ import retrofit2.Response
 import java.time.LocalDate
 import edu.ort.pastillapp.ViewModels.RegisterPillViewModel
 import java.time.LocalTime
+import java.util.Calendar
+import java.util.Locale
+import kotlin.math.log
 
 
 class RegisterPillFragment : Fragment() {
@@ -38,8 +53,7 @@ class RegisterPillFragment : Fragment() {
     private var medicineService: MedicineService? = null
     private var doseInput: EditText? = null
     private var presentationSpinner: Spinner? = null
-    private var dateInput: TextView? = null
-    private var timeInput: TextView? = null
+    private var dateTimeInput: TextView? = null
     private var quantityFrequencySpinner: Spinner? = null
     private var valueFrequencySpinner: Spinner? = null
     private var valueDurationSpinner: Spinner? = null
@@ -47,6 +61,7 @@ class RegisterPillFragment : Fragment() {
     private var savebtn: Button? = null
     private var errorMsg: TextView? = null
     private var medicines: List<Medicine>? = null
+    private var observation: EditText? = null
 
     private val binding get() = _binding!!
 
@@ -65,12 +80,13 @@ class RegisterPillFragment : Fragment() {
         notifyCheckBox = binding.notifyCheckBox
         doseInput = binding.doseInput
         presentationSpinner = binding.presentationSpinner
-        dateInput = binding.dateInput
-        timeInput = binding.timeInput
+        dateTimeInput = binding.dateTimeInput
+        dateTimeInput!!.setOnClickListener { showDateTimePicker() }
         quantityFrequencySpinner = binding.quantityFrequencySpinner
         valueFrequencySpinner = binding.valueFrequencySpinner
         valueDurationSpinner = binding.valueDurationSpinner
         quantityDurationSpinner = binding.quantityDurationSpinner
+        observation = binding.editNotes3
         errorMsg = binding.errorMsg
         errorMsg?.visibility = View.INVISIBLE
         savebtn = binding.saveReminderBtn
@@ -78,10 +94,12 @@ class RegisterPillFragment : Fragment() {
             saveReminder()
         }
 
+
         fillSpinnerValues()
+        /*
         setUpTime()
         setUpDate()
-
+         */
         return root
     }
 
@@ -155,51 +173,68 @@ class RegisterPillFragment : Fragment() {
         }
     }
 
-    private fun setUpTime() {
-        timeInput?.text = LocalTime.now().format(formatter)
-        timeInput?.setOnClickListener {
-            showTimePicker()
-        }
-    }
-    private fun showTimePicker() {
-        showDialog { _, hour, minute ->
-            val currentTime = LocalTime.of(hour, minute)
-            timeInput?.setTime(currentTime)
-        }
+    fun showDateTimePicker() {
+        val currentLocale = Locale("es")
+        Locale.setDefault(currentLocale)
+        val config = Configuration()
+        config.setLocale(currentLocale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            R.style.TimePicker,
+            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                val timePickerDialog = TimePickerDialog(
+                    requireContext(),
+                    R.style.TimePicker,
+                    TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                        val formattedDate = String.format(
+                            "%02d-%02d-%04d %02d:%02d",
+                            dayOfMonth,
+                            month + 1,
+                            year,
+                            hourOfDay,
+                            minute
+                        )
+                        binding.dateTimeInput.text = formattedDate
+                    },
+                    hour,
+                    minute,
+                    true
+                )
+                timePickerDialog.show()
+            },
+            year,
+            month,
+            day
+        )
+        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+        datePickerDialog.show()
     }
     private fun showDialog(observer: TimePickerDialog.OnTimeSetListener) {
         TimePickerFragment.newInstance(observer)
             .show(getParentFragmentManager(), "time-picker")
     }
-    private fun setUpDate() {
-        dateInput?.text = LocalDate.now().toString()
-        dateInput?.setOnClickListener {
-            showDatePicker()
-        }
-    }
-    private fun showDateDialog(observer: DatePickerDialog.OnDateSetListener) {
-        DatePickerFragment.newInstance(observer)
-        .show(getParentFragmentManager(), "date-picker")
-    }
-    private fun showDatePicker() {
-        showDateDialog { _, year, month, day ->
-            // +1 because January is zero
-            val selectedDate = day.toString() + " / " + (month + 1) + " / " + year
-            dateInput?.text = selectedDate
-        }
-    }
 
     private fun saveReminder() {
-        val medicine: String = medicineSpinner?.selectedItem.toString() // ACA EN VEZ DEL NOMBRE IRIA EL MEDICINE_ID
-        val notify: Boolean = notifyCheckBox?.isChecked == true
+        //val medicine: String = medicineSpinner?.selectedItem.toString() // ACA EN VEZ DEL NOMBRE IRIA EL MEDICINE_ID
+        val medicine: Int = 1 //ESTO ESTÁ HARDCODEADO. PONER EL ID DE MEDICINA
+        val userId: Int? = UserSingleton.userId?.let { SharedPref.read(SharedPref.ID, it) }
+        val emergencyAlert: Boolean = notifyCheckBox?.isChecked == true
         val dose: String = doseInput?.text.toString()
         val presentation: String = presentationSpinner?.selectedItem.toString()
-        val date: String = dateInput?.text.toString()
-        val time: String = timeInput?.text.toString()
-        val quantityFrequency: String = quantityFrequencySpinner?.selectedItem.toString()
-        val valueFrequency: String = valueFrequencySpinner?.selectedItem.toString()
-        val quantityDuration: String = quantityDurationSpinner?.selectedItem.toString()
-        val valueDuration: String = valueDurationSpinner?.selectedItem.toString()
+        val dateTime: String = Helpers().convertirFechaInversa(dateTimeInput?.text.toString())
+        val quantityFrequency: Int = binding.quantityFrequencySpinner.selectedItem.toString().toInt()
+        val valueFrequency: String = Helpers().translateFrequencyEn(binding.valueFrequencySpinner.selectedItem.toString().lowercase().capitalize())
+        val quantityDuration: String = Helpers().translateFrequencyEn(binding.valueDurationSpinner.selectedItem.toString().lowercase().capitalize())
+        val valueDuration: Int = binding.quantityDurationSpinner.selectedItem.toString().toInt()
+        val observation: String? = binding.editNotes3.text.toString()
+
         if (dose.isEmpty()) {
             doseInput?.setError("Campo obligatorio")
             errorMsg?.visibility = View.VISIBLE
@@ -210,6 +245,49 @@ class RegisterPillFragment : Fragment() {
             }, 3000)
         } else {
             // CREAR EL OBJETO REMINDER Y LA PEGADA DE CREATE REMINDER
+            val newReminderCreation = ReminderCreation(
+                userId ?: 0, // Asigna 0 si userId es nulo
+                medicineId = medicine,
+                quantity = dose.toInt(),
+                presentation = presentation,
+                dateTimeStart = dateTime,
+                frequencyType =  valueFrequency,
+                frequencyValue =  quantityFrequency,
+                durationType =  quantityDuration,
+                durationValue = valueDuration.toInt(), // Asegúrate de convertir a Int
+                emergencyAlert = emergencyAlert,
+                observation = observation
+            )
+            create(newReminderCreation)
+            Log.d("Exito!", valueFrequency)
         }
+    }
+
+    fun create(reminderCreation: ReminderCreation){
+        val service = ActivityServiceApiBuilder.createReminder()
+        val call = service.createReminder(reminderCreation)
+
+        call.enqueue(object : Callback<ApiContactEmergencyServerResponse> {
+            override fun onResponse(
+                call: Call<ApiContactEmergencyServerResponse>,
+                response: Response<ApiContactEmergencyServerResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val respuesta = response.body()
+                    Log.e("put33", respuesta.toString())
+                    // Procesar la respuesta
+                } else {
+                    // Manejar la respuesta de error
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("put33", "Respuesta fallo en el else: $errorBody")
+                    Log.e("put33", createReminder().toString())
+                }
+            }
+
+            override fun onFailure(call: Call<ApiContactEmergencyServerResponse>, t: Throwable) {
+                // Manejar el error de la solicitud
+                Log.e("put33", "respuesta fallo en el failure")
+            }
+        })
     }
 }

@@ -190,7 +190,6 @@
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
                 android:text="@string/duraci_n_de_toma"
                 android:textColor="@color/white_white_transparency"
