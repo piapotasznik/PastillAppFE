@@ -49,7 +49,7 @@ class ReminderFragment : Fragment() {
 
   fun setReminderValues(reminder : Reminder){
       reminder.dateTimeStart?.let { Log.e("put33 2", it) }
-        binding.nameMed.setText(reminder.medicineId.toString())
+        binding.nameMed.setText(reminder.medicineName.toString())
         binding.tvDosis.setText(reminder.quantity.toString())
         binding.emergencyCheckBox2.isChecked=reminder.emergencyAlert
         binding.tvPresentation1.setText(reminder.presentation.toString())

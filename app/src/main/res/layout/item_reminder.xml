@@ -28,7 +28,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">>
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/tvPill"
@@ -38,7 +38,19 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/ic_white_pill"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="visible"/>
+            <ImageView
+                android:id="@+id/tvPillGreen"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/outline_thumb_up_alt_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="invisible"
+                />
 
             <!--            <TextView-->
             <!--                android:layout_width="wrap_content"-->

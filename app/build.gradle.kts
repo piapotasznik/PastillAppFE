@@ -49,6 +49,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("com.google.firebase:firebase-messaging-ktx:23.2.1")
     implementation("com.google.firebase:firebase-database-ktx:20.2.2")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
     val nav_version = "2.5.3"
 

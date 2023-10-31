@@ -19,7 +19,7 @@ data class Reminder (
     var intakeTimeText: String?,
     var endDateTime: String?, // Cambiado a Date
     var user:String?,
-    var medicine:String?,
+    var medicineName:String?,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -54,7 +54,7 @@ data class Reminder (
         parcel.writeString(intakeTimeText)
         parcel.writeString(endDateTime)// Cambiado a writeDate
         parcel.writeString(user)
-        parcel.writeString(medicine)
+        parcel.writeString(medicineName)
     }
 
 

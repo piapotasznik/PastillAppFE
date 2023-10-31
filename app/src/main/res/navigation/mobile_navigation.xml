@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_navigation_home_to_reminderFragment"
             app:destination="@id/reminderFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_historicalReminderFragment"
+            app:destination="@id/historicalReminderFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_symptoms"
@@ -74,11 +77,20 @@
     </fragment>
     <fragment
     android:id="@+id/contactRequests2"
-    android:name="edu.ort.pastillapp.fragments.contactRequests"
+    android:name="edu.ort.pastillapp.Fragments.contactRequests"
     android:label="fragment_contact_requests"
     tools:layout="@layout/fragment_contact_requests" >
         <action
             android:id="@+id/action_contactRequests2_to_navigation_profile"
             app:destination="@id/navigation_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/historicalReminderFragment"
+        android:name="edu.ort.pastillapp.Fragments.HistoricalReminderFragment"
+        android:label="fragment_historical_reminder"
+        tools:layout="@layout/fragment_historical_reminder" >
+        <action
+            android:id="@+id/action_historicalReminderFragment_to_editReminderFragment"
+            app:destination="@id/editReminderFragment" />
     </fragment>
 </navigation>

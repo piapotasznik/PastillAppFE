@@ -8,11 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import edu.ort.pastillapp.databinding.FragmentMedicationReminderBinding
 import edu.ort.pastillapp.ViewModels.SymtomsViewModel
+import edu.ort.pastillapp.databinding.FragmentCalendarBinding
 
 
 class CalendarFragment : Fragment() {
 
-    private var _binding: FragmentMedicationReminderBinding? = null
+    private var _binding: FragmentCalendarBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,7 +27,7 @@ class CalendarFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this).get(SymtomsViewModel::class.java)
 
-        _binding = FragmentMedicationReminderBinding.inflate(inflater, container, false)
+        _binding = FragmentCalendarBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
 
