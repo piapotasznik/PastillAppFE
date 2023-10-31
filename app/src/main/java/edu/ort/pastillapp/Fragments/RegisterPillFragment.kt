@@ -213,19 +213,26 @@ class RegisterPillFragment : Fragment() {
     private fun saveReminder() {
         //val medicine: String = medicineSpinner?.selectedItem.toString() // ACA EN VEZ DEL NOMBRE IRIA EL MEDICINE_ID
         val medicine: Int = 1 //ESTO ESTÁ HARDCODEADO. PONER EL ID DE MEDICINA
-        val userId: Int? = SharedPref.read(SharedPref.ID, UserSingleton.userId!!)
+        val userId = SharedPref.read(SharedPref.ID, UserSingleton.userId!!)
         val emergencyAlert: Boolean = notifyCheckBox?.isChecked == true
         val dose: String = doseInput?.text.toString()
         val presentation: String = presentationSpinner?.selectedItem.toString()
-        val dateTime: String = Helpers().convertirFechaInversa(dateTimeInput?.text.toString())
         val quantityFrequency: Int = binding.quantityFrequencySpinner.selectedItem.toString().toInt()
         val valueFrequency: String = Helpers().translateFrequencyEn(binding.valueFrequencySpinner.selectedItem.toString().lowercase().capitalize())
         val quantityDuration: String = Helpers().translateFrequencyEn(binding.valueDurationSpinner.selectedItem.toString().lowercase().capitalize())
         val valueDuration: Int = binding.quantityDurationSpinner.selectedItem.toString().toInt()
         val observation: String? = binding.editNotes3.text.toString()
 
-        if (dose.isEmpty() || dateTimeInput?.text.toString() == "Seleccionar fecha y hora") {
-            doseInput?.setError("Campo obligatorio")
+        if (dose.isEmpty()) {
+            doseInput?.error = "Campo obligatorio"
+            errorMsg?.visibility = View.VISIBLE
+            errorMsg?.text =
+                "Todos los campos deben ser completados"
+            Handler().postDelayed({
+                errorMsg?.visibility = View.INVISIBLE
+            }, 3000)
+        } else if (dateTimeInput?.text.toString() == "Seleccionar fecha y hora"){
+            dateTimeInput?.error = "Campo obligatorio"
             errorMsg?.visibility = View.VISIBLE
             errorMsg?.text =
                 "Todos los campos deben ser completados"
@@ -233,6 +240,7 @@ class RegisterPillFragment : Fragment() {
                 errorMsg?.visibility = View.INVISIBLE
             }, 3000)
         } else {
+            val dateTime: String? = Helpers().convertirFechaInversa(dateTimeInput?.text.toString())
             val newReminderCreation = ReminderCreation(
                 userId ?: 0, // Asigna 0 si userId es nulo
                 medicineId = medicine,
