@@ -3,12 +3,14 @@ package edu.ort.pastillapp.Fragments
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
@@ -16,7 +18,6 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import edu.ort.pastillapp.R
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -26,19 +27,19 @@ import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.Models.ApiContactEmergencyServerResponse
 import edu.ort.pastillapp.Models.Medicine
 import edu.ort.pastillapp.Models.ReminderCreation
+import edu.ort.pastillapp.R
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder.createReminder
-import edu.ort.pastillapp.Services.MedicineService
+import edu.ort.pastillapp.ViewModels.RegisterPillViewModel
 import edu.ort.pastillapp.databinding.FragmentRegisterPillBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import edu.ort.pastillapp.ViewModels.RegisterPillViewModel
 import java.util.Calendar
 import java.util.Locale
 
 
-class RegisterPillFragment : Fragment() {
+class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var _binding: FragmentRegisterPillBinding? = null
     private var medicineSpinner: Spinner? = null
@@ -54,8 +55,9 @@ class RegisterPillFragment : Fragment() {
     private var errorMsg: TextView? = null
     private var medicines: List<Medicine>? = null
     private var observation: EditText? = null
-    private val medicineList: MutableList<String> = ArrayList()
+    private var selectedMedicine: String = ""
 
+    private val medicineList: MutableList<String> = ArrayList()
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -140,7 +142,12 @@ class RegisterPillFragment : Fragment() {
                 this.presentationSpinner?.adapter = adapter
             }
             this.getMedicines()
-            medicineSpinner?.adapter = ArrayAdapter(it, android.R.layout.simple_spinner_item, medicineList)
+            val spinnerArrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(it, android.R.layout.simple_spinner_item, medicineList)
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            medicineSpinner?.adapter = spinnerArrayAdapter
+            spinnerArrayAdapter.notifyDataSetChanged()
+            medicineSpinner?.onItemSelectedListener = this
+            medicineSpinner?.prompt = "Choose medicine"
         }
     }
 
@@ -213,44 +220,43 @@ class RegisterPillFragment : Fragment() {
     }
 
     private fun saveReminder() {
-        val medicine: String = medicineSpinner?.selectedItem.toString()
         val userId = SharedPref.read(SharedPref.ID, UserSingleton.userId!!)
-        val emergencyAlert: Boolean = notifyCheckBox?.isChecked == true
+        val emergencyAlert: Boolean? = notifyCheckBox?.isChecked
         val dose: String = doseInput?.text.toString()
         val presentation: String = presentationSpinner?.selectedItem.toString()
-        val quantityFrequency: Int =
-            binding.quantityFrequencySpinner.selectedItem.toString().toInt()
-        val valueFrequency: String = Helpers().translateFrequencyEn(
-            binding.valueFrequencySpinner.selectedItem.toString().lowercase().capitalize()
-        )
-        val quantityDuration: String = Helpers().translateFrequencyEn(
-            binding.valueDurationSpinner.selectedItem.toString().lowercase().capitalize()
-        )
-        val valueDuration: Int = binding.quantityDurationSpinner.selectedItem.toString().toInt()
+        val quantityFrequency: Int = quantityFrequencySpinner?.selectedItem.toString().toInt()
+        val valueFrequency: String = Helpers().translateFrequencyEn(valueFrequencySpinner?.selectedItem.toString().lowercase().capitalize())
+        val quantityDuration: String = Helpers().translateFrequencyEn(valueDurationSpinner?.selectedItem.toString().lowercase().capitalize())
+        val valueDuration: Int = quantityDurationSpinner?.selectedItem.toString().toInt()
         val observation: String? = binding.editNotes3.text.toString()
 
         if (dose.isEmpty()) {
-            doseInput?.error = "Campo obligatorio"
             errorMsg?.visibility = View.VISIBLE
             errorMsg?.text =
-                "Todos los campos deben ser completados"
+                "El campo de dosis es obligatorio"
             Handler().postDelayed({
                 errorMsg?.visibility = View.INVISIBLE
             }, 3000)
         } else if (dateTimeInput?.text.toString() == "Seleccionar fecha y hora") {
-            dateTimeInput?.error = "Campo obligatorio"
             errorMsg?.visibility = View.VISIBLE
             errorMsg?.text =
-                "Todos los campos deben ser completados"
+                "Debes seleccionar una fecha y hora, es obligatorio"
+            Handler().postDelayed({
+                errorMsg?.visibility = View.INVISIBLE
+            }, 3000)
+        } else if (this.selectedMedicine.isEmpty()) {
+            errorMsg?.visibility = View.VISIBLE
+            errorMsg?.text =
+                "Debes seleccionar una medicina, es obligatorio"
             Handler().postDelayed({
                 errorMsg?.visibility = View.INVISIBLE
             }, 3000)
         } else {
+            val medicineId: Int? = medicines?.firstOrNull { it.name ==  this.selectedMedicine }?.medicineId
             val dateTime: String? = Helpers().convertirFechaInversa(dateTimeInput?.text.toString())
             val newReminderCreation = ReminderCreation(
                 userId ?: 0, // Asigna 0 si userId es nulo
-                medicineId = null,
-                medicineName = medicine,
+                medicineId = medicineId ?: 0,
                 quantity = dose.toInt(),
                 presentation = presentation,
                 dateTimeStart = dateTime,
@@ -258,7 +264,7 @@ class RegisterPillFragment : Fragment() {
                 frequencyValue = quantityFrequency,
                 durationType = quantityDuration,
                 durationValue = valueDuration, // Asegúrate de convertir a Int
-                emergencyAlert = emergencyAlert,
+                emergencyAlert = emergencyAlert ?: false,
                 observation = observation
             )
             create(newReminderCreation)
@@ -304,5 +310,13 @@ class RegisterPillFragment : Fragment() {
                 ).show()
             }
         })
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        this.selectedMedicine = medicineList[p2]
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        TODO("Not yet implemented")
     }
 }
