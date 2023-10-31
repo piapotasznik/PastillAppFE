@@ -113,7 +113,7 @@
                 <CheckBox
                     android:id="@+id/notifyCheckBox"
                     style="@style/GrayText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="40dp"
@@ -128,7 +128,7 @@
 
                 <Spinner
                     android:id="@+id/medicineSpinner"
-                    android:layout_width="110dp"
+                    android:layout_width="200dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="8dp"

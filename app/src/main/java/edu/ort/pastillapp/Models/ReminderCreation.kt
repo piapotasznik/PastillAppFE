@@ -6,7 +6,8 @@ import java.util.Date
 
 data class ReminderCreation (
     val userId: Int,
-    var medicineId: Int,
+    var medicineId: Int?,
+    var medicineName: String?,
     var quantity: Int,
     var presentation: String?,
     var dateTimeStart: String?, // Cambiado a Date
@@ -21,6 +22,7 @@ data class ReminderCreation (
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
+        parcel.readString(),
         parcel.readInt(),
         parcel.readString(),
         parcel.readString(), // Cambiado a readDate
@@ -34,7 +36,8 @@ data class ReminderCreation (
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(userId)
-        parcel.writeInt(medicineId)
+        medicineId?.let { parcel.writeInt(it) }
+        parcel.writeString(medicineName)
         parcel.writeInt(quantity)
         parcel.writeString(presentation)
         parcel.writeString(dateTimeStart)  // Cambiado a writeDate
@@ -45,7 +48,6 @@ data class ReminderCreation (
         parcel.writeByte(if (emergencyAlert) 1 else 0)
         parcel.writeString(observation)
     }
-
 
     fun Parcel.readDate(): Date? {
         val time = this.readLong()

@@ -43,7 +43,6 @@ class RegisterPillFragment : Fragment() {
     private var _binding: FragmentRegisterPillBinding? = null
     private var medicineSpinner: Spinner? = null
     private var notifyCheckBox: CheckBox? = null
-    private var medicineService: MedicineService? = null
     private var doseInput: EditText? = null
     private var presentationSpinner: Spinner? = null
     private var dateTimeInput: TextView? = null
@@ -51,10 +50,11 @@ class RegisterPillFragment : Fragment() {
     private var valueFrequencySpinner: Spinner? = null
     private var valueDurationSpinner: Spinner? = null
     private var quantityDurationSpinner: Spinner? = null
-    private var savebtn: Button? = null
+    private var saveBtn: Button? = null
     private var errorMsg: TextView? = null
     private var medicines: List<Medicine>? = null
     private var observation: EditText? = null
+    private val medicineList: MutableList<String> = ArrayList()
 
     private val binding get() = _binding!!
 
@@ -82,8 +82,8 @@ class RegisterPillFragment : Fragment() {
         observation = binding.editNotes3
         errorMsg = binding.errorMsg
         errorMsg?.visibility = View.INVISIBLE
-        savebtn = binding.saveReminderBtn
-        savebtn?.setOnClickListener {
+        saveBtn = binding.saveReminderBtn
+        saveBtn?.setOnClickListener {
             saveReminder()
         }
 
@@ -139,31 +139,33 @@ class RegisterPillFragment : Fragment() {
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 this.presentationSpinner?.adapter = adapter
             }
+            this.getMedicines()
+            medicineSpinner?.adapter = ArrayAdapter(it, android.R.layout.simple_spinner_item, medicineList)
         }
-        this.getMedicines()
-        // ACA RELLENAR EL "medicineSpinner" CON LOS VALORES DE LA VARIABLE "medicines"
     }
 
     private fun getMedicines() {
-        medicines?.let {
-            this.medicineService?.getAllMedicines()?.enqueue(object: Callback<List<Medicine>> {
-                override fun onResponse(
-                    call: Call<List<Medicine>>,
-                    response: Response<List<Medicine>>
-                ) {
-                    if (response.isSuccessful) {
-                        if (response.body() != null) {
-                            medicines = response.body();
-                            print(medicines);
+        val medicineService = ActivityServiceApiBuilder.createMedicine()
+        medicineService.getAllMedicines().enqueue(object : Callback<List<Medicine>> {
+            override fun onResponse(
+                call: Call<List<Medicine>>,
+                response: Response<List<Medicine>>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        medicines = response.body();
+                        for (medicine in medicines!!) {
+                            medicineList.add(medicine.name)
                         }
                     }
                 }
-                override fun onFailure(call: Call<List<Medicine>>, t: Throwable) {
-                    // Manejar errores de red o solicitud
-                    Toast.makeText(requireContext(), "Error de red", Toast.LENGTH_SHORT).show()
-                }
-            })
-        }
+            }
+
+            override fun onFailure(call: Call<List<Medicine>>, t: Throwable) {
+                // Manejar errores de red o solicitud
+                Toast.makeText(requireContext(), "Error de red", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun showDateTimePicker() {
@@ -211,15 +213,19 @@ class RegisterPillFragment : Fragment() {
     }
 
     private fun saveReminder() {
-        //val medicine: String = medicineSpinner?.selectedItem.toString() // ACA EN VEZ DEL NOMBRE IRIA EL MEDICINE_ID
-        val medicine: Int = 1 //ESTO ESTÁ HARDCODEADO. PONER EL ID DE MEDICINA
+        val medicine: String = medicineSpinner?.selectedItem.toString()
         val userId = SharedPref.read(SharedPref.ID, UserSingleton.userId!!)
         val emergencyAlert: Boolean = notifyCheckBox?.isChecked == true
         val dose: String = doseInput?.text.toString()
         val presentation: String = presentationSpinner?.selectedItem.toString()
-        val quantityFrequency: Int = binding.quantityFrequencySpinner.selectedItem.toString().toInt()
-        val valueFrequency: String = Helpers().translateFrequencyEn(binding.valueFrequencySpinner.selectedItem.toString().lowercase().capitalize())
-        val quantityDuration: String = Helpers().translateFrequencyEn(binding.valueDurationSpinner.selectedItem.toString().lowercase().capitalize())
+        val quantityFrequency: Int =
+            binding.quantityFrequencySpinner.selectedItem.toString().toInt()
+        val valueFrequency: String = Helpers().translateFrequencyEn(
+            binding.valueFrequencySpinner.selectedItem.toString().lowercase().capitalize()
+        )
+        val quantityDuration: String = Helpers().translateFrequencyEn(
+            binding.valueDurationSpinner.selectedItem.toString().lowercase().capitalize()
+        )
         val valueDuration: Int = binding.quantityDurationSpinner.selectedItem.toString().toInt()
         val observation: String? = binding.editNotes3.text.toString()
 
@@ -231,7 +237,7 @@ class RegisterPillFragment : Fragment() {
             Handler().postDelayed({
                 errorMsg?.visibility = View.INVISIBLE
             }, 3000)
-        } else if (dateTimeInput?.text.toString() == "Seleccionar fecha y hora"){
+        } else if (dateTimeInput?.text.toString() == "Seleccionar fecha y hora") {
             dateTimeInput?.error = "Campo obligatorio"
             errorMsg?.visibility = View.VISIBLE
             errorMsg?.text =
@@ -243,13 +249,14 @@ class RegisterPillFragment : Fragment() {
             val dateTime: String? = Helpers().convertirFechaInversa(dateTimeInput?.text.toString())
             val newReminderCreation = ReminderCreation(
                 userId ?: 0, // Asigna 0 si userId es nulo
-                medicineId = medicine,
+                medicineId = null,
+                medicineName = medicine,
                 quantity = dose.toInt(),
                 presentation = presentation,
                 dateTimeStart = dateTime,
-                frequencyType =  valueFrequency,
-                frequencyValue =  quantityFrequency,
-                durationType =  quantityDuration,
+                frequencyType = valueFrequency,
+                frequencyValue = quantityFrequency,
+                durationType = quantityDuration,
                 durationValue = valueDuration, // Asegúrate de convertir a Int
                 emergencyAlert = emergencyAlert,
                 observation = observation
@@ -258,7 +265,7 @@ class RegisterPillFragment : Fragment() {
         }
     }
 
-    private fun create(reminderCreation: ReminderCreation){
+    private fun create(reminderCreation: ReminderCreation) {
         val service = ActivityServiceApiBuilder.createReminder()
         val call = service.createReminder(reminderCreation)
 
@@ -270,7 +277,8 @@ class RegisterPillFragment : Fragment() {
                 if (response.isSuccessful) {
                     val respuesta = response.body()
                     Log.e("put33", respuesta.toString())
-                    Toast.makeText(requireContext(), "Recordatorio registrado!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Recordatorio registrado!", Toast.LENGTH_SHORT)
+                        .show()
                     onClickNavigate()
 
                 } else {
@@ -278,13 +286,22 @@ class RegisterPillFragment : Fragment() {
                     val errorBody = response.errorBody()?.string()
                     Log.e("put33", "Respuesta fallo en el else: $errorBody")
                     Log.e("put33", createReminder().toString())
-                    Toast.makeText(requireContext(), "Error al registrar un recordatorio", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error al registrar un recordatorio",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
+
             override fun onFailure(call: Call<ApiContactEmergencyServerResponse>, t: Throwable) {
                 // Manejar el error de la solicitud
                 Log.e("put33", "respuesta fallo en el failure")
-                Toast.makeText(requireContext(), "Error al registrar un recordatorio", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Error al registrar un recordatorio",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
