@@ -41,6 +41,8 @@ import java.util.Locale
 
 class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
+
+    lateinit var  spinnerArrayAdapter: ArrayAdapter<String>
     private var _binding: FragmentRegisterPillBinding? = null
     private var medicineSpinner: Spinner? = null
     private var notifyCheckBox: CheckBox? = null
@@ -142,7 +144,7 @@ class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 this.presentationSpinner?.adapter = adapter
             }
             this.getMedicines()
-            val spinnerArrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(it, android.R.layout.simple_spinner_item, medicineList)
+            spinnerArrayAdapter  = ArrayAdapter<String>(it, android.R.layout.simple_spinner_item, medicineList)
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             medicineSpinner?.adapter = spinnerArrayAdapter
             spinnerArrayAdapter.notifyDataSetChanged()
@@ -151,7 +153,7 @@ class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    private fun getMedicines() {
+    private  fun getMedicines() {
         val medicineService = ActivityServiceApiBuilder.createMedicine()
         medicineService.getAllMedicines().enqueue(object : Callback<List<Medicine>> {
             override fun onResponse(
@@ -164,6 +166,7 @@ class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
                         for (medicine in medicines!!) {
                             medicineList.add(medicine.name)
                         }
+                        medicineSpinner?.adapter = spinnerArrayAdapter
                     }
                 }
             }
@@ -312,9 +315,9 @@ class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
         })
     }
 
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        this.selectedMedicine = medicineList[p2]
-    }
+        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+            this.selectedMedicine = medicineList[p2]
+        }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
         TODO("Not yet implemented")
