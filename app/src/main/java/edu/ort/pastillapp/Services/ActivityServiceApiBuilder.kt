@@ -18,7 +18,7 @@ import javax.net.ssl.X509TrustManager
 
 object ActivityServiceApiBuilder {
 
-    private val BASE_URL = "https://192.168.0.96:7067"
+    private val BASE_URL = "https://21cb-2800-21c1-c400-77b-6cf7-e740-625f-fc7b.ngrok-free.app"
     //127.0.0.1
 
     val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
