@@ -25,13 +25,13 @@ import edu.ort.pastillapp.Activities.InitActivity
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.Models.ApiContactEmergencyRequest
-import edu.ort.pastillapp.databinding.FragmentProfileBinding
 import edu.ort.pastillapp.Models.ApiUserResponse
 import edu.ort.pastillapp.Models.User
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.Services.TokenService
 import edu.ort.pastillapp.Services.UserService
 import edu.ort.pastillapp.ViewModels.ProfileViewModel
+import edu.ort.pastillapp.databinding.FragmentProfileBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -107,9 +107,15 @@ class ProfileFragment : Fragment() {
         binding.txtSignOut.setOnClickListener {
             if (auth.currentUser != null) {
                 auth.signOut()
+                val token = SharedPref.read(SharedPref.TOKEN, "")
+                Log.e("token", token)
+
+                // Llamar al servicio para eliminar el token
+                deleteToken(token)
+
                 SharedPref.delete()
                 startActivity(Intent(context, InitActivity::class.java))
-                Toast.makeText(context, "Sesion cerrada exitosamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -361,4 +367,20 @@ class ProfileFragment : Fragment() {
         dialog.show()
     }
 
+    private fun deleteToken(token: String) {
+        val tokenService = ActivityServiceApiBuilder.createToken()
+        tokenService.deleteToken(token).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d(TAG, "Token eliminado con éxito")
+                } else {
+                    Log.e(TAG, "Error al eliminar el token")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e(TAG, "Error de red", t)
+            }
+        })
+    }
 }

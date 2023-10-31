@@ -9,6 +9,7 @@ public class SharedPref
     private static SharedPreferences mSharedPref;
     public static final String EMAIL = "EMAIL";
     public static final String ID = "ID";
+    public static final String TOKEN = "TOKEN";
 
     private SharedPref() { }
 
