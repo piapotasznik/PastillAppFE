@@ -40,13 +40,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:visibility="visible"/>
+
             <ImageView
                 android:id="@+id/tvPillGreen"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/outline_thumb_up_alt_24"
+                android:background="@drawable/ic_pill_color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:visibility="invisible"
@@ -99,12 +100,10 @@
                 android:id="@+id/medDosage"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-
-                android:backgroundTint="@color/white"
                 android:enabled="false"
                 android:gravity="center"
-                android:textColor="@color/white"
                 android:textSize="16dp"
+                android:background="@drawable/checkbox_selector"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/archivedBtn"
                 app:layout_constraintHorizontal_bias="0.324"

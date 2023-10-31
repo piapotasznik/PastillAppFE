@@ -44,7 +44,11 @@
         android:id="@+id/navigation_calendar"
         android:name="edu.ort.pastillapp.Fragments.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/action_navigation_calendar_to_logsCalendarFragment"
+            app:destination="@id/logsCalendarFragment" />
+    </fragment>
     <fragment
         android:id="@+id/medicationReminder"
         android:name="edu.ort.pastillapp.Fragments.medicationReminder"
@@ -88,5 +92,17 @@
         <action
             android:id="@+id/action_historicalReminderFragment_to_editReminderFragment"
             app:destination="@id/editReminderFragment" />
+        <action
+            android:id="@+id/action_historicalReminderFragment_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logsCalendarFragment"
+        android:name="edu.ort.pastillapp.Fragments.LogsCalendarFragment"
+        android:label="fragment_logs_calendar"
+        tools:layout="@layout/fragment_logs_calendar" >
+        <argument
+            android:name="date"
+            app:argType="string" />
     </fragment>
 </navigation>

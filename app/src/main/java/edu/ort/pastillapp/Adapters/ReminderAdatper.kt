@@ -69,6 +69,11 @@ class ReminderAdatper  (private var reminders:MutableList<Reminder>  = mutableLi
         holder.deleteBtn.setOnClickListener {
          holder.showDeleteConfirmationDialog(position, fragment)
         }
+
+        holder.archiveBtn.setOnClickListener {
+            val action = HistoricalReminderFragmentDirections.actionHistoricalReminderFragmentToReminderFragment(reminders[position].reminderId)
+            navController.navigate(action)
+        }
     }
 
 

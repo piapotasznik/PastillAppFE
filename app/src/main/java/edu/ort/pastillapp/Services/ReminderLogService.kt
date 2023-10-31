@@ -12,4 +12,17 @@ interface ReminderLogService {
 
     @GET("api/Reminder/reminderLogsFromToday/{userId}")
     fun getTodayReminders(@Path("userId") id: Int): Call<List<ReminderLogToday>>
+
+    @GET("/api/Reminder/reminders/logs/{userId}/{dateString}")
+    fun getLogsFrom(
+        @Path("userId") id: Int,
+        @Path("dateString") dateString: String
+    ): Call<List<ReminderLogToday>>
+
+    @GET("api/Reminder/reminderlogs/{userId}/{dateStart}/{dateFinish}")
+    fun getLogsFromUpto(
+        @Path("userId") id: Int,
+        @Path("dateStart") dateStart: String,
+        @Path("dateFinish") dateFinish: String
+    ): Call<List<ReminderLogToday>>
 }
