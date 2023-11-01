@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.ort.pastillapp.Adapters.CalendarLogsAdapter
-import edu.ort.pastillapp.Adapters.ReminderAdatper
+import edu.ort.pastillapp.Adapters.ReminderAdapter
 import edu.ort.pastillapp.ViewModels.HistoricalReminderViewModel
 import edu.ort.pastillapp.ViewModels.LogsCalendarViewModel
 import edu.ort.pastillapp.databinding.FragmentLogsCalendarBinding

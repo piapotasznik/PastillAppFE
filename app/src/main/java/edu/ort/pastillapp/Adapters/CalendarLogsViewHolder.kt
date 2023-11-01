@@ -23,7 +23,7 @@ class CalendarLogsViewHolder (val view: View) : RecyclerView.ViewHolder(view) {
 
 
     fun render(logsFrom: ReminderLogToday) {
-        val timeOnly = Helpers().convertirFechaSoloHora(logsFrom.dateTime)
+        val timeOnly = Helpers().convertDateOnlyTime(logsFrom.dateTime)
 
         time.text = timeOnly
         medName.text = logsFrom.name.toString()
