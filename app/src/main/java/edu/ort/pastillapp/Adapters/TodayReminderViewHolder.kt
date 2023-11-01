@@ -18,6 +18,7 @@ class TodayReminderViewHolder (val view: View) : RecyclerView.ViewHolder(view) {
     private val nextIntake : TextView = view.findViewById(R.id.nextIntake)
     private val takenImage :ImageView = view.findViewById(R.id.tvPill)
     private val takenImageGreen :ImageView = view.findViewById(R.id.tvPillGreen)
+
     val chTaken: CheckBox = view.findViewById(R.id.medDosage)
     val updateBtn: ImageView = view.findViewById(R.id.updateBtn)
     val archiveBtn: ImageView = view.findViewById(R.id.archivedBtn)
@@ -25,7 +26,7 @@ class TodayReminderViewHolder (val view: View) : RecyclerView.ViewHolder(view) {
     fun render(reminder: ReminderLogToday){
         medName.text = "${reminder.name}" // - ${reminder.dosage}
         checkBox.isChecked = reminder.taken
-        nextIntake.text = "Horario: ${Helpers().convertirFechaSoloHora( reminder.dateTime)}"
+        nextIntake.text = "Horario: ${Helpers().convertDateOnlyTime( reminder.dateTime)}"
         if(reminder.taken){
             takenImage.visibility = View.INVISIBLE
             takenImageGreen.visibility = View.VISIBLE
@@ -33,7 +34,7 @@ class TodayReminderViewHolder (val view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    fun setOnMedicineClickListener (listener: OnClickNavigate) {
+    fun setOnMedicineClickListener(listener: OnClickNavigate) {
         onMedicineClickListener = listener
     }
 }

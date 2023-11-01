@@ -41,8 +41,7 @@ import java.util.Locale
 
 class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
-
-    lateinit var  spinnerArrayAdapter: ArrayAdapter<String>
+    lateinit var spinnerArrayAdapter: ArrayAdapter<String>
     private var _binding: FragmentRegisterPillBinding? = null
     private var medicineSpinner: Spinner? = null
     private var notifyCheckBox: CheckBox? = null
@@ -144,7 +143,8 @@ class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 this.presentationSpinner?.adapter = adapter
             }
             this.getMedicines()
-            spinnerArrayAdapter  = ArrayAdapter<String>(it, android.R.layout.simple_spinner_item, medicineList)
+            spinnerArrayAdapter =
+                ArrayAdapter<String>(it, android.R.layout.simple_spinner_item, medicineList)
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             medicineSpinner?.adapter = spinnerArrayAdapter
             spinnerArrayAdapter.notifyDataSetChanged()
@@ -153,7 +153,7 @@ class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    private  fun getMedicines() {
+    private fun getMedicines() {
         val medicineService = ActivityServiceApiBuilder.createMedicine()
         medicineService.getAllMedicines().enqueue(object : Callback<List<Medicine>> {
             override fun onResponse(
@@ -228,8 +228,12 @@ class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val dose: String = doseInput?.text.toString()
         val presentation: String = presentationSpinner?.selectedItem.toString()
         val quantityFrequency: Int = quantityFrequencySpinner?.selectedItem.toString().toInt()
-        val valueFrequency: String = Helpers().translateFrequencyEn(valueFrequencySpinner?.selectedItem.toString().lowercase().capitalize())
-        val quantityDuration: String = Helpers().translateFrequencyEn(valueDurationSpinner?.selectedItem.toString().lowercase().capitalize())
+        val valueFrequency: String = Helpers().translateFrequencyEn(
+            valueFrequencySpinner?.selectedItem.toString().lowercase().capitalize()
+        )
+        val quantityDuration: String = Helpers().translateFrequencyEn(
+            valueDurationSpinner?.selectedItem.toString().lowercase().capitalize()
+        )
         val valueDuration: Int = quantityDurationSpinner?.selectedItem.toString().toInt()
         val observation: String? = binding.editNotes3.text.toString()
 
@@ -255,8 +259,9 @@ class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 errorMsg?.visibility = View.INVISIBLE
             }, 3000)
         } else {
-            val medicineId: Int? = medicines?.firstOrNull { it.name ==  this.selectedMedicine }?.medicineId
-            val dateTime: String? = Helpers().convertirFechaInversa(dateTimeInput?.text.toString())
+            val medicineId: Int? =
+                medicines?.firstOrNull { it.name == this.selectedMedicine }?.medicineId
+            val dateTime: String? = Helpers().convertInvertDate(dateTimeInput?.text.toString())
             val newReminderCreation = ReminderCreation(
                 userId ?: 0, // Asigna 0 si userId es nulo
                 medicineId = medicineId ?: 0,
@@ -315,9 +320,9 @@ class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
         })
     }
 
-        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-            this.selectedMedicine = medicineList[p2]
-        }
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        this.selectedMedicine = medicineList[p2]
+    }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
         TODO("Not yet implemented")

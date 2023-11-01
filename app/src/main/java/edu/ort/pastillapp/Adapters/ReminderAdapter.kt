@@ -12,12 +12,11 @@ import edu.ort.pastillapp.R
 import edu.ort.pastillapp.Models.Reminder
 
 
-class ReminderAdatper  (private var reminders:MutableList<Reminder>  = mutableListOf(),
-                        private val navController: NavController,
-                        private val fragment: HistoricalReminderFragment
-) : RecyclerView.Adapter<ReminderViewHolder>(){
-
-
+class ReminderAdapter(
+    private var reminders: MutableList<Reminder> = mutableListOf(),
+    private val navController: NavController,
+    private val fragment: HistoricalReminderFragment
+) : RecyclerView.Adapter<ReminderViewHolder>() {
     fun filter(query: String?) {
         val filteredList = mutableListOf<Reminder>()
         for (item in reminders) {
@@ -25,17 +24,15 @@ class ReminderAdatper  (private var reminders:MutableList<Reminder>  = mutableLi
                 filteredList.add(item)
             }
         }
-       // reminders = filteredList
+        // reminders = filteredList
         updateData(filteredList)
         notifyDataSetChanged()
     }
 
     fun onlyActives() {
         val filteredList = mutableListOf<Reminder>()
-
-
         for (item in reminders) {
-            if (!item.endDateTime?.let { Helpers().fechaYaPaso(it) }!!) {
+            if (!item.endDateTime?.let { Helpers().dateHasAlreadyPassed(it) }!!) {
                 filteredList.add(item)
             }
         }
@@ -43,6 +40,7 @@ class ReminderAdatper  (private var reminders:MutableList<Reminder>  = mutableLi
         updateData(filteredList)
         notifyDataSetChanged()
     }
+
     fun updateData(newData: List<Reminder>) {
         reminders.clear() // Limpia la lista actual
         reminders.addAll(newData) // Agrega los nuevos datos
@@ -52,22 +50,25 @@ class ReminderAdatper  (private var reminders:MutableList<Reminder>  = mutableLi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReminderViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_historical_reminder, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_historical_reminder, parent, false)
         return ReminderViewHolder(view)
     }
 
-    override fun getItemCount(): Int  = reminders.size
+    override fun getItemCount(): Int = reminders.size
 
     override fun onBindViewHolder(holder: ReminderViewHolder, position: Int) {
         holder.render(reminders[position])
 
-        holder.updateBtn.setOnClickListener{
-            val action = HistoricalReminderFragmentDirections.actionHistoricalReminderFragmentToEditReminderFragment(reminders[position].reminderId)
+        holder.updateBtn.setOnClickListener {
+            val action =
+                HistoricalReminderFragmentDirections.actionHistoricalReminderFragmentToEditReminderFragment(
+                    reminders[position].reminderId
+                )
             navController.navigate(action)
         }
-
         holder.deleteBtn.setOnClickListener {
-         holder.showDeleteConfirmationDialog(position, fragment)
+            holder.showDeleteConfirmationDialog(position, fragment)
         }
 
         holder.archiveBtn.setOnClickListener {
@@ -75,7 +76,4 @@ class ReminderAdatper  (private var reminders:MutableList<Reminder>  = mutableLi
             navController.navigate(action)
         }
     }
-
-
-
 }

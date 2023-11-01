@@ -23,7 +23,7 @@
                 android:fontFamily="@font/francois_one"
                 android:gravity="start|center"
                 android:paddingStart="15dp"
-                android:textColor="@color/dirtywhite"
+                android:textColor="@color/dirtyWhite"
                 android:letterSpacing="0.15"
                 android:text="26/10/2023"
                 android:textSize="16sp"
@@ -52,7 +52,7 @@
                 android:onClick="onTextViewClick"
                 android:text="@string/see_all"
                 android:textSize="18sp"
-                android:textColor="@color/dirtygrey"
+                android:textColor="@color/dirtyGrey"
                 android:letterSpacing="0.05"
                 android:textStyle="bold" />
 
@@ -66,7 +66,7 @@
                 android:gravity="center"
                 android:text="@string/detalle"
                 android:textSize="18sp"
-                android:textColor="@color/dirtygrey"
+                android:textColor="@color/dirtyGrey"
                 android:letterSpacing="0.05"
                 android:textStyle="bold" />
 

@@ -3,7 +3,7 @@ package edu.ort.pastillapp.Adapters
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import edu.ort.pastillapp.Models.Dia
+import edu.ort.pastillapp.Models.Day
 import edu.ort.pastillapp.R
 
 class DateCalendarViewHolder (view: View) : RecyclerView.ViewHolder(view) {

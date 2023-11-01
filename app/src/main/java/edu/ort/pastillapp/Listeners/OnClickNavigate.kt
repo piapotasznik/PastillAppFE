@@ -4,5 +4,4 @@ import edu.ort.pastillapp.Models.Reminder
 
 interface OnClickNavigate {
     fun OnClickNavigate(reminder: Reminder)
-
 }

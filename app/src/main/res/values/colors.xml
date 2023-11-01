@@ -17,6 +17,6 @@
     <color name="green">#1ABB0E</color>
     <color name="takenPink">#F08B77</color>
     <color name="takenLight">#77B8E9</color>
-    <color name="dirtywhite">#F2E2E2</color>
-    <color name="dirtygrey">#CDCDCD</color>
+    <color name="dirtyWhite">#F2E2E2</color>
+    <color name="dirtyGrey">#CDCDCD</color>
 </resources>

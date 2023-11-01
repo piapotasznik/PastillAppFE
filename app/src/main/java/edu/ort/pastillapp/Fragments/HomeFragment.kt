@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.databinding.FragmentHomeBinding
 import edu.ort.pastillapp.Helpers.Helpers
@@ -145,7 +143,7 @@ class HomeFragment : Fragment(), OnClickNavigate {
                     val responseReminders = response.body()
                     if (responseReminders != null) {
                         //  remidersLogs.postValue(responseReminders!!) // Actualiza el valor de remindersLogs
-                        adapter.actualizarDatos(responseReminders)
+                        adapter.updateData(responseReminders)
 
                         Log.e("remindersLogs", "la respuesta esl ${responseReminders}")
                     }
@@ -194,33 +192,38 @@ class HomeFragment : Fragment(), OnClickNavigate {
             })
         }
     }
-    fun contactEmergencyUser() {
+
+    private fun contactEmergencyUser() {
         val email = SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail)
         if (email != null) {
             val service = ActivityServiceApiBuilder.create()
-            service?.sendEmergencyMessage(email)?.enqueue(object : Callback<ApiContactEmergencyServerResponse> {
-                override fun onResponse(
-                    call: Call<ApiContactEmergencyServerResponse>,
-                    response: Response<ApiContactEmergencyServerResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val message = "Solicitud de emergencia enviada"
-                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                    } else {
-                        val message = "Error en la solicitud"
+            service?.sendEmergencyMessage(email)
+                ?.enqueue(object : Callback<ApiContactEmergencyServerResponse> {
+                    override fun onResponse(
+                        call: Call<ApiContactEmergencyServerResponse>,
+                        response: Response<ApiContactEmergencyServerResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            val message = "Solicitud de emergencia enviada"
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                        } else {
+                            val message = "Error en la solicitud"
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(
+                        call: Call<ApiContactEmergencyServerResponse>,
+                        t: Throwable
+                    ) {
+                        // Manejar errores de red o solicitud
+                        val message = "Error de comunicación"
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                     }
-                }
-
-                override fun onFailure(call: Call<ApiContactEmergencyServerResponse>, t: Throwable) {
-                    // Manejar errores de red o solicitud
-                    val message = "Error de comunicación"
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                }
-            })
+                })
         }
     }
-    }
+}
 
 
 

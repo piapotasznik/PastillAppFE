@@ -9,7 +9,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
 import edu.ort.pastillapp.Activities.InitActivity
 import edu.ort.pastillapp.R
@@ -19,15 +18,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         if (remoteMessage.notification != null) {
             val title = remoteMessage.notification?.title
             val body = remoteMessage.notification?.body
-            val tipo = remoteMessage.data["tipo"]
+            val type = remoteMessage.data["tipo"]
             val reminderLogId = remoteMessage.data["id"]
 
             Log.d(TAG, "Título: $title")
             Log.d(TAG, "Cuerpo: $body")
-            Log.d(TAG, "Tipo: $tipo")
+            Log.d(TAG, "Tipo: $type")
             Log.d(TAG, "ID del ReminderLog: $reminderLogId")
 
-            mostrarNotificacion(title, body, tipo, reminderLogId)
+            showNotification(title, body, type, reminderLogId)
         }
     }
 
@@ -39,7 +38,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Puedes hacer lo que necesites con el token, como enviarlo a tu servidor
     }
 
-    private fun mostrarNotificacion(
+    private fun showNotification(
         title: String?,
         body: String?,
         tipo: String?,
@@ -76,6 +75,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 // Configurar la acción para abrir el fragmento de contacto de emergencia
                 Intent(this, InitActivity::class.java)
             }
+
             else -> {
                 // Configurar la acción predeterminada (puedes ajustarla según tus necesidades)
                 Intent(this, InitActivity::class.java)

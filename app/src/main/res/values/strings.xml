@@ -27,7 +27,7 @@
     <string name="my_profile">MI PERFIL</string>
     <string name="my_request">Personas con solicitud pendiente:</string>
     <string name="sign_out">CERRAR SESION</string>
-    <string name="emergency_contact">Contacto de Emergencia actual</string>
+    <string name="emergency_contact">Contacto de Emergencia</string>
     <string name="new_mergency_contact"> Agregar nuevo </string>
     <string name="save">Guardar</string>
     <string name="register_pill_title">REGISTRAR</string>
@@ -63,6 +63,7 @@
     <string name="daily_alert">Alertas del dia</string>
     <string name="see_all">Ver todos</string>
     <string name="fecha_hasta">Fecha Hasta</string>
+
     <string-array name="frecuency_intake_type">
         <item>Horas</item>
         <item>Dias</item>
@@ -75,6 +76,7 @@
         <item>Meses</item>
         <item>Años</item>
     </string-array>
+
     <string-array name="frecuency_intake_duration">
         <item>1</item>
         <item>2</item>
@@ -108,6 +110,7 @@
         <item>30</item>
         <item>31</item>
     </string-array>
+
     <string-array name="med_presentation">
         <item>polvos</item>
         <item>granulados</item>

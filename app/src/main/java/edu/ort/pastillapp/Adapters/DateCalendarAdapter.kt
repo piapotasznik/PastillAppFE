@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import edu.ort.pastillapp.Fragments.CalendarFragmentDirections
-import edu.ort.pastillapp.Models.Dia
+import edu.ort.pastillapp.Models.Day
 import edu.ort.pastillapp.Models.Reminder
 import edu.ort.pastillapp.Models.ReminderLogToday
 import edu.ort.pastillapp.R
