@@ -30,6 +30,7 @@
     <string name="emergency_contact">Contacto de Emergencia actual</string>
     <string name="new_mergency_contact"> Agregar nuevo </string>
     <string name="save">Guardar</string>
+    <string name="register_pill_title">REGISTRAR</string>
     <string name="Posponer">Posponer</string>
     <string name="Tomado">Tomado</string>
     <string name="reminder_name">Nombre del medicamento:</string>

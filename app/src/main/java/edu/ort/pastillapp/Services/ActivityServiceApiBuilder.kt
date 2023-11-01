@@ -18,7 +18,7 @@ import javax.net.ssl.X509TrustManager
 
 object ActivityServiceApiBuilder {
 
-    private val BASE_URL = "https://192.168.0.96:7067"
+    private val BASE_URL = "https://5a25-2800-21c1-c400-77b-ec97-163f-4c90-cfb5.ngrok-free.app"
     //127.0.0.1
 
     val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
@@ -43,7 +43,6 @@ object ActivityServiceApiBuilder {
 
 
     fun createReminder(): ReminderService {
-
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -55,8 +54,8 @@ object ActivityServiceApiBuilder {
         return retrofit.create(ReminderService::class.java)
     }
 
-    fun createReminderLogService(): ReminderLogService {
 
+    fun createReminderLogService(): ReminderLogService {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -79,6 +78,17 @@ object ActivityServiceApiBuilder {
         return retrofit.create(TokenService::class.java)
     }
 
+    fun createMedicine(): MedicineService {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getUnsafeOkHttpClient())
+
+            //PARA ACTIVAR SEGURIDAD DE NUEVO: COMENTAR LINEA 41
+            // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
+            .build()
+        return retrofit.create(MedicineService::class.java)
+    }
 
     private fun getUnsafeOkHttpClient(): OkHttpClient? {
         return try {

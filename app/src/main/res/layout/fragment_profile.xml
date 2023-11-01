@@ -61,7 +61,7 @@
 
 
             <TextView
-                android:id="@+id/textViewReminder"
+                android:id="@+id/registerPillTitle"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="64dp"
@@ -98,7 +98,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewReminder" />
+                app:layout_constraintTop_toBottomOf="@+id/registerPillTitle" />
 
             <EditText
                 android:id="@+id/myProfileLastName"
