@@ -11,6 +11,7 @@ import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.Models.ApiContactEmergencyServerResponse
 import edu.ort.pastillapp.Models.ApiEmergencyContactResponseDTO
 import edu.ort.pastillapp.Models.EmergencyRequestData
+import edu.ort.pastillapp.Models.ReminderLogToday
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import retrofit2.Call
@@ -59,6 +60,12 @@ class ContactRequestAdapter(private val emergencyRequests: MutableList<Emergency
                 removeRequest(position)
             }
         }
+    }
+
+    fun updateData(newList: List<EmergencyRequestData>) {
+        emergencyRequests.clear()
+        emergencyRequests.addAll(newList)
+        notifyDataSetChanged()
     }
 
     private fun removeRequest(position: Int) {

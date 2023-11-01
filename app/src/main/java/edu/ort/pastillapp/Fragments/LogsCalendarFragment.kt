@@ -18,8 +18,6 @@ import edu.ort.pastillapp.databinding.FragmentLogsCalendarBinding
 
 class LogsCalendarFragment : Fragment() {
 
-
-
     private lateinit var binding: FragmentLogsCalendarBinding
     private  val viewModel: LogsCalendarViewModel by viewModels()
     private lateinit var adapter: CalendarLogsAdapter
@@ -28,7 +26,6 @@ class LogsCalendarFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
 
         binding =  FragmentLogsCalendarBinding.inflate(inflater, container, false)
 
@@ -55,13 +52,10 @@ class LogsCalendarFragment : Fragment() {
         initRecycleView()
     }
 
-    fun initRecycleView(){
+    private fun initRecycleView(){
         val recycleView = binding.rvLogsCalendar
 
-        recycleView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recycleView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recycleView.adapter = adapter
-
     }
-
 }
