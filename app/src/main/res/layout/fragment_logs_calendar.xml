@@ -124,6 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Volver"
+        android:textAllCaps="false"
         android:background="@drawable/round_button"
         android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/cvHeaderLogsCalendar"

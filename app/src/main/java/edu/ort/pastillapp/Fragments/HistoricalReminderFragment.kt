@@ -84,6 +84,10 @@ class HistoricalReminderFragment : Fragment() {
 
         }
 
+        binding.btnHistoricalBack.setOnClickListener{
+            findNavController().popBackStack()
+        }
+
         return root
     }
 

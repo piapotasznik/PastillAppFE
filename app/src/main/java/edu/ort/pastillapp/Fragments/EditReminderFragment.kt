@@ -145,11 +145,14 @@ class EditReminderFragment : Fragment() {
 
     fun getReminderValues(): ReminderUpdate? {
         val reminderid = reminder?.reminderId
+        val frecuencyIntakeSp = binding.editFrecuencyInterval.selectedItem.toString()
+        Log.d("traduccion", "freq intake sp = ${frecuencyIntakeSp}")
         val frequencyEnglish =
-            Helpers().translateFrequencyEn(binding.editFrecuencyInterval.selectedItem.toString())
-        val durationEnglish = Helpers().translateFrequencyEn(
-            binding.editDurationIntake.selectedItem.toString()
-        )
+            Helpers().translateFrequencyEn(frecuencyIntakeSp)
+        val durationIntakeSp = binding.editDurationIntake.selectedItem.toString()
+        Log.d("traduccion", "freq intake sp = ${durationIntakeSp}")
+        val durationEnglish = Helpers().translateFrequencyEn(durationIntakeSp)
+
         Log.e("put33", binding.editDateIntake.text.toString())
         val dateFromat = Helpers().convertInvertDate(binding.editDateIntake.text.toString())
         var updateReminder = reminderid?.let {

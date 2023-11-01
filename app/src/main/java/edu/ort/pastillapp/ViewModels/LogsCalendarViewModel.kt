@@ -14,7 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LogsCalendarViewModel : ViewModel() {
-    val logs = MutableLiveData<List<ReminderLogToday>?>()
+    val logsCalendar = MutableLiveData<List<ReminderLogToday>?>()
     val loading = MutableLiveData<Boolean>()
 
 
@@ -45,7 +45,7 @@ class LogsCalendarViewModel : ViewModel() {
                 if (response.isSuccessful && response.body() != null) {
                     val responseReminders = response.body()
                     if (responseReminders != null) {
-                           logs.postValue(responseReminders)
+                        logsCalendar.postValue(responseReminders)
                         Log.d("respuesta", " esta es la respuesta ${responseReminders}")
 
                     }

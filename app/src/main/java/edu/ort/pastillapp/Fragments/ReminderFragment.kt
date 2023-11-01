@@ -53,9 +53,9 @@ class ReminderFragment : Fragment() {
         binding.tvDosis.setText(reminder.quantity.toString())
         binding.emergencyCheckBox2.isChecked=reminder.emergencyAlert
         binding.tvPresentation1.setText(reminder.presentation.toString())
-        binding.frequencyInterval.setText("${reminder.frequencyNumber.toString()} x ${Helpers().translateFrequency(reminder.frequencyText.toString())}")
+        binding.frequencyInterval.setText(" ${Helpers().translateFrequency(reminder.frequencyText.toString())}    ${reminder.frequencyNumber.toString()} ")
 //        binding.frequencyInt.setText(reminder.frequencyNumber.toString())
-        binding.durationIntake.setText("${reminder.intakeTimeNumber.toString()} ${Helpers().translateFrequency(reminder.intakeTimeText.toString())}")
+        binding.durationIntake.setText(" ${Helpers().translateFrequency(reminder.intakeTimeText.toString())}   ${reminder.intakeTimeNumber.toString()} ")
        // binding.durationNum.setText(reminder.intakeTimeNumber.toString())
         binding.notes.setText(reminder.observation)
 

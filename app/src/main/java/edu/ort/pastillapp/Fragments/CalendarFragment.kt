@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.res.Configuration
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.ort.pastillapp.Adapters.DateCalendarAdapter
+import edu.ort.pastillapp.Listeners.OnItemClickListener
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.ViewModels.CalendarViewModel
 import edu.ort.pastillapp.databinding.FragmentCalendarBinding
@@ -22,16 +24,18 @@ import java.util.Calendar
 import java.util.Locale
 
 
-class CalendarFragment : Fragment() {
+class CalendarFragment : Fragment(), OnItemClickListener {
 
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
     private lateinit var reminderAdapter: DateCalendarAdapter
     private val calendarViewModel: CalendarViewModel by viewModels()
+     private var dateLogs: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         reminderAdapter = DateCalendarAdapter(mutableListOf(), findNavController())
+        reminderAdapter.setOnItemClickListener(this)
     }
 
     override fun onCreateView(
@@ -68,12 +72,19 @@ class CalendarFragment : Fragment() {
         }
 
         dateTextUpTo.setOnClickListener {
-            showDatePicker(dateTextUpTo)
+
+            if(dateTextFrom.text.isNotEmpty() ){
+                showDatePicker(dateTextUpTo, dateTextFrom.text.toString())
+            } else {
+                showDatePicker(dateTextUpTo)
+            }
+
         }
         val btnCleanInputs = binding.btnClean
         btnCleanInputs.setOnClickListener {
             dateTextFrom.text = ""
             dateTextUpTo.text = ""
+            calendarViewModel.remindersList.postValue(emptyList())
         }
 
         val btnSearch = binding.btnSearchCalendar
@@ -90,9 +101,23 @@ class CalendarFragment : Fragment() {
                 calendarViewModel.remindersList.postValue(dateList)
             }
         }
+
+        calendarViewModel.logs.observe(viewLifecycleOwner, Observer {
+            if (it == null || it.isEmpty()) {
+               Toast.makeText(context,"No hay recordatorios ese dia", Toast.LENGTH_SHORT).show()
+            } else {
+
+               val action = CalendarFragmentDirections.actionNavigationCalendarToLogsCalendarFragment(dateLogs)
+                dateLogs = ""
+                calendarViewModel.logs.postValue(emptyList())
+
+
+                findNavController().navigate(action)
+            }
+        })
     }
 
-    private fun showDatePicker(textView: TextView) {
+    private fun showDatePicker(textView: TextView, maxDateString: String? = null) {
         val currentLocale = Locale("es")
         Locale.setDefault(currentLocale)
         val config = Configuration()
@@ -119,8 +144,19 @@ class CalendarFragment : Fragment() {
             day
         )
         datePickerDialog.datePicker.minDate = 0
+
+        // Verificar si se proporcionó una fecha límite
+        maxDateString?.let {
+            val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            val minDate = dateFormat.parse(it)
+            minDate?.let {
+                datePickerDialog.datePicker.minDate = minDate.time
+            }
+        }
+
         datePickerDialog.show()
     }
+
 
 
     private fun initRecycleView() {
@@ -151,6 +187,11 @@ class CalendarFragment : Fragment() {
 
         dateList.add(endDate)
         return dateList
+    }
+
+    override fun onItemClick(date: String) {
+        dateLogs = date
+        calendarViewModel.getLogs(date)
     }
 
 }

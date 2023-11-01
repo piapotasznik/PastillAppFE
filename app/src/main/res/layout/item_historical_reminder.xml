@@ -49,7 +49,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:src="@drawable/ic_edit_black"
-                android:layout_weight="1.5"
+                android:layout_weight="1.2"
                 android:adjustViewBounds="false"
                 android:layout_height="match_parent"
                 />
@@ -60,7 +60,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:src="@drawable/ic_archived_black"
-                android:layout_weight="1.5"
+                android:layout_weight="1.2"
                 android:layout_height="match_parent"
                 />
 
@@ -70,7 +70,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:src="@drawable/ic_cross_black"
-                android:layout_weight="1.5"
+                android:layout_weight="1.2"
                 android:layout_height="match_parent"
                 />
 
