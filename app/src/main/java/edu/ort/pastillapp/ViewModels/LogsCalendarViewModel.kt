@@ -14,10 +14,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LogsCalendarViewModel : ViewModel() {
+
     val logsCalendar = MutableLiveData<List<ReminderLogToday>?>()
-    val loading = MutableLiveData<Boolean>()
-
-
+    private val loading = MutableLiveData<Boolean>()
 
 
     fun getLogs(date:String) {
@@ -25,12 +24,8 @@ class LogsCalendarViewModel : ViewModel() {
         viewModelScope.launch {
              getLogsFrom(date)
             loading.postValue(false)
-
         }
     }
-
-
-
 
     private fun getLogsFrom(dateFrom: String) {
         val service = ActivityServiceApiBuilder.createReminderLogService()
@@ -59,9 +54,6 @@ class LogsCalendarViewModel : ViewModel() {
                 Log.e("Example", t.stackTraceToString())
             }
         })
-
     }
-
-
 }
 
