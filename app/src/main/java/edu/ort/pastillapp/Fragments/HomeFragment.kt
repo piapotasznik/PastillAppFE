@@ -71,7 +71,7 @@ class HomeFragment : Fragment(), OnClickNavigate {
             contactEmergencyUser()
         }
 
-        initRecylcerView()
+        initRecyclerView()
         return root
     }
 
@@ -107,14 +107,14 @@ class HomeFragment : Fragment(), OnClickNavigate {
     }
 
 
-    fun initRecylcerView() {
+    private fun initRecyclerView() {
         val dateAdapter = DateAdapter(Helpers().getDayOfMoth())
-        val posicionInicial = Helpers().dayToday() + 2
+        val initialPosition = Helpers().dayToday() + 2
 
         binding.rvDate.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvDate.adapter = dateAdapter
-        binding.rvDate.smoothScrollToPosition(posicionInicial)
+        binding.rvDate.smoothScrollToPosition(initialPosition)
 
         adapter = TodayReminderAdapter(reminderList, findNavController())
         binding.medList.layoutManager =
@@ -159,13 +159,13 @@ class HomeFragment : Fragment(), OnClickNavigate {
         })
     }
 
-    fun executeFunctions() {
+    private fun executeFunctions() {
         CoroutineScope(Dispatchers.Main).launch {
             saveUserId() // Espera a que saveUserId() termine antes de continuar
         }
     }
 
-    fun saveUserId() {
+    private fun saveUserId() {
         var email = SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail)
         if (email != null) {
             val service = ActivityServiceApiBuilder.create()
