@@ -39,7 +39,11 @@
         android:id="@+id/navigation_registerPill"
         android:name="edu.ort.pastillapp.Fragments.RegisterPillFragment"
         android:label="fragment_register_pill"
-        tools:layout="@layout/fragment_register_pill" />
+        tools:layout="@layout/fragment_register_pill" >
+        <action
+            android:id="@+id/action_navigation_registerPill_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_calendar"
         android:name="edu.ort.pastillapp.Fragments.CalendarFragment"
@@ -77,7 +81,7 @@
     </fragment>
     <fragment
     android:id="@+id/contactRequests2"
-    android:name="edu.ort.pastillapp.fragments.contactRequests"
+    android:name="edu.ort.pastillapp.Fragments.contactRequests"
     android:label="fragment_contact_requests"
     tools:layout="@layout/fragment_contact_requests" >
         <action

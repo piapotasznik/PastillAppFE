@@ -126,7 +126,7 @@ fun dayToday (): Int{
     fun translateFrequencyEn(englishText: String): String {
         return when (englishText) {
             "Dias" -> "DAY"
-            "Horas" -> "HOURS"
+            "Horas" -> "HOUR"
             "Meses" -> "MONTH"
             "Semanas" -> "WEEK"
             "Años" -> "YEAR"
