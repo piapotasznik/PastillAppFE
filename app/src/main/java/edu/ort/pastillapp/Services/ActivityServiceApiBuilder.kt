@@ -21,7 +21,7 @@ object ActivityServiceApiBuilder {
     private val BASE_URL = "https://5a25-2800-21c1-c400-77b-ec97-163f-4c90-cfb5.ngrok-free.app"
     //127.0.0.1
 
-    val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+    private val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 

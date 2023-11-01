@@ -66,9 +66,17 @@ fun dayToday (): Int{
         return formatoSalida.format(fecha)
     }
 
+    fun convertirFechaSM(fechaString: String): String {
+        val formatoEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val formatoSalida = SimpleDateFormat("dd-MM-yy HH:mm", Locale.getDefault())
+
+        val fecha: Date = formatoEntrada.parse(fechaString) ?: Date()
+        return formatoSalida.format(fecha)
+    }
+
     fun convertirFechaSola(fechaString: String): String {
         val formatoEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-        val formatoSalida = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val formatoSalida = SimpleDateFormat("dd-MM-yy", Locale.getDefault())
 
         val fecha: Date = formatoEntrada.parse(fechaString) ?: Date()
         return formatoSalida.format(fecha)

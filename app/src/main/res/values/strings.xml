@@ -57,8 +57,12 @@
     <string name="fecha_desde">"Fecha Desde "</string>
     <string name="fecha">Fecha</string>
     <string name="accion">Accion</string>
-    <string name="ver_detalle">Ver Detalle</string>
+    <string name="detalle">Detalle</string>
     <string name="iniciado">Iniciado</string>
+    <string name="daily_status">Estado diario</string>
+    <string name="daily_alert">Alertas del dia</string>
+    <string name="see_all">Ver todos</string>
+    <string name="fecha_hasta">Fecha Hasta</string>
     <string-array name="frecuency_intake_type">
         <item>Horas</item>
         <item>Dias</item>
