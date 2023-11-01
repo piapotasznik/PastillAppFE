@@ -35,6 +35,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         android:alpha="0.70"
         android:scaleType="matrix"
         android:src="@drawable/main_calendar"
@@ -51,7 +52,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/guideline4"
+        app:layout_constraintBottom_toTopOf="@+id/btnReminderHistory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_max="wrap"
         app:layout_constraintHorizontal_bias="0.0"
@@ -65,14 +66,12 @@
         android:id="@+id/emergencyContactButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="1dp"
         android:clickable="true"
         app:backgroundTint="#D82121"
         app:layout_constraintBottom_toBottomOf="@+id/text_home"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/phone" />
 
     <Button
@@ -80,17 +79,15 @@
         style="@style/Theme.PastillApp.ButtonReminders"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="1dp"
         android:background="@drawable/round_button"
         android:backgroundTint="@color/white"
         android:paddingHorizontal="15dp"
         android:text="@string/ver_recordatorios"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/text_home"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.122"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"

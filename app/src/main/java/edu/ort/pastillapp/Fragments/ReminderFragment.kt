@@ -59,7 +59,7 @@ class ReminderFragment : Fragment() {
        // binding.durationNum.setText(reminder.intakeTimeNumber.toString())
         binding.notes.setText(reminder.observation)
 
-        val dateTimeStartFormat = reminder.dateTimeStart?.let { Helpers().convertirFecha(it) }
+        val dateTimeStartFormat = reminder.dateTimeStart?.let { Helpers().convertDate(it) }
         binding.dateIntakeStart.setText(dateTimeStartFormat)
  }
 

@@ -1,6 +1,6 @@
 package edu.ort.pastillapp.Models
 
-data class Medicine (
+data class Medicine(
     val medicineId: Int,
     val name: String,
     val dosage: String,

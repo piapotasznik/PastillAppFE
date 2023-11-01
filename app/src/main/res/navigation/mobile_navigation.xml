@@ -22,9 +22,9 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_symptoms"
-        android:name="edu.ort.pastillapp.Fragments.SymtomsFragment"
+        android:name="edu.ort.pastillapp.Fragments.SymptomsFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_symtoms" />
+        tools:layout="@layout/fragment_symptoms" />
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -39,15 +39,23 @@
         android:id="@+id/navigation_registerPill"
         android:name="edu.ort.pastillapp.Fragments.RegisterPillFragment"
         android:label="fragment_register_pill"
-        tools:layout="@layout/fragment_register_pill" />
+        tools:layout="@layout/fragment_register_pill" >
+        <action
+            android:id="@+id/action_navigation_registerPill_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_calendar"
         android:name="edu.ort.pastillapp.Fragments.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/action_navigation_calendar_to_logsCalendarFragment"
+            app:destination="@id/logsCalendarFragment" />
+    </fragment>
     <fragment
         android:id="@+id/medicationReminder"
-        android:name="edu.ort.pastillapp.Fragments.medicationReminder"
+        android:name="edu.ort.pastillapp.Fragments.MedicationReminderFragment"
         android:label="fragment_medication_reminder"
         tools:layout="@layout/fragment_medication_reminder" />
     <fragment
@@ -73,7 +81,7 @@
     </fragment>
     <fragment
     android:id="@+id/contactRequests2"
-    android:name="edu.ort.pastillapp.Fragments.contactRequests"
+    android:name="edu.ort.pastillapp.Fragments.ContactRequestsFragment"
     android:label="fragment_contact_requests"
     tools:layout="@layout/fragment_contact_requests" >
         <action
@@ -88,5 +96,17 @@
         <action
             android:id="@+id/action_historicalReminderFragment_to_editReminderFragment"
             app:destination="@id/editReminderFragment" />
+        <action
+            android:id="@+id/action_historicalReminderFragment_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logsCalendarFragment"
+        android:name="edu.ort.pastillapp.Fragments.LogsCalendarFragment"
+        android:label="fragment_logs_calendar"
+        tools:layout="@layout/fragment_logs_calendar" >
+        <argument
+            android:name="date"
+            app:argType="string" />
     </fragment>
 </navigation>

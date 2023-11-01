@@ -14,29 +14,32 @@ class TodayReminderAdapter(
 ) : RecyclerView.Adapter<TodayReminderViewHolder>() {
 
     // Método para actualizar la lista de recordatorios
-    fun actualizarDatos(nuevaLista: List<ReminderLogToday>) {
+    fun updateData(newList: List<ReminderLogToday>) {
         reminders.clear()
-        reminders.addAll(nuevaLista)
+        reminders.addAll(newList)
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodayReminderViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_reminder, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_reminder, parent, false)
         return TodayReminderViewHolder(view)
     }
 
-    override fun getItemCount(): Int  = reminders.size
+    override fun getItemCount(): Int = reminders.size
 
     override fun onBindViewHolder(holder: TodayReminderViewHolder, position: Int) {
         holder.render(reminders[position])
 
         holder.updateBtn.setOnClickListener {
-            val action = HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminders[position].reminderId)
+            val action =
+                HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminders[position].reminderId)
             navController.navigate(action)
         }
 
         holder.archiveBtn.setOnClickListener {
-            val action = HomeFragmentDirections.actionNavigationHomeToReminderFragment(reminders[position].reminderId)
+            val action =
+                HomeFragmentDirections.actionNavigationHomeToReminderFragment(reminders[position].reminderId)
             navController.navigate(action)
         }
     }

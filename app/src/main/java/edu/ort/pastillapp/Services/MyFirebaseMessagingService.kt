@@ -20,13 +20,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         if (remoteMessage.notification != null) {
             val title = remoteMessage.notification?.title
             val body = remoteMessage.notification?.body
-            val tipo = remoteMessage.data["tipo"]
+            val type = remoteMessage.data["tipo"]
 
             Log.d(TAG, "Título: $title")
             Log.d(TAG, "Cuerpo: $body")
-            Log.d(TAG, "Tipo: $tipo")
+            Log.d(TAG, "Tipo: $type")
 
-            mostrarNotificacion(title, body, tipo)
+            showNotification(title, body, type)
         }
     }
 
@@ -34,18 +34,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.d(TAG, "Token actualizado: $token")
     }
 
-    private fun mostrarNotificacion(title: String?, body: String?, tipo: String?) {
+    private fun showNotification(title: String?, body: String?, type: String?) {
         val channelId = "canal_de_notificacion_ppal"
-        val notificationBuilder = buildNotification(title, body, channelId, tipo)
+        val notificationBuilder = buildNotification(title, body, channelId, type)
         showNotification(notificationBuilder)
     }
 
-    private fun buildNotification(
-        title: String?,
-        body: String?,
-        channelId: String,
-        tipo: String?
-    ): NotificationCompat.Builder {
+    private fun buildNotification(title: String?, body: String?, channelId: String, type: String?): NotificationCompat.Builder {
 
         val soundUri = Uri.parse("android.resource://${packageName}/${R.raw.sound}")
 
@@ -57,7 +52,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setSound(soundUri)
 
-        val resultIntent = if (tipo == "POP") {
+        val resultIntent = if (type == "POP") {
             Intent(this, InitActivity::class.java)
         } else {
             Intent(this, InitActivity::class.java)
@@ -74,7 +69,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         return notificationBuilder
     }
-
 
     private fun showNotification(notificationBuilder: NotificationCompat.Builder) {
         val notificationManager =
@@ -102,8 +96,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     mChannel.setAllowBubbles(true)
                 }
-
-
                 notificationManager.createNotificationChannel(mChannel)
             }
         }

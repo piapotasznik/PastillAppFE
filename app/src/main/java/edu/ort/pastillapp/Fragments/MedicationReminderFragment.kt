@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.Models.ReminderLogRepository
 
-class medicationReminder : Fragment() {
+class MedicationReminderFragment : Fragment() {
     private val reminderLogRepository = ReminderLogRepository(requireContext())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +26,7 @@ class medicationReminder : Fragment() {
 
         if (reminderLogId != null) {
             // Realiza una solicitud al backend para obtener el ReminderLog utilizando reminderLogId
-            reminderLogRepository.obtenerReminderLog(reminderLogId,
+            reminderLogRepository.obtainReminderLog(reminderLogId,
                 onSuccess = { reminderLog ->
                     // Actualiza las vistas del fragmento con los datos del ReminderLog
                     view?.findViewById<TextView>(R.id.textView3)?.text = reminderLog.name

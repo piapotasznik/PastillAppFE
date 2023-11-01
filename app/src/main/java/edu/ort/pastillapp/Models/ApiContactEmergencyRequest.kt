@@ -1,4 +1,5 @@
 package edu.ort.pastillapp.Models;
+
 import com.google.gson.annotations.SerializedName
 
 data class ApiContactEmergencyRequest(

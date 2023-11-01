@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import edu.ort.pastillapp.databinding.FragmentSymtomsBinding
-import edu.ort.pastillapp.ViewModels.SymtomsViewModel
+import edu.ort.pastillapp.databinding.FragmentSymptomsBinding
+import edu.ort.pastillapp.ViewModels.SymptomsViewModel
 
 
-class SymtomsFragment : Fragment()  {
-    private var _binding: FragmentSymtomsBinding? = null
+class SymptomsFragment : Fragment()  {
+    private var _binding: FragmentSymptomsBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,9 +23,9 @@ class SymtomsFragment : Fragment()  {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(SymtomsViewModel::class.java)
+            ViewModelProvider(this).get(SymptomsViewModel::class.java)
 
-        _binding = FragmentSymtomsBinding.inflate(inflater, container, false)
+        _binding = FragmentSymptomsBinding.inflate(inflater, container, false)
         val root: View = binding.root
        // val textView: TextView = binding.textSymtoms
         homeViewModel.text.observe(viewLifecycleOwner) {

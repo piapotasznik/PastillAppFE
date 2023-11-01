@@ -1,6 +1,5 @@
 package edu.ort.pastillapp.Fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,33 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.common.api.internal.LifecycleFragment
-import edu.ort.pastillapp.Adapters.ReminderAdatper
-import edu.ort.pastillapp.Models.ApiContactEmergencyServerResponse
-import edu.ort.pastillapp.Models.Reminder
-import edu.ort.pastillapp.R
+import edu.ort.pastillapp.Adapters.ReminderAdapter
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.ViewModels.HistoricalReminderViewModel
 import edu.ort.pastillapp.databinding.FragmentHistoricalReminderBinding
-import edu.ort.pastillapp.databinding.FragmentHomeBinding
-import org.intellij.lang.annotations.Language
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.Locale
 
 class HistoricalReminderFragment : Fragment() {
 
 
 
     private  val viewModel: HistoricalReminderViewModel by viewModels()
-    private lateinit var reminderAdapter: ReminderAdatper
+    private lateinit var reminderAdapter: ReminderAdapter
     private val binding get() = _binding!!
     private var _binding: FragmentHistoricalReminderBinding? = null
 
@@ -43,7 +33,7 @@ class HistoricalReminderFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        reminderAdapter = ReminderAdatper(mutableListOf(), findNavController(), this)
+        reminderAdapter = ReminderAdapter(mutableListOf(), findNavController(), this)
 
         viewModel.onCreate()
 

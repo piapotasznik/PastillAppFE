@@ -1,4 +1,5 @@
 package edu.ort.pastillapp.Models;
+
 data class ApiUserResponse(
     val userId: Int?,
     val name: String,

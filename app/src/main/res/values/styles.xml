@@ -1,9 +1,9 @@
 <resources>
 
-<style name="GrayText">
-    <item name="android:textColor">#80CCCCCC</item>
+    <style name="GrayText">
+        <item name="android:textColor">#80CCCCCC</item>
 
-</style>
+    </style>
 
     <style name="SelectedNavItem">
         <item name="android:textColor">@color/white</item> <!-- Cambia el color del texto -->
@@ -16,11 +16,13 @@
         <item name="android:gravity">start</item>
         <item name="android:layout_marginHorizontal">50sp</item>
     </style>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:contentInsetStart">0dp</item>
         <item name="colorPrimary">@color/blue</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
     <style name="FullScreenTheme" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
     </style>
@@ -28,19 +30,21 @@
     <style name="MyTimePickerDialogStyle" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:timePickerStyle">@style/MyTimePickerStyle</item>
     </style>
+
     <style name="MyTimePickerStyle" parent="@android:style/Widget.Material.Light.TimePicker">
         <!-- Puedes personalizar otros atributos aquí si lo deseas -->
     </style>
+
     <style name="CustomNumberPickerStyle">
         <item name="android:textColor">@color/grey</item>
 
     </style>
 
-    
     <style name="TimePicker" parent="android:Theme.Material.Light.Dialog">
         <item name="android:colorAccent">@color/blue</item>
         <item name="android:windowBackground">@drawable/custom_rectangle</item>
     </style>
+
     <style name="CustomDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:datePickerDialogTheme">@style/MyDatePickerDialog</item>
     </style>

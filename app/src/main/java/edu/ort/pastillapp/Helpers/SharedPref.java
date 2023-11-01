@@ -4,18 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class SharedPref
-{
+public class SharedPref {
     private static SharedPreferences mSharedPref;
     public static final String EMAIL = "EMAIL";
     public static final String ID = "ID";
     public static final String TOKEN = "TOKEN";
 
-    private SharedPref() { }
+    private SharedPref() {
+    }
 
-    public static void init(Context context)
-    {
-        if(mSharedPref == null)
+    public static void init(Context context) {
+        if (mSharedPref == null)
             mSharedPref = context.getSharedPreferences(context.getPackageName(), Activity.MODE_PRIVATE);
     }
 

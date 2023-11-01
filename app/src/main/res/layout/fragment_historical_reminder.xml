@@ -115,21 +115,21 @@
             android:gravity="center"
             android:text="@string/iniciado" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:fontFamily="@font/francois_one"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:text="@string/presentacion"/>
+<!--        <TextView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:gravity="center"-->
+<!--            android:textStyle="bold"-->
+<!--            android:fontFamily="@font/francois_one"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:text="@string/presentacion"/>-->
 
         <TextView
             android:layout_width="0dp"
             android:gravity="center"
             android:textStyle="bold"
             android:fontFamily="@font/francois_one"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_height="match_parent"
             android:text="@string/acciones"/>
 

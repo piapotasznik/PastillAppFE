@@ -1,6 +1,6 @@
 package edu.ort.pastillapp.Helpers
 
-import edu.ort.pastillapp.Models.Dia
+import edu.ort.pastillapp.Models.Day
 import java.text.DateFormatSymbols
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -8,95 +8,98 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class Helpers(){
+class Helpers() {
 
-fun dayToday (): Int{
-    val fechaActual = Date()
+    fun dayToday(): Int {
+        val actualDate = Date()
+        val format = SimpleDateFormat("d")
+        return format.format(actualDate).toInt()
+    }
 
-    val formato = SimpleDateFormat("d")
-    val diaNumerico = formato.format(fechaActual).toInt()
-    return diaNumerico
-}
-
-    fun getDayOfMoth(): List<Dia> {
-        val dias = mutableListOf<Dia>()
-        val calendario = Calendar.getInstance()
-        val formatoNumeroDia = SimpleDateFormat("d", Locale.getDefault())
-
+    fun getDayOfMoth(): List<Day> {
+        val days = mutableListOf<Day>()
+        val calendar = Calendar.getInstance()
+        val numericDayFormat = SimpleDateFormat("d", Locale.getDefault())
         val symbols = DateFormatSymbols(Locale("es", "ES"))
-        val nombresDias = symbols.shortWeekdays // Obtiene los nombres cortos de los días en español
-
-        val today = calendario.get(Calendar.DAY_OF_MONTH)
-        val ultimoDiaDelMes = calendario.getActualMaximum(Calendar.DAY_OF_MONTH)
+        val dayNames = symbols.shortWeekdays // Obtiene los nombres cortos de los días en español
+        val today = calendar.get(Calendar.DAY_OF_MONTH)
+        val ultimoDiaDelMes = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
 
         // Obtener los tres días anteriores a hoy
         for (i in today - 3 until today) {
-            calendario.set(Calendar.DAY_OF_MONTH, i)
-            val diaSemana = nombresDias[calendario.get(Calendar.DAY_OF_WEEK)]
-            val primeraLetra = diaSemana[0].toString().uppercase()
-            val numeroDia = formatoNumeroDia.format(calendario.time).toInt()
-            val dia = Dia(primeraLetra, numeroDia, false)
-            dias.add(dia)
+            calendar.set(Calendar.DAY_OF_MONTH, i)
+            val dayOfWeek = dayNames[calendar.get(Calendar.DAY_OF_WEEK)]
+            val firstLetter = dayOfWeek[0].toString().uppercase()
+            val numberDay = numericDayFormat.format(calendar.time).toInt()
+            val day = Day(firstLetter, numberDay, false)
+            days.add(day)
         }
 
         // Obtener el día de hoy
-        calendario.set(Calendar.DAY_OF_MONTH, today)
-        val diaSemanaHoy = nombresDias[calendario.get(Calendar.DAY_OF_WEEK)]
-        val primeraLetraHoy = diaSemanaHoy[0].toString().uppercase()
-        val diaHoy = Dia(primeraLetraHoy, today, true)
-        dias.add(diaHoy)
+        calendar.set(Calendar.DAY_OF_MONTH, today)
+        val weekdayToday = dayNames[calendar.get(Calendar.DAY_OF_WEEK)]
+        val firstLetterToday = weekdayToday[0].toString().uppercase()
+        val dayToday = Day(firstLetterToday, today, true)
+        days.add(dayToday)
 
         // Obtener los tres días posteriores a hoy
         for (i in today + 1..today + 3) {
-            calendario.set(Calendar.DAY_OF_MONTH, i)
-            val diaSemana = nombresDias[calendario.get(Calendar.DAY_OF_WEEK)]
-            val primeraLetra = diaSemana[0].toString().uppercase()
-            val numeroDia = formatoNumeroDia.format(calendario.time).toInt()
-            val dia = Dia(primeraLetra, numeroDia, false)
-            dias.add(dia)
+            calendar.set(Calendar.DAY_OF_MONTH, i)
+            val weekday = dayNames[calendar.get(Calendar.DAY_OF_WEEK)]
+            val weekdayFirstLetter = weekday[0].toString().uppercase()
+            val weekdayNumberDay = numericDayFormat.format(calendar.time).toInt()
+            val day = Day(weekdayFirstLetter, weekdayNumberDay, false)
+            days.add(day)
         }
-
-        return dias
-    }
-    fun convertirFecha(fechaString: String): String {
-        val formatoEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-        val formatoSalida = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
-
-        val fecha: Date = formatoEntrada.parse(fechaString) ?: Date()
-        return formatoSalida.format(fecha)
+        return days
     }
 
-    fun convertirFechaSola(fechaString: String): String {
-        val formatoEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-        val formatoSalida = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-
-        val fecha: Date = formatoEntrada.parse(fechaString) ?: Date()
-        return formatoSalida.format(fecha)
-    }
-    fun convertirFechaSoloHora(fechaString: String): String {
-        val formatoEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-        val formatoSalida = SimpleDateFormat("HH:mm", Locale.getDefault())
-
-        val fecha: Date = formatoEntrada.parse(fechaString) ?: Date()
-        return formatoSalida.format(fecha)
+    fun convertDate(dateString: String): String {
+        val entryFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val exitFormat = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+        val date: Date = entryFormat.parse(dateString) ?: Date()
+        return exitFormat.format(date)
     }
 
+    fun convertDateSM(dateString: String): String {
+        val entryFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val exitFormat = SimpleDateFormat("dd-MM-yy HH:mm", Locale.getDefault())
 
-    fun convertirFechaInversa(fechaString: String): String {
-        val formatoEntrada = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
-        val formatoSalida = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault())
-
-        val fecha: Date = formatoEntrada.parse(fechaString) ?: Date()
-        return formatoSalida.format(fecha)
+        val date: Date = entryFormat.parse(dateString) ?: Date()
+        return exitFormat.format(date)
     }
 
-    fun fechaYaPaso(fechaAComparar:String) : Boolean{
-        val formato = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault())
+    fun convertOnlyDate(dateString: String): String {
+        val entryFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val exitFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+
+        val date: Date = entryFormat.parse(dateString) ?: Date()
+        return exitFormat.format(date)
+    }
+
+    fun convertDateOnlyTime(dateString: String): String {
+        val entryFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val exitFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+
+        val date: Date = entryFormat.parse(dateString) ?: Date()
+        return exitFormat.format(date)
+    }
+
+
+    fun convertInvertDate(dateString: String): String {
+        val entryFormat = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+        val exitFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault())
+
+        val date: Date = entryFormat.parse(dateString) ?: Date()
+        return exitFormat.format(date)
+    }
+
+    fun dateHasAlreadyPassed(dateToCompare: String): Boolean {
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault())
         return try {
-            val fecha = formato.parse(fechaAComparar)
-            val fechaActual = Date()
-
-            fecha != null && fecha.before(fechaActual)
+            val date = format.parse(dateToCompare)
+            val actualDate = Date()
+            date != null && date.before(actualDate)
         } catch (e: ParseException) {
             e.printStackTrace()
             false
@@ -105,7 +108,7 @@ fun dayToday (): Int{
 
     fun translateFrequency(englishText: String): String {
         return when (englishText) {
-            "DAY" -> "Dia"
+            "DAY" -> "Day"
             "HOURS" -> "Horas"
             "HOUR" -> "Horas"
             "MONTH" -> "Meses"
@@ -118,13 +121,11 @@ fun dayToday (): Int{
     fun translateFrequencyEn(englishText: String): String {
         return when (englishText) {
             "Dias" -> "DAY"
-            "Horas" -> "HOURS"
+            "Horas" -> "HOUR"
             "Meses" -> "MONTH"
             "Semanas" -> "WEEK"
             "Años" -> "YEAR"
             else -> "no se pudo traducir" // Por si acaso no hay una traducción definida
         }
     }
-
-
 }
