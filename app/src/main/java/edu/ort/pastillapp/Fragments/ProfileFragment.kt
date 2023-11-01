@@ -25,13 +25,13 @@ import edu.ort.pastillapp.Activities.InitActivity
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.Models.ApiContactEmergencyRequest
-import edu.ort.pastillapp.databinding.FragmentProfileBinding
 import edu.ort.pastillapp.Models.ApiUserResponse
 import edu.ort.pastillapp.Models.User
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.Services.TokenService
 import edu.ort.pastillapp.Services.UserService
 import edu.ort.pastillapp.ViewModels.ProfileViewModel
+import edu.ort.pastillapp.databinding.FragmentProfileBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -106,10 +106,13 @@ class ProfileFragment : Fragment() {
 
         binding.txtSignOut.setOnClickListener {
             if (auth.currentUser != null) {
-                auth.signOut()
+                val token = SharedPref.read(SharedPref.TOKEN, "")
+                Log.e("token", token)
+                deleteToken(token)
                 SharedPref.delete()
+                auth.signOut()
                 startActivity(Intent(context, InitActivity::class.java))
-                Toast.makeText(context, "Sesion cerrada exitosamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -228,13 +231,13 @@ class ProfileFragment : Fragment() {
                             val lastName = user.lastName
 
                             if (email == emailContactoEmergencia) {
-                                mostrarMensaje(
+                                showMessage(
                                     requireContext(),
                                     "No puedes agregar tu propio correo como contacto de emergencia"
                                 )
                             } else
                                 if (emailContactoEmergencia == userCreatedInformation?.emergencyUser) {
-                                    mostrarMensaje(
+                                    showMessage(
                                         requireContext(),
                                         "El correo ya está agendado como contacto de emergencia"
                                     )
@@ -261,12 +264,12 @@ class ProfileFragment : Fragment() {
                                                 response: Response<Void>
                                             ) {
                                                 if (response.isSuccessful) {
-                                                    mostrarMensaje(
+                                                    showMessage(
                                                         requireContext(),
                                                         "Notificación enviada con éxito"
                                                     )
                                                 } else {
-                                                    mostrarMensaje(
+                                                    showMessage(
                                                         requireContext(),
                                                         "Error al enviar la notificación"
                                                     )
@@ -275,7 +278,7 @@ class ProfileFragment : Fragment() {
 
                                             override fun onFailure(call: Call<Void>, t: Throwable) {
                                                 // Ocurrió un error en la solicitud (por ejemplo, problemas de red)
-                                                mostrarMensaje(
+                                                showMessage(
                                                     requireContext(),
                                                     "Error al enviar la notificación"
                                                 )
@@ -312,7 +315,7 @@ class ProfileFragment : Fragment() {
         val emailToDelete = contEmer?.text.toString()
 
         if (emailToDelete.isEmpty()) {
-            mostrarMensaje(requireContext(), "No tienes un contacto de emergencia para eliminar.")
+            showMessage(requireContext(), "No tienes un contacto de emergencia para eliminar.")
         } else {
             val alertDialog = AlertDialog.Builder(requireContext())
             alertDialog.setTitle("Confirmación")
@@ -323,18 +326,18 @@ class ProfileFragment : Fragment() {
                         ?.enqueue(object : Callback<Void> {
                             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                 if (response.isSuccessful) {
-                                        mostrarMensaje(requireContext(), "Contacto de emergencia eliminado con éxito.")
+                                        showMessage(requireContext(), "Contacto de emergencia eliminado con éxito.")
                                     contEmer?.text = null
                                     setUserInformation()
                                 } else {
-                                    mostrarMensaje(
+                                    showMessage(
                                         requireContext(),
                                         "Error al eliminar el contacto de emergencia. Inténtalo de nuevo."
                                     )
                                 }
                             }
                             override fun onFailure(call: Call<Void>, t: Throwable) {
-                                mostrarMensaje(
+                                showMessage(
                                     requireContext(),
                                     "Error al eliminar el contacto de emergencia. Inténtalo de nuevo."
                                 )
@@ -350,7 +353,7 @@ class ProfileFragment : Fragment() {
             alertDialog.show()
         }
     }
-    fun mostrarMensaje(context: Context, mensaje: String) {
+    fun showMessage(context: Context, mensaje: String) {
         val builder = AlertDialog.Builder(context)
         builder.setMessage(mensaje)
             .setPositiveButton("Aceptar") { dialog, _ ->
@@ -361,4 +364,20 @@ class ProfileFragment : Fragment() {
         dialog.show()
     }
 
+    private fun deleteToken(token: String) {
+        val tokenService = ActivityServiceApiBuilder.createToken()
+        tokenService.deleteToken(token).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d(TAG, "Token eliminado con éxito")
+                } else {
+                    Log.e(TAG, "Error al eliminar el token")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e(TAG, "Error de red", t)
+            }
+        })
+    }
 }

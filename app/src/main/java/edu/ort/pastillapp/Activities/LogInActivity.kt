@@ -12,8 +12,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Helpers.UserSingleton
-import edu.ort.pastillapp.databinding.ActivityLogInBinding
 import edu.ort.pastillapp.Models.UserRepository
+import edu.ort.pastillapp.databinding.ActivityLogInBinding
 
 class LogInActivity: BaseActivity() {
 
@@ -64,7 +64,7 @@ class LogInActivity: BaseActivity() {
                         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 val token = task.result
-
+                                SharedPref.write(SharedPref.TOKEN, token.toString())
                                 // Llama a la función para enviar el token al backend
                                 UserRepository(this).sendTokenToServer(email,
                                     onSuccess = {

@@ -1,12 +1,14 @@
 package edu.ort.pastillapp.Activities
 
+import android.app.NotificationManager
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import edu.ort.pastillapp.Helpers.NotificationUtils
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.databinding.ActivityInitBinding
 
@@ -14,11 +16,12 @@ import edu.ort.pastillapp.databinding.ActivityInitBinding
 class InitActivity : AppCompatActivity() {
 
     private var binding: ActivityInitBinding? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInitBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-
+        checkAndRequestNotificationPermissions();
         SharedPref.init(applicationContext);
 
         binding?.btnLogIn?.setOnClickListener {
@@ -41,6 +44,27 @@ class InitActivity : AppCompatActivity() {
         } else {
             // User is signed out
             Log.d(TAG, "onAuthStateChanged:signed_out")
+        }
+    }
+
+    private fun checkAndRequestNotificationPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            val channel = notificationManager.getNotificationChannel("canal_de_notificacion_ppal")
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val notificationManager = getSystemService(NotificationManager::class.java)
+                val channel =
+                    notificationManager.getNotificationChannel("canal_de_notificacion_ppal")
+
+                if (channel != null && channel.importance == NotificationManager.IMPORTANCE_NONE) {
+                    // Los permisos de notificación están deshabilitados, solicitar al usuario que los habilite
+                    val intent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
+                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+                    intent.putExtra(Settings.EXTRA_CHANNEL_ID, channel.id)
+                    startActivity(intent)
+                }
+            }
         }
     }
 }
