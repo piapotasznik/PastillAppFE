@@ -70,5 +70,10 @@ class ReminderAdapter(
         holder.deleteBtn.setOnClickListener {
             holder.showDeleteConfirmationDialog(position, fragment)
         }
+
+        holder.archiveBtn.setOnClickListener {
+            val action = HistoricalReminderFragmentDirections.actionHistoricalReminderFragmentToReminderFragment(reminders[position].reminderId)
+            navController.navigate(action)
+        }
     }
 }

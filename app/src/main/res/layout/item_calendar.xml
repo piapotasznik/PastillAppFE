@@ -9,10 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="5dp">
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/historical">
+            android:background="@color/celesteItem">
 
             <TextView
                 android:id="@+id/dateCalendar"
@@ -20,27 +21,54 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:fontFamily="@font/francois_one"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:gravity="center"
+                android:gravity="start|center"
+                android:paddingStart="15dp"
+                android:textColor="@color/dirtyWhite"
                 android:letterSpacing="0.15"
-                android:text="26/10/2023" />
+                android:text="26/10/2023"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/calendarMedName"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="2"-->
+<!--                android:fontFamily="@font/francois_one"-->
+<!--                android:gravity="start|center"-->
+<!--                android:letterSpacing="0.15"-->
+<!--                android:text="Ibuprofeno"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="bold" />-->
 
             <TextView
                 android:id="@+id/detailsCalendar"
                 android:layout_width="0dp"
-                android:gravity="center"
-                android:textStyle="italic"
-                android:textSize="18sp"
-                android:fontFamily="@font/francois_one"
-                android:layout_weight="2"
-                android:clickable="true"
-                android:onClick="onTextViewClick"
                 android:layout_height="match_parent"
-                android:text="@string/ver_detalle"/>
+                android:layout_weight="1.2"
+                android:clickable="true"
+                android:fontFamily="@font/francois_one"
+                android:gravity="start|center"
+                android:onClick="onTextViewClick"
+                android:text="@string/see_all"
+                android:textSize="18sp"
+                android:textColor="@color/dirtyGrey"
+                android:letterSpacing="0.05"
+                android:textStyle="bold" />
 
-
-
+            <TextView
+                android:id="@+id/dailyStatusBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:clickable="true"
+                android:fontFamily="@font/francois_one"
+                android:gravity="center"
+                android:text="@string/detalle"
+                android:textSize="18sp"
+                android:textColor="@color/dirtyGrey"
+                android:letterSpacing="0.05"
+                android:textStyle="bold" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

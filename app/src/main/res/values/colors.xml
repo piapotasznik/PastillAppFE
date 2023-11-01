@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#0E0D0D</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_white_transparency">#87FFFFFF</color>
     <color name="pink">#FF81CF</color>
@@ -14,4 +14,9 @@
     <color name="blue">#206A98</color>
     <color name="red">#E23636</color>
     <color name="transparent">#0076C6F8</color>
+    <color name="green">#1ABB0E</color>
+    <color name="takenPink">#F08B77</color>
+    <color name="takenLight">#77B8E9</color>
+    <color name="dirtyWhite">#F2E2E2</color>
+    <color name="dirtyGrey">#CDCDCD</color>
 </resources>

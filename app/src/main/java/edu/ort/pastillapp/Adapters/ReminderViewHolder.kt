@@ -14,17 +14,19 @@ import edu.ort.pastillapp.Models.Reminder
 class ReminderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
     private var onMedicineClickListener: OnClickNavigate? = null
-    private val medName: TextView = view.findViewById(R.id.medNameHistorical)
-    private val initialDate: TextView = view.findViewById(R.id.initialDate)
-    private val medPresentation: TextView = view.findViewById(R.id.medPresentationHistorical)
+
+    private val medName : TextView = view.findViewById(R.id.medNameHistorical)
+    private val initialDate : TextView = view.findViewById(R.id.initialDate)
+//    private val medPresentation : TextView = view.findViewById(R.id.medPresentationHistorical)
 
     val updateBtn: ImageView = view.findViewById(R.id.editHistorical)
     val deleteBtn: ImageView = view.findViewById(R.id.deleteHistorical)
+    val archiveBtn: ImageView = view.findViewById(R.id.seeHistorical)
 
-    fun render(reminder: Reminder) {
+    fun render(reminder: Reminder){
         medName.text = reminder.medicineName
         initialDate.text = Helpers().convertOnlyDate(reminder.dateTimeStart.toString())
-        medPresentation.text = reminder.presentation.toString()
+//        medPresentation.text = reminder.presentation.toString()
         if (!!reminder.endDateTime?.let { Helpers().dateHasAlreadyPassed(it) }!!) {
             updateBtn.visibility = View.INVISIBLE
             deleteBtn.visibility = View.INVISIBLE

@@ -51,13 +51,19 @@ class Helpers() {
             val day = Day(weekdayFirstLetter, weekdayNumberDay, false)
             days.add(day)
         }
-
         return days
     }
 
     fun convertDate(dateString: String): String {
         val entryFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
         val exitFormat = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+        val date: Date = entryFormat.parse(dateString) ?: Date()
+        return exitFormat.format(date)
+    }
+
+    fun convertDateSM(dateString: String): String {
+        val entryFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val exitFormat = SimpleDateFormat("dd-MM-yy HH:mm", Locale.getDefault())
 
         val date: Date = entryFormat.parse(dateString) ?: Date()
         return exitFormat.format(date)
@@ -115,13 +121,11 @@ class Helpers() {
     fun translateFrequencyEn(englishText: String): String {
         return when (englishText) {
             "Dias" -> "DAY"
-            "Horas" -> "HOURS"
+            "Horas" -> "HOUR"
             "Meses" -> "MONTH"
             "Semanas" -> "WEEK"
             "Años" -> "YEAR"
             else -> "no se pudo traducir" // Por si acaso no hay una traducción definida
         }
     }
-
-
 }
