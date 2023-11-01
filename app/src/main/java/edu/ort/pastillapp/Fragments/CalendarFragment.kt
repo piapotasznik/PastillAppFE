@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import android.content.res.Configuration
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -103,16 +102,18 @@ class CalendarFragment : Fragment(), OnItemClickListener {
         }
 
         calendarViewModel.logs.observe(viewLifecycleOwner, Observer {
-            if (it == null || it.isEmpty()) {
-               Toast.makeText(context,"No hay recordatorios ese dia", Toast.LENGTH_SHORT).show()
-            } else {
+            if(calendarViewModel.responseReminders2){
+                Toast.makeText(context,"No hay recordatorios ese dia", Toast.LENGTH_SHORT).show()
+            }
 
-               val action = CalendarFragmentDirections.actionNavigationCalendarToLogsCalendarFragment(dateLogs)
-                dateLogs = ""
-                calendarViewModel.logs.postValue(emptyList())
+            if (it != null) {
+                if (it.isNotEmpty()) {
+                    val action = CalendarFragmentDirections.actionNavigationCalendarToLogsCalendarFragment(dateLogs)
+                    dateLogs = ""
+                    calendarViewModel.logs.postValue(emptyList())
 
-
-                findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
             }
         })
     }
