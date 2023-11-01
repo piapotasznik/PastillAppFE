@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -63,6 +62,8 @@ class ProfileFragment : Fragment() {
         val dashboardViewModel =
             ViewModelProvider(this).get(ProfileViewModel::class.java)
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+
         val root: View = binding.root
 
         databaseReference = FirebaseDatabase.getInstance().reference
@@ -126,6 +127,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setUserInformation() {
+        clearErrorMessages()
         email?.let {
             this.userService?.getUserEmail(it)?.enqueue(object : Callback<ApiUserResponse> {
                 override fun onResponse(
@@ -154,35 +156,40 @@ class ProfileFragment : Fragment() {
     private fun updateUserInformation() {
         val userName = profileName?.text.toString()
         val userLastName = profileSurname?.text.toString()
-        // si el campo email o nombre estan vacios
-        if (userName.isEmpty() || userLastName.isEmpty()) {
-            profileName?.error = "Campos obligatorios"
-            profileSurname?.error = "Campos obligatorios"
+
+        // Restablecer los mensajes de error y ocultar el mensaje de advertencia
+        profileName?.error = null
+        profileSurname?.error = null
+        errorMsg?.visibility = View.INVISIBLE
+
+        if (userName.isEmpty()) {
+            profileName?.error = "Campo obligatorio"
             errorMsg?.visibility = View.VISIBLE
             errorMsg?.text = "Todos los campos deben ser completados"
+        }
 
-            Handler().postDelayed({
-                errorMsg?.visibility = View.INVISIBLE
-            }, 3000)
+        if (userLastName.isEmpty()) {
+            profileSurname?.error = "Campo obligatorio"
+            errorMsg?.visibility = View.VISIBLE
+            errorMsg?.text = "Todos los campos deben ser completados"
+        }
 
-            // si el nombre tiene más de 50 caracteres
-        } else if (userName.length > 50) {
+        if (userName.length > 50) {
             profileName?.error = "El nombre no debe superar los 50 caracteres"
             errorMsg?.visibility = View.VISIBLE
             errorMsg?.text = "El nombre no debe superar los 50 caracteres"
-            Handler().postDelayed({
-                errorMsg?.visibility = View.INVISIBLE
-            }, 3000)
+        }
 
-            // si el apellido tiene más de 50 caracteres
-        } else if (userLastName.length > 50) {
+        if (userLastName.length > 50) {
             profileSurname?.error = "El apellido no debe superar los 50 caracteres"
             errorMsg?.visibility = View.VISIBLE
             errorMsg?.text = "El apellido no debe superar los 50 caracteres"
-            Handler().postDelayed({
-                errorMsg?.visibility = View.INVISIBLE
-            }, 3000)
-        } else {
+        }
+
+        // Si no hay errores de validación, actualiza la información del usuario
+        if (userName.isNotEmpty() && userLastName.isNotEmpty() &&
+            userName.length <= 50 && userLastName.length <= 50) {
+            // Realiza la actualización del usuario aquí
             val userInformation = this.userCreatedInformation?.let {
                 val userUpdated = User(
                     name = userName,
@@ -195,14 +202,13 @@ class ProfileFragment : Fragment() {
                             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                 Toast.makeText(
                                     requireContext(),
-                                    "Informacion de usuario actualizada con exito",
+                                    "Información de usuario actualizada con éxito",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
 
                             override fun onFailure(call: Call<Void>, t: Throwable) {
-                                Toast.makeText(requireContext(), "Error de red", Toast.LENGTH_SHORT)
-                                    .show()
+                                Toast.makeText(requireContext(), "Error de red", Toast.LENGTH_SHORT).show()
                             }
                         })
                 }
@@ -379,5 +385,11 @@ class ProfileFragment : Fragment() {
                 Log.e(TAG, "Error de red", t)
             }
         })
+    }
+
+    private fun clearErrorMessages() {
+        profileName?.error = null
+        profileSurname?.error = null
+        errorMsg?.visibility = View.INVISIBLE
     }
 }
