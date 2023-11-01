@@ -1,13 +1,11 @@
 package edu.ort.pastillapp.ViewModels
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Helpers.UserSingleton
-import edu.ort.pastillapp.Models.Reminder
 import edu.ort.pastillapp.Models.ReminderLogToday
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import kotlinx.coroutines.launch
@@ -21,6 +19,7 @@ class CalendarViewModel : ViewModel() {
 
     val logs = MutableLiveData<List<ReminderLogToday>?>()
     val loading = MutableLiveData<Boolean>()
+    var responseReminders2 : Boolean = false
 
 
 
@@ -52,8 +51,8 @@ class CalendarViewModel : ViewModel() {
                     val responseReminders = response.body()
                     if (responseReminders != null) {
                         logs.postValue(responseReminders)
-                        Log.d("respuesta", " esta es la respuesta ${responseReminders}")
-
+                        Log.d("respuesta2", (responseReminders.size == 0).toString())
+                        responseReminders2 = (responseReminders.size == 0)
                     } else {
                         logs.value = emptyList()
                     }
