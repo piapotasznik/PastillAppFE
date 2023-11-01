@@ -67,6 +67,7 @@
     <string-array name="frecuency_intake_type">
         <item>Horas</item>
         <item>Dias</item>
+        <item>Semanas</item>
         <item>Meses</item>
     </string-array>
 

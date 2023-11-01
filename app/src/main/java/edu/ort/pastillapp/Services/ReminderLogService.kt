@@ -4,6 +4,7 @@ import edu.ort.pastillapp.Models.ReminderLog
 import edu.ort.pastillapp.Models.ReminderLogToday
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ReminderLogService {
@@ -25,4 +26,7 @@ interface ReminderLogService {
         @Path("dateStart") dateStart: String,
         @Path("dateFinish") dateFinish: String
     ): Call<List<ReminderLogToday>>
+
+    @PUT("/api/Reminder/reminderlogs/{reminderLogId}/taken")
+    fun reminderLogTaken(@Path("reminderLogId") reminderLogId: Int): Call<Void>
 }

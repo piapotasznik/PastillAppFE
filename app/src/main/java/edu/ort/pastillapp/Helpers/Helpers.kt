@@ -1,5 +1,6 @@
 package edu.ort.pastillapp.Helpers
 
+import android.util.Log
 import edu.ort.pastillapp.Models.Day
 import java.text.DateFormatSymbols
 import java.text.ParseException
@@ -25,16 +26,32 @@ class Helpers() {
         val today = calendar.get(Calendar.DAY_OF_MONTH)
         val ultimoDiaDelMes = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
 
+
+
         // Obtener los tres días anteriores a hoy
         for (i in today - 3 until today) {
-            calendar.set(Calendar.DAY_OF_MONTH, i)
-            val dayOfWeek = dayNames[calendar.get(Calendar.DAY_OF_WEEK)]
-            val firstLetter = dayOfWeek[0].toString().uppercase()
-            val numberDay = numericDayFormat.format(calendar.time).toInt()
-            val day = Day(firstLetter, numberDay, false)
-            days.add(day)
-        }
 
+            if (i <= 0) {
+                val calendarMesAnterior = Calendar.getInstance()
+                calendarMesAnterior.add(Calendar.MONTH, -1)
+                val ultimoDiaMesAnterior = calendarMesAnterior.getActualMaximum(Calendar.DAY_OF_MONTH)
+                val dayNumber = ultimoDiaMesAnterior + i + 0 // Sumamos 1 porque i es negativo
+                calendarMesAnterior.set(Calendar.DAY_OF_MONTH, dayNumber)
+                val dayOfWeek = dayNames[calendarMesAnterior.get(Calendar.DAY_OF_WEEK)]
+                val firstLetter = dayOfWeek[0].toString().uppercase()
+                val numberDay = numericDayFormat.format(calendarMesAnterior.time).toInt()
+                val day = Day(firstLetter, numberDay, false)
+                days.add(day)
+            } else {
+                val dayNumber = today + i
+                calendar.set(Calendar.DAY_OF_MONTH, dayNumber)
+                val dayOfWeek = dayNames[calendar.get(Calendar.DAY_OF_WEEK)]
+                val firstLetter = dayOfWeek[0].toString().uppercase()
+                val numberDay = numericDayFormat.format(calendar.time).toInt()
+                val day = Day(firstLetter, numberDay, false)
+                days.add(day)
+            }
+        }
         // Obtener el día de hoy
         calendar.set(Calendar.DAY_OF_MONTH, today)
         val weekdayToday = dayNames[calendar.get(Calendar.DAY_OF_WEEK)]
@@ -44,13 +61,15 @@ class Helpers() {
 
         // Obtener los tres días posteriores a hoy
         for (i in today + 1..today + 3) {
-            calendar.set(Calendar.DAY_OF_MONTH, i)
+            val dayNumber = if (i > ultimoDiaDelMes) i - ultimoDiaDelMes else i
+            calendar.set(Calendar.DAY_OF_MONTH, dayNumber)
             val weekday = dayNames[calendar.get(Calendar.DAY_OF_WEEK)]
             val weekdayFirstLetter = weekday[0].toString().uppercase()
             val weekdayNumberDay = numericDayFormat.format(calendar.time).toInt()
             val day = Day(weekdayFirstLetter, weekdayNumberDay, false)
             days.add(day)
         }
+
         return days
     }
 
@@ -108,7 +127,7 @@ class Helpers() {
 
     fun translateFrequency(englishText: String): String {
         return when (englishText) {
-            "DAY" -> "Day"
+            "DAY" -> "Dias"
             "HOURS" -> "Horas"
             "HOUR" -> "Horas"
             "MONTH" -> "Meses"
@@ -119,13 +138,14 @@ class Helpers() {
     }
 
     fun translateFrequencyEn(englishText: String): String {
-        return when (englishText) {
-            "Dias" -> "DAY"
-            "Horas" -> "HOUR"
-            "Meses" -> "MONTH"
-            "Semanas" -> "WEEK"
-            "Años" -> "YEAR"
-            else -> "no se pudo traducir" // Por si acaso no hay una traducción definida
+        val lowerCaseText = englishText.lowercase()
+        return when (lowerCaseText) {
+            "dias" -> "DAY"
+            "horas" -> "HOUR"
+            "meses" -> "MONTH"
+            "semanas" -> "WEEK"
+            "años" -> "YEAR"
+            else -> "no se pudo traducir"
         }
     }
 }

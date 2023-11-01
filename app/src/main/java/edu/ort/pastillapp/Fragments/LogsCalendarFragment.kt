@@ -2,6 +2,7 @@ package edu.ort.pastillapp.Fragments
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +41,7 @@ class LogsCalendarFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.logs.observe(viewLifecycleOwner, Observer {
+        viewModel.logsCalendar.observe(viewLifecycleOwner, Observer {
 
             if (it != null) {
                 adapter.updateData(it)
@@ -48,6 +49,7 @@ class LogsCalendarFragment : Fragment() {
         })
         binding.btnLogsCalendarBack.setOnClickListener {
             findNavController().popBackStack()
+
         }
         initRecycleView()
     }

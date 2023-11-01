@@ -68,7 +68,7 @@ class ReminderAdapter(
             navController.navigate(action)
         }
         holder.deleteBtn.setOnClickListener {
-            holder.showDeleteConfirmationDialog(position, fragment)
+            holder.showDeleteConfirmationDialog(reminders[position].reminderId, fragment)
         }
 
         holder.archiveBtn.setOnClickListener {
