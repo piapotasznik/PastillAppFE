@@ -193,7 +193,7 @@ class HomeFragment : Fragment(), OnClickNavigate {
         }
     }
 
-    fun contactEmergencyUser() {
+    private fun contactEmergencyUser() {
         val email = SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail)
         if (email != null) {
             val service = ActivityServiceApiBuilder.create()
