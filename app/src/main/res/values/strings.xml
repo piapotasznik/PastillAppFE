@@ -63,6 +63,7 @@
     <string name="daily_alert">Alertas del dia</string>
     <string name="see_all">Ver todos</string>
     <string name="fecha_hasta">Fecha Hasta</string>
+    <string name="volver">Volver</string>
 
     <string-array name="frecuency_intake_type">
         <item>Horas</item>

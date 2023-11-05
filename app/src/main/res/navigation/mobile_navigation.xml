@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_navigation_calendar_to_logsCalendarFragment"
             app:destination="@id/logsCalendarFragment" />
+        <action
+            android:id="@+id/action_navigation_calendar_to_dailyStatusFragment"
+            app:destination="@id/dailyStatusFragment" />
     </fragment>
     <fragment
         android:id="@+id/medicationReminder"
@@ -105,6 +108,15 @@
         android:name="edu.ort.pastillapp.Fragments.LogsCalendarFragment"
         android:label="fragment_logs_calendar"
         tools:layout="@layout/fragment_logs_calendar" >
+        <argument
+            android:name="date"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/dailyStatusFragment"
+        android:name="edu.ort.pastillapp.DailyStatusFragment"
+        android:label="fragment_daily_status"
+        tools:layout="@layout/fragment_daily_status" >
         <argument
             android:name="date"
             app:argType="string" />

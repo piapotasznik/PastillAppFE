@@ -9,6 +9,7 @@ import edu.ort.pastillapp.R
 class DateCalendarViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     private val tvDay : TextView = view.findViewById(R.id.dateCalendar)
     val seeAll :TextView = view.findViewById(R.id.detailsCalendar)
+    val dailyStatusBtn : TextView = view.findViewById(R.id.dailyStatusBtn)
 
     fun render(date: String){
         tvDay.text = date
