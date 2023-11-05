@@ -26,7 +26,12 @@ class DateCalendarAdapter (private var dates:MutableList<String>  = mutableListO
         holder.seeAll.setOnClickListener {
 //             val action = CalendarFragmentDirections.actionNavigationCalendarToLogsCalendarFragment(dates[position])
 //             navController.navigate(action)
-            onItemClickListener?.onItemClick(dates[position])
+            onItemClickListener?.onItemClick(dates[position],0)
+        }
+        holder.dailyStatusBtn.setOnClickListener {
+//             val action = CalendarFragmentDirections.actionNavigationCalendarToLogsCalendarFragment(dates[position])
+//             navController.navigate(action)
+            onItemClickListener?.onItemClick(dates[position],1)
         }
     }
     fun updateData(nuevaLista: List<String>) {
