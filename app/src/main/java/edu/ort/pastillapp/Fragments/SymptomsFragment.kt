@@ -1,13 +1,18 @@
 package edu.ort.pastillapp.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import edu.ort.pastillapp.databinding.FragmentSymptomsBinding
 import edu.ort.pastillapp.ViewModels.SymptomsViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 class SymptomsFragment : Fragment()  {
@@ -16,6 +21,7 @@ class SymptomsFragment : Fragment()  {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,9 +33,22 @@ class SymptomsFragment : Fragment()  {
 
         _binding = FragmentSymptomsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-       // val textView: TextView = binding.textSymtoms
+
+        val currentDate = Date()
+
+
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+
+
+        val formattedDate = dateFormat.format(currentDate)
+
+
+
+        val textView: TextView = binding.textViewDateToday
+
         homeViewModel.text.observe(viewLifecycleOwner) {
-            //textView.text = it
+            Log.d("SymptomsFragment", "Fecha formateada: $formattedDate")
+            textView.text = formattedDate
 
         }
 
