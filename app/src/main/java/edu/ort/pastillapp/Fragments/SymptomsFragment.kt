@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import edu.ort.pastillapp.R
 import edu.ort.pastillapp.databinding.FragmentSymptomsBinding
 import edu.ort.pastillapp.ViewModels.SymptomsViewModel
 import java.text.SimpleDateFormat
@@ -35,15 +37,8 @@ class SymptomsFragment : Fragment()  {
         val root: View = binding.root
 
         val currentDate = Date()
-
-
         val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-
-
         val formattedDate = dateFormat.format(currentDate)
-
-
-
         val textView: TextView = binding.textViewDateToday
 
         homeViewModel.text.observe(viewLifecycleOwner) {
@@ -53,6 +48,33 @@ class SymptomsFragment : Fragment()  {
         }
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val btnSave = binding.saveBtn
+        val btnCancel = binding.cxlBtn
+        val editText1 = binding.editNotes3
+        val checkBoxList = listOf(
+            binding.fatigueCheckBox,
+            binding.headacheCheckbox,
+            binding.feverCheckbox,
+            binding.soreThroatCheckbox,
+            binding.stuffyNoseCheckbox,
+            binding.coughCheckbox,
+            binding.stomachAcheCheckbox,
+            binding.musclePainCheckbox
+        )
+
+
+        btnSave.setOnClickListener {
+
+        }
+        btnCancel.setOnClickListener {
+            editText1.text.clear()
+            checkBoxList.forEach { checkBox ->
+                checkBox.isChecked = false
+            }
+        }
     }
 
     override fun onDestroyView() {
