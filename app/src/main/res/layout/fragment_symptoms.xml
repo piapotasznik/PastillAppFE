@@ -34,7 +34,6 @@
                     style="@style/GrayText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="Fecha del Estado"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -54,84 +53,98 @@
                     android:textColor="@color/celesteClaro"
                     android:textSize="35sp"
                     android:textStyle="normal"
+                    app:layout_constraintBottom_toTopOf="@+id/textView9"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="spread_inside" />
 
                 <TextView
                     android:id="@+id/dateTimeToday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/francois_one"
                     android:text="@string/date_today"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    android:fontFamily="@font/francois_one"
                     app:layout_constraintEnd_toEndOf="@+id/dailyStatusTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/dailyStatusTitle"/>
+                    app:layout_constraintTop_toBottomOf="@+id/dailyStatusTitle" />
 
                 <CheckBox
                     android:id="@+id/fatigueCheckBox"
                     style="@style/CheckBoxStyle"
                     android:text="Cansancio"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/headacheCheckbox"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/dateTimeToday" />
 
                 <CheckBox
                     android:id="@+id/headacheCheckbox"
                     style="@style/CheckBoxStyle"
                     android:text="Dolor de cabeza"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/feverCheckbox"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/fatigueCheckBox" />
 
                 <CheckBox
                     android:id="@+id/feverCheckbox"
                     style="@style/CheckBoxStyle"
                     android:text="Fiebre"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/soreThroatCheckbox"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/headacheCheckbox" />
 
                 <CheckBox
                     android:id="@+id/soreThroatCheckbox"
                     style="@style/CheckBoxStyle"
                     android:text="Dolor de garganta"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/stuffyNoseCheckbox"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/feverCheckbox" />
 
                 <CheckBox
                     android:id="@+id/stuffyNoseCheckbox"
                     style="@style/CheckBoxStyle"
                     android:text="Congestión nasal"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/coughCheckbox"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/soreThroatCheckbox" />
 
                 <CheckBox
                     android:id="@+id/coughCheckbox"
                     style="@style/CheckBoxStyle"
                     android:text="Tos"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/stomachAcheCheckbox"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/stuffyNoseCheckbox" />
 
                 <CheckBox
                     android:id="@+id/stomachAcheCheckbox"
                     style="@style/CheckBoxStyle"
                     android:text="Malestar estomacal"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/musclePainCheckbox"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/coughCheckbox" />
 
                 <CheckBox
                     android:id="@+id/musclePainCheckbox"
                     style="@style/CheckBoxStyle"
                     android:text="Dolor muscular"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/textView10"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/stomachAcheCheckbox" />
 
 
@@ -140,12 +153,12 @@
                     style="@style/GrayText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginHorizontal="30dp"
                     android:text="@string/notas_adicionales"
                     android:textColor="@color/white_white_transparency"
                     android:textSize="16sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/editNotes3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/musclePainCheckbox" />
 
@@ -154,14 +167,15 @@
                     android:id="@+id/editNotes3"
                     android:layout_width="290dp"
                     android:layout_height="56dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/custom_rectangle"
                     android:gravity="top"
                     android:hint="Agrega notas"
                     android:paddingStart="5dp"
                     android:paddingTop="5dp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/saveBtn"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
                 <Button
@@ -169,8 +183,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
                     android:background="@drawable/round_button"
                     android:gravity="center"
                     android:paddingHorizontal="30dp"
@@ -181,15 +193,16 @@
                     android:textStyle="bold"
                     android:theme="@style/Theme.PastillApp.ButtonSave"
                     app:fontFamily="@font/francois_one"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editNotes3" />
+                    app:layout_constraintTop_toBottomOf="@+id/editNotes3"
+                    app:layout_constraintVertical_chainStyle="spread_inside"/>
+
                 <Button
                     android:id="@+id/cxlBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
                     android:background="@drawable/round_button"
                     android:gravity="center"
                     android:paddingHorizontal="30dp"
@@ -201,8 +214,10 @@
                     android:textStyle="bold"
                     android:theme="@style/Theme.PastillApp.ButtonCxl"
                     app:fontFamily="@font/francois_one"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editNotes3" />
+                    app:layout_constraintTop_toBottomOf="@+id/editNotes3"
+                    app:layout_constraintVertical_chainStyle="spread_inside"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
