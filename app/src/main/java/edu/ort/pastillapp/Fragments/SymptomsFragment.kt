@@ -76,8 +76,9 @@ class SymptomsFragment : Fragment()  {
 
         btnSave.setOnClickListener {
             DailyStatusDTO(id,formattedDate,symptoms,editText1.text.toString())
-
         }
+
+      //  }
         btnCancel.setOnClickListener {
             editText1.text.clear()
             checkBoxList.forEach { checkBox ->
