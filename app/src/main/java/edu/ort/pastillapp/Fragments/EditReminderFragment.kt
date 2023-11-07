@@ -4,11 +4,13 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.res.Configuration
 import android.os.Bundle
+import android.text.InputFilter
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import edu.ort.pastillapp.R
@@ -58,7 +60,23 @@ class EditReminderFragment : Fragment() {
                 update(editedReminder)
                 findNavController().popBackStack()
             }
+
         }
+
+        val editNotes = binding.editNotes // Asegúrate de que este sea el ID correcto en tu diseño XML
+        val maxLength = 50 // El máximo de caracteres permitidos
+
+        val inputFilter = InputFilter { source, start, end, dest, dstart, dend ->
+            val newLength = dest.length - (dend - dstart) + end - start
+            if (newLength <= maxLength) {
+                null // No se supera el límite, se permite la entrada.
+            } else {
+                "" // Se supera el límite, se bloquea la entrada.
+            }
+        }
+
+        editNotes.filters = arrayOf(inputFilter)
+
     }
 
     override fun onStart() {
@@ -155,6 +173,14 @@ class EditReminderFragment : Fragment() {
 
         Log.e("put33", binding.editDateIntake.text.toString())
         val dateFromat = Helpers().convertInvertDate(binding.editDateIntake.text.toString())
+        //validar si el campo de dosis está vacío
+        val dosisText = binding.editDosis.text.toString()
+        if (dosisText.isEmpty()) {
+            // El campo "dosis" está vacío, mostrar un Toast
+            Toast.makeText(requireContext(), "El campo de dosis es obligatorio", Toast.LENGTH_SHORT).show()
+            return null
+        }
+
         var updateReminder = reminderid?.let {
             ReminderUpdate(
                 it,
