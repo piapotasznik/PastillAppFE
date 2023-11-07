@@ -9,6 +9,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import edu.ort.pastillapp.Helpers.SharedPref
+import edu.ort.pastillapp.Helpers.UserSingleton
+import edu.ort.pastillapp.Models.DailyStatusDTO
 import edu.ort.pastillapp.R
 import edu.ort.pastillapp.databinding.FragmentSymptomsBinding
 import edu.ort.pastillapp.ViewModels.SymptomsViewModel
@@ -64,9 +67,15 @@ class SymptomsFragment : Fragment()  {
             binding.stomachAcheCheckbox,
             binding.musclePainCheckbox
         )
+        val symptoms = checkBoxList.joinToString(", ")
+        var id = SharedPref.read(SharedPref.ID, UserSingleton.userId!!)
+        val currentDate = Date()
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(currentDate)
 
 
         btnSave.setOnClickListener {
+            DailyStatusDTO(id,formattedDate,symptoms,editText1.text.toString())
 
         }
         btnCancel.setOnClickListener {
