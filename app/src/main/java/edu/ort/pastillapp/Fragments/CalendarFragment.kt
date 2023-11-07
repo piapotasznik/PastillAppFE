@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.res.Configuration
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class CalendarFragment : Fragment(), OnItemClickListener {
     private lateinit var reminderAdapter: DateCalendarAdapter
     private val calendarViewModel: CalendarViewModel by viewModels()
      private var dateLogs: String = ""
+    private var isBackFromFragment : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,20 +104,55 @@ class CalendarFragment : Fragment(), OnItemClickListener {
         }
 
         calendarViewModel.logs.observe(viewLifecycleOwner, Observer {
-            if(calendarViewModel.responseReminders2){
-                Toast.makeText(context,"No hay recordatorios ese dia", Toast.LENGTH_SHORT).show()
-            }
 
             if (it != null) {
                 if (it.isNotEmpty()) {
                     val action = CalendarFragmentDirections.actionNavigationCalendarToLogsCalendarFragment(dateLogs)
                     dateLogs = ""
                     calendarViewModel.logs.postValue(emptyList())
-
+                    isBackFromFragment = true
                     findNavController().navigate(action)
                 }
             }
         })
+
+        calendarViewModel.dailyStatus.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                    val date = dateLogs
+                    val action =
+                        CalendarFragmentDirections.actionNavigationCalendarToDailyStatusFragment(date)
+                    calendarViewModel.dailyStatus.value = null
+                    dateLogs = ""
+                isBackFromFragment = true
+                findNavController().navigate(action)
+
+            }
+        })
+
+
+        calendarViewModel.callSuccessLogs.observe(viewLifecycleOwner, Observer {
+            Log.d("llamada", "${it.toString()} y  is back ${isBackFromFragment.toString()}")
+            if (it == false && !isBackFromFragment){
+                Toast.makeText(context, "No hay recordatorios ese dia", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        calendarViewModel.callSuccess.observe(viewLifecycleOwner, Observer {
+            Log.d("llamada", "${it.toString()} y  is back ${isBackFromFragment.toString()}")
+            if (it == false && !isBackFromFragment) {
+
+                Log.e("ciclo", "Entro al call succes FALSE y action completed TRUE")
+                Toast.makeText(
+                    context,
+                    "No hay Estado Diario ese dia",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
+        })
+
+
+
     }
 
     private fun showDatePicker(textView: TextView, maxDateString: String? = null) {
@@ -190,9 +227,18 @@ class CalendarFragment : Fragment(), OnItemClickListener {
         return dateList
     }
 
-    override fun onItemClick(date: String) {
+    override fun onItemClick(date: String, type: Int) {
+        isBackFromFragment = false
         dateLogs = date
-        calendarViewModel.getLogs(date)
+        if (type ==0){
+
+          calendarViewModel.getLogs(date)
+      }
+        if (type ==1){
+            calendarViewModel.getDailyStatus(date)
+
+        }
+
     }
 
 }

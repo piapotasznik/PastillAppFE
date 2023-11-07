@@ -82,7 +82,7 @@ class Helpers() {
 
     fun convertDateSM(dateString: String): String {
         val entryFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-        val exitFormat = SimpleDateFormat("dd-MM-yy HH:mm", Locale.getDefault())
+        val exitFormat = SimpleDateFormat("dd-MM-yy", Locale.getDefault())
 
         val date: Date = entryFormat.parse(dateString) ?: Date()
         return exitFormat.format(date)

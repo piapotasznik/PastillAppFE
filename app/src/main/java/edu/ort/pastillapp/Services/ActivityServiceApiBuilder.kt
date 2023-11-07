@@ -18,7 +18,7 @@ import javax.net.ssl.X509TrustManager
 
 object ActivityServiceApiBuilder {
 
-    private val BASE_URL = "https://23a5-2800-810-502-8727-cda7-9fd9-9686-7e16.ngrok-free.app"
+    private val BASE_URL = "https://192.168.1.2:7067"
     //127.0.0.1
 
     private val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
@@ -88,6 +88,18 @@ object ActivityServiceApiBuilder {
             // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
             .build()
         return retrofit.create(MedicineService::class.java)
+    }
+
+    fun createDailyStatus(): DailyStatusService {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(getUnsafeOkHttpClient())
+
+            //PARA ACTIVAR SEGURIDAD DE NUEVO: COMENTAR LINEA 41
+            // Y REEMPLAZAR POR "CLIENT" PARA VALIDAR CERTIFICADOS
+            .build()
+        return retrofit.create(DailyStatusService::class.java)
     }
 
     private fun getUnsafeOkHttpClient(): OkHttpClient? {
