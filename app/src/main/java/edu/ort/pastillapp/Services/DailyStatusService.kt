@@ -20,6 +20,6 @@ interface DailyStatusService {
         @Path("dateString") dateString: String
     ): Call<DailyStatus>
     @POST("api/DailyStatus")
-    fun createReminder(@Body dailyStatusDTO: DailyStatusDTO): Call<Void>
+    fun createDailyStatus(@Body dailyStatusDTO: DailyStatusDTO): Call<Void>
 
 }

@@ -12,12 +12,17 @@ import androidx.navigation.fragment.findNavController
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.Models.DailyStatusDTO
+import edu.ort.pastillapp.Models.Reminder
 import edu.ort.pastillapp.R
+import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.databinding.FragmentSymptomsBinding
 import edu.ort.pastillapp.ViewModels.SymptomsViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class SymptomsFragment : Fragment()  {
@@ -26,6 +31,7 @@ class SymptomsFragment : Fragment()  {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private var status: DailyStatusDTO? = null
 
 
     override fun onCreateView(
@@ -72,13 +78,30 @@ class SymptomsFragment : Fragment()  {
         val currentDate = Date()
         val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         val formattedDate = dateFormat.format(currentDate)
-
+        val service = ActivityServiceApiBuilder.createDailyStatus()
 
         btnSave.setOnClickListener {
-            DailyStatusDTO(id,formattedDate,symptoms,editText1.text.toString())
+            var status = DailyStatusDTO(id, formattedDate, symptoms, editText1.text.toString())
+            service.createDailyStatus(status).enqueue(object: Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        val responseCode = response.code()
+                        Log.e("llamando", "Response code: $responseCode")
+
+                    } else {
+
+                        val responseCode = response.code()
+                        Log.e("llamando", "Response code (not successful): $responseCode")
+                    }
+                }
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Log.e("Example", t.stackTraceToString())
+                }
+            })
         }
 
-      //  }
+
+        //  }
         btnCancel.setOnClickListener {
             editText1.text.clear()
             checkBoxList.forEach { checkBox ->
