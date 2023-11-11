@@ -50,6 +50,7 @@ class SymptomsFragment : Fragment()  {
         val formattedDate = dateFormat.format(currentDate)
         val textView: TextView = binding.textViewDateToday
 
+
         homeViewModel.text.observe(viewLifecycleOwner) {
             Log.d("SymptomsFragment", "Fecha formateada: $formattedDate")
             textView.text = formattedDate
@@ -99,7 +100,6 @@ class SymptomsFragment : Fragment()  {
                 }
             })
         }
-
 
         //  }
         btnCancel.setOnClickListener {
