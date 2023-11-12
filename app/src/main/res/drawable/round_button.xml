@@ -4,6 +4,7 @@
         <shape
             android:shape="rectangle">
             <corners android:radius="50dp" /> <!-- Ajusta el radio según sea necesario -->
+            <solid android:color="#FF81CF" />
         </shape>
     </item>
 </layer-list>
