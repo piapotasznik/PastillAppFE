@@ -21,6 +21,7 @@ import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.Adapters.DateAdapter
 import edu.ort.pastillapp.Adapters.TodayReminderAdapter
 import edu.ort.pastillapp.Helpers.SharedPref
+import edu.ort.pastillapp.Listeners.OnCheckBoxClickListener
 import edu.ort.pastillapp.Models.ApiContactEmergencyServerResponse
 import edu.ort.pastillapp.ViewModels.HomeViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -30,7 +31,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeFragment : Fragment(), OnClickNavigate {
+class HomeFragment : Fragment(), OnClickNavigate, OnCheckBoxClickListener {
 
     private val homeViewModel: HomeViewModel by viewModels()
     private val binding get() = _binding!!
@@ -119,6 +120,7 @@ class HomeFragment : Fragment(), OnClickNavigate {
         adapter = TodayReminderAdapter(reminderList, findNavController())
         binding.medList.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        adapter.setOnCheckBoxClickListener(this)
         binding.medList.adapter = adapter
     }
 
@@ -144,6 +146,7 @@ class HomeFragment : Fragment(), OnClickNavigate {
                     if (responseReminders != null) {
                         //  remidersLogs.postValue(responseReminders!!) // Actualiza el valor de remindersLogs
                         adapter.updateData(responseReminders)
+
 
                         Log.e("remindersLogs", "la respuesta esl ${responseReminders}")
                     }
@@ -222,6 +225,35 @@ class HomeFragment : Fragment(), OnClickNavigate {
                     }
                 })
         }
+    }
+
+    override fun onCheckBoxClicked(position: Int) {
+      Log.d("Estoy Clickeando", "Click click!!! + ${position.toString()}")
+        val service = ActivityServiceApiBuilder.createReminderLogService()
+
+        service.reminderLogTaken(position).enqueue(object :
+            Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful && response.body() != null) {
+                    val responseReminders = response.body()
+                    if (responseReminders != null) {
+                        //  remidersLogs.postValue(responseReminders!!) // Actualiza el valor de remindersLogs
+                   getTodayReminders()
+
+                    }
+                } else {
+                    Log.e("chau", "respuesta no exitosa")
+                    Log.e("Respuesta no exitosa", " esta es la respuesta $response")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("Example", t.stackTraceToString())
+            }
+        })
     }
 }
 

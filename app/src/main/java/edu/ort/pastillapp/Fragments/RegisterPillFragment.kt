@@ -6,6 +6,8 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.text.InputFilter
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -83,6 +85,19 @@ class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
         valueDurationSpinner = binding.valueDurationSpinner
         quantityDurationSpinner = binding.quantityDurationSpinner
         observation = binding.editNotes3
+        // Validación de maximo de caracteres que se pueden ingresar
+        val maxLength = 50
+
+        val inputFilter = InputFilter { source, start, end, dest, dstart, dend ->
+            val newLength = dest.length - (dend - dstart) + end - start
+            if (newLength <= maxLength) {
+                null // No se supera el límite, se permite la entrada.
+            } else {
+                "" // Se supera el límite, se bloquea la entrada.
+            }
+        }
+        observation!!.filters = arrayOf(inputFilter)
+
         errorMsg = binding.errorMsg
         errorMsg?.visibility = View.INVISIBLE
         saveBtn = binding.saveReminderBtn
@@ -255,6 +270,13 @@ class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
             errorMsg?.visibility = View.VISIBLE
             errorMsg?.text =
                 "Debes seleccionar una medicina, es obligatorio"
+            Handler().postDelayed({
+                errorMsg?.visibility = View.INVISIBLE
+            }, 3000)
+        }else if (TextUtils.getTrimmedLength(observation?.toString()) > 120) {
+            errorMsg?.visibility = View.VISIBLE
+            errorMsg?.text =
+                "Las notas adicionales son demasiado largas"
             Handler().postDelayed({
                 errorMsg?.visibility = View.INVISIBLE
             }, 3000)

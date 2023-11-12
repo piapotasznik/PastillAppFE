@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.res.Configuration
 import android.os.Bundle
+import android.text.InputFilter
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -66,6 +67,19 @@ class EditReminderFragment : Fragment() {
                 update(editedReminder)
                 findNavController().popBackStack()
             }
+
+        }
+
+        val editNotes = binding.editNotes // Asegúrate de que este sea el ID correcto en tu diseño XML
+        val maxLength = 50 // El máximo de caracteres permitidos
+
+        val inputFilter = InputFilter { source, start, end, dest, dstart, dend ->
+            val newLength = dest.length - (dend - dstart) + end - start
+            if (newLength <= maxLength) {
+                null // No se supera el límite, se permite la entrada.
+            } else {
+                "" // Se supera el límite, se bloquea la entrada.
+            }
         }
 
         binding.emergencyCheckBox.setOnClickListener(){
@@ -84,6 +98,10 @@ class EditReminderFragment : Fragment() {
                 }
             }
         }
+
+        editNotes.filters = arrayOf(inputFilter)
+
+
     }
 
     override fun onStart() {
@@ -173,7 +191,6 @@ class EditReminderFragment : Fragment() {
         val call = userService.getUserEmail(userEmail)
         val userService = ActivityServiceApiBuilder.create()
         val userEmail = SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail.toString())
-
      call.enqueue(object : Callback<ApiUserResponse> {
          override fun onResponse(call: Call<ApiUserResponse>, response: Response<ApiUserResponse>) {
              if (response.isSuccessful) {
@@ -187,6 +204,45 @@ class EditReminderFragment : Fragment() {
                  callback(false)
              }
          }
+
+         
+    fun getReminderValues(): ReminderUpdate? {
+        val reminderid = reminder?.reminderId
+        val frecuencyIntakeSp = binding.editFrecuencyInterval.selectedItem.toString()
+        Log.d("traduccion", "freq intake sp = ${frecuencyIntakeSp}")
+        val frequencyEnglish =
+            Helpers().translateFrequencyEn(frecuencyIntakeSp)
+        val durationIntakeSp = binding.editDurationIntake.selectedItem.toString()
+        Log.d("traduccion", "freq intake sp = ${durationIntakeSp}")
+        val durationEnglish = Helpers().translateFrequencyEn(durationIntakeSp)
+
+        Log.e("put33", binding.editDateIntake.text.toString())
+        val dateFromat = Helpers().convertInvertDate(binding.editDateIntake.text.toString())
+        //validar si el campo de dosis está vacío
+        val dosisText = binding.editDosis.text.toString()
+        if (dosisText.isEmpty()) {
+            // El campo "dosis" está vacío, mostrar un Toast
+            Toast.makeText(requireContext(), "El campo de dosis es obligatorio", Toast.LENGTH_SHORT).show()
+            return null
+        }
+
+        var updateReminder = reminderid?.let {
+            ReminderUpdate(
+                it,
+                binding.editDosis.text.toString().toInt(),
+                binding.presentationSpinner.selectedItem.toString(),
+                dateFromat,
+                binding.editFrecuencyInt.selectedItem.toString().toInt(),
+                frequencyEnglish,
+                binding.editDurationNum.selectedItem.toString().toInt(),
+                durationEnglish,
+                binding.emergencyCheckBox.isChecked,
+                binding.KeepsLogsCheckBox.isChecked,
+                binding.editNotes.text.toString()
+            )
+        }
+        return updateReminder
+    }
 
          override fun onFailure(call: Call<ApiUserResponse>, t: Throwable) {
              // En caso de que ocurra un error en la solicitud, asumimos que no hay contacto de emergencia
