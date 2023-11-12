@@ -50,48 +50,64 @@ class LogInActivity: BaseActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Log.d(ContentValues.TAG, "createUserWithEmail:success")
                         val user = auth.currentUser
-                        UserSingleton.currentUser = user
-
-                        // Actualiza la variable global con el correo y el ID del usuario
-                        UserSingleton.currentUser = user
-                        UserSingleton.currentUserEmail = email
-
-                        SharedPref.write(SharedPref.EMAIL, email)
 
                         // Obtengo el token FCM del dispositivo.
-                        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val token = task.result
-                                SharedPref.write(SharedPref.TOKEN, token.toString())
-                                // Llama a la función para enviar el token al backend
-                                UserRepository(this).sendTokenToServer(email,
-                                    onSuccess = {
-                                        // Manejar éxito
-                                        Log.d("LoginFragment", "Token enviado con éxito al servidor")
-                                    },
-                                    onError = {
-                                        // Manejar error
-                                        Log.e("LoginFragment", "Error al enviar el token al servidor")
-                                    }
-                                )
-                            } else {
-                                // Manejar el error al obtener el token
-                                Log.e(
-                                    ContentValues.TAG, "Error al obtener el token FCM: ${task.exception}"
-                                )
+                        if (user != null && user.isEmailVerified) {
+                            Log.d(
+                                ContentValues.TAG,
+                                "Usuario autenticado y correo electrónico verificado."
+                            )
+                            UserSingleton.currentUser = user
+                            UserSingleton.currentUserEmail = email
+                            SharedPref.write(SharedPref.EMAIL, email)
+                            // Obtengo el token FCM del dispositivo.
+                            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    val token = task.result
+                                    SharedPref.write(SharedPref.TOKEN, token.toString())
+                                    // Llama a la función para enviar el token al backend
+                                    UserRepository(this).sendTokenToServer(email,
+                                        onSuccess = {
+                                            // Manejar éxito
+                                            Log.d(
+                                                "LoginFragment",
+                                                "Token enviado con éxito al servidor"
+                                            )
+                                        },
+                                        onError = {
+                                            // Manejar error
+                                            Log.e(
+                                                "LoginFragment",
+                                                "Error al enviar el token al servidor"
+                                            )
+                                        }
+                                    )
+                                } else {
+                                    // Manejar el error al obtener el token
+                                    Log.e(
+                                        ContentValues.TAG,
+                                        "Error al obtener el token FCM: ${task.exception}"
+                                    )
+                                }
                             }
-                        }
 
-                        val intent = Intent(this, HomeScreenActivity::class.java)
-                        intent.putExtra(
-                            "user",
-                            user
-                        )
-                        startActivity(intent)
-                        finish()
-                        hideProgressBar()
+                            val intent = Intent(this, HomeScreenActivity::class.java)
+                            intent.putExtra(
+                                "user",
+                                user
+                            )
+                            startActivity(intent)
+                            finish()
+                            hideProgressBar()
+                        } else {
+                            // El correo electrónico no está verificado, mostrar un mensaje o realizar alguna acción
+                            hideProgressBar()
+                            showToast(
+                                this,
+                                "Por favor, verifica tu dirección de correo electrónico antes de iniciar sesión."
+                            )
+                        }
                     } else {
                         hideProgressBar()
                         showToast(this, "No se pudo iniciar sesion, intente de nuevo mas tarde")

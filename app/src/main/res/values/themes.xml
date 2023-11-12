@@ -27,7 +27,6 @@
 
     <style name="Theme.PastillApp.ButtonSave" parent="Base.Theme.PastillApp">
         <item name="android:textColorPrimary">@color/black</item>
-        <item name="backgroundTint">@color/pink</item>
         <item name="background">@drawable/round_button</item>
     </style>
 
