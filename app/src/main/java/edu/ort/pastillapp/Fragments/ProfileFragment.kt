@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +28,7 @@ import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.Models.ApiContactEmergencyRequest
 import edu.ort.pastillapp.Models.ApiUserResponse
 import edu.ort.pastillapp.Models.User
+import edu.ort.pastillapp.R
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.Services.TokenService
 import edu.ort.pastillapp.Services.UserService
@@ -34,6 +37,11 @@ import edu.ort.pastillapp.databinding.FragmentProfileBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import androidx.core.content.ContextCompat
+import android.graphics.Color
+import android.content.res.ColorStateList
+import android.view.MotionEvent
+import android.widget.Button
 
 class ProfileFragment : Fragment() {
 
@@ -52,6 +60,10 @@ class ProfileFragment : Fragment() {
     private var email: String? = null
     private var contEmer: EditText? = null
 
+    //agrego
+    private lateinit var saveContactBtn: Button
+
+    //
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -62,6 +74,7 @@ class ProfileFragment : Fragment() {
         val dashboardViewModel =
             ViewModelProvider(this).get(ProfileViewModel::class.java)
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+
 
 
         val root: View = binding.root
@@ -91,19 +104,43 @@ class ProfileFragment : Fragment() {
         errorMsg?.isVisible = false
         contEmer = binding.myProfileEmergencyContact
 
+        //agrego
+        saveContactBtn = binding.saveContactBtn
+
         val buttonUpdateInformation = binding.saveBtn
         buttonUpdateInformation.setOnClickListener {
             updateUserInformation()
         }
 
+        contEmer?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // No se utiliza en este caso
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // No se utiliza en este caso
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // Verifica si el campo tiene información y actualiza el estado del botón
+                val isEmergencyContactNotEmpty = s.toString().isNotEmpty()
+                saveContactBtn.isEnabled = !isEmergencyContactNotEmpty
+                saveContactBtn.backgroundTintList = ColorStateList.valueOf(
+                    if (isEmergencyContactNotEmpty) Color.GRAY else ContextCompat.getColor(requireContext(), R.color.pink)
+                )
+            }
+        })
+
         val buttonUpdateContact = binding.saveContactBtn
         buttonUpdateContact.setOnClickListener {
-            saveEmergencyContact()
+                saveEmergencyContact()
         }
+
         val buttonDeleteContact = binding.deteleContactBtn
         buttonDeleteContact.setOnClickListener(){
             deleteContact()
         }
+
 
         binding.txtSignOut.setOnClickListener {
             if (auth.currentUser != null) {
@@ -119,6 +156,10 @@ class ProfileFragment : Fragment() {
 
         this.setUserInformation()
         return root
+    }
+
+    fun showToastLong(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {
@@ -141,6 +182,7 @@ class ProfileFragment : Fragment() {
                             profileSurname?.setText(userCreatedInformation?.lastName)
                             profileEmail?.setText(userCreatedInformation?.email)
                             contEmer?.setText(userCreatedInformation?.emergencyUser)
+
                         }
                     }
                 }
@@ -152,6 +194,7 @@ class ProfileFragment : Fragment() {
             })
         }
     }
+
 
     private fun updateUserInformation() {
         val userName = profileName?.text.toString()
@@ -215,9 +258,17 @@ class ProfileFragment : Fragment() {
             }
         }
     }
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
 
     private fun saveEmergencyContact() {
         val emailContactoEmergencia = binding.myProfileEmergencyContact.text.toString()
+
+        if (emailContactoEmergencia.isEmpty()) {
+            showMessage(requireContext(), "El campo de correo de contacto de emergencia no puede estar vacío")
+            return
+        }
 
         // Creo una instancia de Retrofit
         val userService = ActivityServiceApiBuilder.create()

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,7 @@ class ContactRequestsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_contact_requests, container, false)
+
 
 //        // Handler para ejecutar la actualización periódica
 //        val handler = Handler()
