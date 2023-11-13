@@ -103,33 +103,12 @@ class ProfileFragment : Fragment() {
         errorMsg = binding.errorMsg
         errorMsg?.isVisible = false
         contEmer = binding.myProfileEmergencyContact
-
-        //agrego
         saveContactBtn = binding.saveContactBtn
 
         val buttonUpdateInformation = binding.saveBtn
         buttonUpdateInformation.setOnClickListener {
             updateUserInformation()
         }
-
-        contEmer?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // No se utiliza en este caso
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // No se utiliza en este caso
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                // Verifica si el campo tiene información y actualiza el estado del botón
-                val isEmergencyContactNotEmpty = s.toString().isNotEmpty()
-                saveContactBtn.isEnabled = !isEmergencyContactNotEmpty
-                saveContactBtn.backgroundTintList = ColorStateList.valueOf(
-                    if (isEmergencyContactNotEmpty) Color.GRAY else ContextCompat.getColor(requireContext(), R.color.pink)
-                )
-            }
-        })
 
         val buttonUpdateContact = binding.saveContactBtn
         buttonUpdateContact.setOnClickListener {
@@ -155,6 +134,8 @@ class ProfileFragment : Fragment() {
         }
 
         this.setUserInformation()
+
+
         return root
     }
 
@@ -183,6 +164,14 @@ class ProfileFragment : Fragment() {
                             profileEmail?.setText(userCreatedInformation?.email)
                             contEmer?.setText(userCreatedInformation?.emergencyUser)
 
+                            // AGREGO
+                            // Verifica el valor de myProfileEmergencyContact para habilitar/deshabilitar el botón
+                            val isEmergencyContactNotNull = userCreatedInformation?.emergencyUser != null
+                            saveContactBtn.isEnabled = !isEmergencyContactNotNull
+                            saveContactBtn.backgroundTintList = ColorStateList.valueOf(
+                                if (isEmergencyContactNotNull) Color.GRAY
+                                else ContextCompat.getColor(requireContext(), R.color.pink)
+                            )
                         }
                     }
                 }
