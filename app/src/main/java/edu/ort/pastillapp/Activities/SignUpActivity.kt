@@ -10,9 +10,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import edu.ort.pastillapp.Helpers.UserSingleton
-import edu.ort.pastillapp.databinding.ActivitySignUpBinding
 import edu.ort.pastillapp.Models.User
 import edu.ort.pastillapp.Models.UserRepository
+import edu.ort.pastillapp.databinding.ActivitySignUpBinding
 
 class SignUpActivity : BaseActivity() {
 
@@ -81,39 +81,41 @@ class SignUpActivity : BaseActivity() {
     }
 
     private fun validateForm(name: String, lastName: String, email: String, password: String, password2: String): Boolean {
+        val nameRegex = "^[a-zA-Z ]+\$".toRegex()
+
         return when {
-            TextUtils.isEmpty(name) || TextUtils.getTrimmedLength(name) > 50 -> {
-                binding?.txtName?.error = "Ingresar nombre"
+            !nameRegex.matches(name) || TextUtils.getTrimmedLength(name) > 50 -> {
+                binding?.txtName?.error = "Ingrese un nombre válido (sin caracteres especiales, números y máximo 50 caracteres)"
                 false
             }
 
-            TextUtils.isEmpty(lastName) || TextUtils.getTrimmedLength(lastName) > 50 -> {
-                binding?.txtLastName?.error = "Ingresar apellido"
+            !nameRegex.matches(lastName) || TextUtils.getTrimmedLength(lastName) > 50 -> {
+                binding?.txtLastName?.error = "Ingrese un apellido válido (sin caracteres especiales, números y máximo 50 caracteres)"
                 false
             }
 
             TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-                binding?.txtEmail?.error = "Ingresar mail valido"
+                binding?.txtEmail?.error = "Ingrese un correo válido"
                 false
             }
 
             TextUtils.getTrimmedLength(email) > 50 -> {
-                binding?.txtEmail?.error = "Ingresar mail valido"
+                binding?.txtEmail?.error = "Ingrese un correo válido (máximo 50 caracteres)"
                 false
             }
 
             TextUtils.getTrimmedLength(password) < 6 -> {
-                binding?.txtPass?.error = "Ingresar contraseña de al menos 6 caracteres"
+                binding?.txtPass?.error = "Ingrese una contraseña de al menos 6 caracteres"
                 false
             }
 
             TextUtils.isEmpty(password) -> {
-                binding?.txtPass?.error = "Ingresar contraseña"
+                binding?.txtPass?.error = "Ingrese una contraseña"
                 false
             }
 
             TextUtils.isEmpty(password2) -> {
-                binding?.txtPass2?.error = "Repetir contraseña"
+                binding?.txtPass2?.error = "Repita la contraseña"
                 false
             }
 

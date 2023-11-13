@@ -3,16 +3,18 @@ package edu.ort.pastillapp.Fragments
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -37,11 +39,6 @@ import edu.ort.pastillapp.databinding.FragmentProfileBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import androidx.core.content.ContextCompat
-import android.graphics.Color
-import android.content.res.ColorStateList
-import android.view.MotionEvent
-import android.widget.Button
 
 class ProfileFragment : Fragment() {
 
@@ -128,7 +125,11 @@ class ProfileFragment : Fragment() {
                 deleteToken(token)
                 SharedPref.delete()
                 auth.signOut()
-                startActivity(Intent(context, InitActivity::class.java))
+
+                val intent = Intent(context, InitActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+
                 Toast.makeText(context, "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show()
             }
         }
