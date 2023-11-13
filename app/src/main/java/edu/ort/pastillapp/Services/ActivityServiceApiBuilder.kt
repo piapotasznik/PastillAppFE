@@ -18,7 +18,7 @@ import javax.net.ssl.X509TrustManager
 
 object ActivityServiceApiBuilder {
 
-    private val BASE_URL = "https://c81a-186-139-158-165.ngrok-free.app"
+    private val BASE_URL = "https://c6d5-186-139-158-165.ngrok-free.app "
         //"https://bfe3-186-139-158-165.ngrok-free.app"
         // "https://509a-2800-810-502-704-4949-1dab-2269-7336.ngrok-free.app"
     //127.0.0.1
