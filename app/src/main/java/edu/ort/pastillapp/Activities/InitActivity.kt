@@ -1,13 +1,17 @@
 package edu.ort.pastillapp.Activities
 
+import android.Manifest
 import android.app.NotificationManager
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.databinding.ActivityInitBinding
@@ -19,6 +23,20 @@ class InitActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    1
+                )
+            }
+        }
+
+
         binding = ActivityInitBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         checkAndRequestNotificationPermissions();
