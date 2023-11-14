@@ -65,12 +65,9 @@
     <string name="see_all">Ver todos</string>
     <string name="fecha_hasta">Fecha Hasta</string>
     <string name="volver">Volver</string>
-<<<<<<< HEAD
     <string name="delete_emergency_contact"> Eliminar contacto </string>
-=======
     <string name="see_details">Ver detalle</string>
     <string name="date_today">05/11/2023</string>
->>>>>>> develop
 
     <string-array name="frecuency_intake_type">
         <item>Horas</item>
