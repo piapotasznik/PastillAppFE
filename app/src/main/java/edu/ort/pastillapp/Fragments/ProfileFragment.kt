@@ -92,8 +92,28 @@ class ProfileFragment : Fragment() {
         contEmer = binding.myProfileEmergencyContact
 
         val buttonUpdateInformation = binding.saveBtn
+
         buttonUpdateInformation.setOnClickListener {
-            updateUserInformation()
+            val name = profileName!!.text.toString().trim()
+            val surname = profileSurname!!.text.toString().trim()
+
+            if(isValidInput(name) && isValidInput(surname) ) {
+                updateUserInformation()
+            }else {
+                Toast.makeText(
+                    requireContext(),
+                    "Error: Solo se permiten letras",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        }
+
+
+        val buttonCancelUpdate = binding.cancelBtnProfile
+        buttonCancelUpdate.setOnClickListener {
+            profileName!!.text.clear()
+            profileSurname!!.text.clear()
         }
 
         val buttonUpdateContact = binding.saveContactBtn
@@ -119,6 +139,11 @@ class ProfileFragment : Fragment() {
 
         this.setUserInformation()
         return root
+    }
+
+    private fun isValidInput(text: String): Boolean {
+        val regex = Regex("^[a-zA-Z]+$")
+        return text.matches(regex)
     }
 
     override fun onDestroyView() {
@@ -393,3 +418,5 @@ class ProfileFragment : Fragment() {
         errorMsg?.visibility = View.INVISIBLE
     }
 }
+
+
