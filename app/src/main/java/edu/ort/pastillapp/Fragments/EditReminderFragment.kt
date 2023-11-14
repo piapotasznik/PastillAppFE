@@ -6,16 +6,14 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.text.InputFilter
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import edu.ort.pastillapp.R
-import edu.ort.pastillapp.databinding.FragmentEditReminderBinding
 import edu.ort.pastillapp.Helpers.Helpers
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Helpers.UserSingleton
@@ -23,9 +21,11 @@ import edu.ort.pastillapp.Models.ApiContactEmergencyServerResponse
 import edu.ort.pastillapp.Models.ApiUserResponse
 import edu.ort.pastillapp.Models.Reminder
 import edu.ort.pastillapp.Models.ReminderUpdate
+import edu.ort.pastillapp.R
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.Services.UserService
 import edu.ort.pastillapp.ViewModels.EditReminderViewModel
+import edu.ort.pastillapp.databinding.FragmentEditReminderBinding
 import edu.ort.pastillapp.ViewModels.SharedViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -167,6 +167,8 @@ class EditReminderFragment : Fragment() {
     fun setReminderValues(reminder: Reminder) {
         val presentationValues = resources.getStringArray(R.array.med_presentation)
         val positionToSelectPresentation = presentationValues.indexOf(reminder.presentation)
+        Log.e("position", "position to select ${positionToSelectPresentation}")
+        binding.presentationSpinner.setSelection(positionToSelectPresentation)
         val frecuencyIntervalValues = resources.getStringArray(R.array.frecuency_intake_type)
         val frquencyInEn = reminder.frequencyText.toString()
         val positionToSelectFrInterval =
@@ -273,7 +275,7 @@ class EditReminderFragment : Fragment() {
              durationEnglish,
              binding.emergencyCheckBox.isChecked,
              binding.KeepsLogsCheckBox.isChecked,
-             binding.editNotes.text.toString()
+             binding.editNotes.text.toString(),
          )
      }
      return updateReminder
