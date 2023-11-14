@@ -6,8 +6,10 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
 import android.text.InputFilter
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -73,7 +75,29 @@ class RegisterPillFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         _binding = FragmentRegisterPillBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        binding.doseInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
 
+            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+                // Aquí puedes realizar la validación
+                val dosis = charSequence.toString()
+
+                if (dosis.isNotEmpty()) {
+                    // Si el texto no está vacío, verifica si es "0" y evita la entrada
+                    if (dosis == "0") {
+                        binding.doseInput.setText("")
+                    }
+
+                    // Limita la entrada a un máximo de tres dígitos
+                    if (dosis.length > 3) {
+                        binding.doseInput.setText(dosis.substring(0, 3))
+                        binding.doseInput.setSelection(3) // Coloca el cursor al final
+                    }
+                }
+            }
+
+            override fun afterTextChanged(editable: Editable?) {}
+        })
         medicineSpinner = binding.medicineSpinner
         notifyCheckBox = binding.notifyCheckBox
         doseInput = binding.doseInput
