@@ -24,7 +24,11 @@
         android:id="@+id/navigation_symptoms"
         android:name="edu.ort.pastillapp.Fragments.SymptomsFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_symptoms" />
+        tools:layout="@layout/fragment_symptoms" >
+        <action
+            android:id="@+id/action_navigation_symptoms_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -114,7 +118,7 @@
     </fragment>
     <fragment
         android:id="@+id/dailyStatusFragment"
-        android:name="edu.ort.pastillapp.DailyStatusFragment"
+        android:name="edu.ort.pastillapp.Fragments.DailyStatusFragment"
         android:label="fragment_daily_status"
         tools:layout="@layout/fragment_daily_status" >
         <argument

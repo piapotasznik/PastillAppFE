@@ -8,5 +8,225 @@
     tools:context=".Fragments.SymptomsFragment">
 
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardBackgroundColor="@color/celeste"
+            app:cardCornerRadius="20dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/dailyStatusTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/francois_one"
+                    android:gravity="center"
+                    android:lineSpacingExtra="12sp"
+                    android:text="@string/daily_status"
+                    android:textColor="@color/celesteClaro"
+                    android:textSize="35sp"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="spread_inside" />
+
+                <TextView
+                    android:id="@+id/textViewDateToday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/francois_one"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dailyStatusTitle" />
+
+                <CheckBox
+                    android:id="@+id/fatigueCheckBox"
+                    style="@style/CheckBoxStyle"
+                    android:text="Cansancio"
+                    app:layout_constraintBottom_toTopOf="@+id/headacheCheckbox"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewDateToday" />
+
+                <CheckBox
+                    android:id="@+id/headacheCheckbox"
+                    style="@style/CheckBoxStyle"
+                    android:text="Dolor de cabeza"
+                    app:layout_constraintBottom_toTopOf="@+id/feverCheckbox"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fatigueCheckBox" />
+
+                <CheckBox
+                    android:id="@+id/feverCheckbox"
+                    style="@style/CheckBoxStyle"
+                    android:text="Fiebre"
+                    app:layout_constraintBottom_toTopOf="@+id/soreThroatCheckbox"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/headacheCheckbox" />
+
+                <CheckBox
+                    android:id="@+id/soreThroatCheckbox"
+                    style="@style/CheckBoxStyle"
+                    android:text="Dolor de garganta"
+                    app:layout_constraintBottom_toTopOf="@+id/stuffyNoseCheckbox"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/feverCheckbox" />
+
+                <CheckBox
+                    android:id="@+id/stuffyNoseCheckbox"
+                    style="@style/CheckBoxStyle"
+                    android:text="Congestión nasal"
+                    app:layout_constraintBottom_toTopOf="@+id/coughCheckbox"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/soreThroatCheckbox" />
+
+                <CheckBox
+                    android:id="@+id/coughCheckbox"
+                    style="@style/CheckBoxStyle"
+                    android:text="Tos"
+                    app:layout_constraintBottom_toTopOf="@+id/stomachAcheCheckbox"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stuffyNoseCheckbox" />
+
+                <CheckBox
+                    android:id="@+id/stomachAcheCheckbox"
+                    style="@style/CheckBoxStyle"
+                    android:text="Malestar estomacal"
+                    app:layout_constraintBottom_toTopOf="@+id/musclePainCheckbox"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/coughCheckbox" />
+
+                <CheckBox
+                    android:id="@+id/musclePainCheckbox"
+                    style="@style/CheckBoxStyle"
+                    android:text="Dolor muscular"
+                    app:layout_constraintBottom_toTopOf="@+id/textView10"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stomachAcheCheckbox" />
+
+
+                <TextView
+                    android:id="@+id/textView10"
+                    style="@style/GrayText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:text="@string/notas_adicionales"
+                    android:textColor="@color/white_white_transparency"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/editNotes3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/musclePainCheckbox" />
+
+
+                <EditText
+                    android:id="@+id/editNotes3"
+                    android:layout_width="290dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/custom_rectangle"
+                    android:gravity="top"
+                    android:hint="Agrega notas"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+                <Button
+                    android:id="@+id/saveBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="1dp"
+                    android:background="@drawable/round_button"
+                    android:gravity="center"
+                    android:paddingHorizontal="30dp"
+                    android:text="@string/save"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:theme="@style/Theme.PastillApp.ButtonSave"
+                    app:fontFamily="@font/francois_one"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editNotes3"
+                    app:layout_constraintVertical_chainStyle="spread_inside" />
+
+                <Button
+                    android:id="@+id/cxlBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="25dp"
+                    android:background="@drawable/round_button"
+                    android:gravity="center"
+                    android:paddingHorizontal="30dp"
+                    android:paddingVertical="5dp"
+                    android:text="Cancelar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:theme="@style/Theme.PastillApp.ButtonCxl"
+                    app:fontFamily="@font/francois_one"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editNotes3"
+                    app:layout_constraintVertical_chainStyle="spread_inside" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1"
+        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

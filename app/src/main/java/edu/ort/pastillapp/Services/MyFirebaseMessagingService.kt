@@ -41,11 +41,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun buildNotification(title: String?, body: String?, channelId: String, type: String?): NotificationCompat.Builder {
-
         val soundUri = Uri.parse("android.resource://${packageName}/${R.raw.sound}")
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.logo)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
             .setContentTitle(title)
             .setContentText(body)
@@ -66,7 +65,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         )
         notificationBuilder.setContentIntent(pendingIntent)
         notificationBuilder.setAutoCancel(true)
-
         return notificationBuilder
     }
 

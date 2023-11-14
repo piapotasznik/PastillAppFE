@@ -26,7 +26,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="430dp"
+        android:layout_height="445dp"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="10dp"
         app:cardBackgroundColor="@color/celeste"
@@ -175,12 +175,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/saveBtn" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/Theme.PastillApp.ButtonSave"
                 android:id="@+id/saveContactBtn"
                 android:layout_width="120dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="48dp"
-                android:background="@drawable/round_button"
                 android:backgroundTint="@color/pink"
                 android:paddingHorizontal="5dp"
                 android:text="@string/new_emergency_contact"
@@ -188,6 +188,7 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:fontFamily="@font/francois_one"
+                android:background="@drawable/round_button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/myProfileEmergencyContact"
