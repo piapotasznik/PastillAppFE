@@ -41,11 +41,11 @@ class TodayReminderAdapter(
         }
 
 
-        holder.updateBtn.setOnClickListener {
-            val action =
-                HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminders[position].reminderId)
-            navController.navigate(action)
-        }
+//        holder.updateBtn.setOnClickListener {
+//            val action =
+//                HomeFragmentDirections.actionNavigationHomeToEditReminderFragment(reminders[position].reminderId)
+//            navController.navigate(action)
+//        }
 
 
         holder.archiveBtn.setOnClickListener {

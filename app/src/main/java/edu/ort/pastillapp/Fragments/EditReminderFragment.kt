@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import edu.ort.pastillapp.R
@@ -25,6 +26,7 @@ import edu.ort.pastillapp.Models.ReminderUpdate
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.Services.UserService
 import edu.ort.pastillapp.ViewModels.EditReminderViewModel
+import edu.ort.pastillapp.ViewModels.SharedViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,8 +38,7 @@ class EditReminderFragment : Fragment() {
     private lateinit var viewModel: EditReminderViewModel
     private lateinit var binding: FragmentEditReminderBinding // Referencia al ViewBinding
     private var reminder: Reminder? = null
-
-
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,6 +66,7 @@ class EditReminderFragment : Fragment() {
             Log.e("edited", "este es el editado ${editedReminder.toString()}")
             if (editedReminder != null) {
                 update(editedReminder)
+                sharedViewModel.refreshData()
                 findNavController().popBackStack()
             }
 

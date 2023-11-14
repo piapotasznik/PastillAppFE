@@ -76,7 +76,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/medDosage"
-                app:layout_constraintEnd_toStartOf="@+id/updateBtn"
+                app:layout_constraintEnd_toStartOf="@+id/archivedBtn"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/tvPill"
                 app:layout_constraintTop_toTopOf="parent"
@@ -127,19 +127,19 @@
                 app:layout_constraintVertical_bias="0.844"
                 tools:text="Proxima" />
 
-            <ImageView
-                android:id="@+id/updateBtn"
-                android:layout_width="28dp"
-                android:layout_height="25dp"
-                android:background="@drawable/ic_edit"
-                android:paddingEnd="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.941"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvPill"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.181" />
+<!--            <ImageView-->
+<!--                android:id="@+id/updateBtn"-->
+<!--                android:layout_width="28dp"-->
+<!--                android:layout_height="25dp"-->
+<!--                android:background="@drawable/ic_edit"-->
+<!--                android:paddingEnd="20dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.941"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/tvPill"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.181" />-->
 
             <ImageView
                 android:id="@+id/archivedBtn"
@@ -154,7 +154,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView8"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.818" />
+                app:layout_constraintVertical_bias="0.18" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
