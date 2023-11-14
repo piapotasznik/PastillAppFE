@@ -118,7 +118,7 @@
     </fragment>
     <fragment
         android:id="@+id/dailyStatusFragment"
-        android:name="edu.ort.pastillapp.DailyStatusFragment"
+        android:name="edu.ort.pastillapp.Fragments.DailyStatusFragment"
         android:label="fragment_daily_status"
         tools:layout="@layout/fragment_daily_status" >
         <argument
