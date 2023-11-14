@@ -25,8 +25,8 @@ import edu.ort.pastillapp.R
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
 import edu.ort.pastillapp.Services.UserService
 import edu.ort.pastillapp.ViewModels.EditReminderViewModel
-import edu.ort.pastillapp.databinding.FragmentEditReminderBinding
 import edu.ort.pastillapp.ViewModels.SharedViewModel
+import edu.ort.pastillapp.databinding.FragmentEditReminderBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -165,9 +165,9 @@ class EditReminderFragment : Fragment() {
 
     // coloca en los inptus los valores que ya contiene el reminder
     fun setReminderValues(reminder: Reminder) {
-        val presentationValues = resources.getStringArray(R.array.med_presentation)
-        val positionToSelectPresentation = presentationValues.indexOf(reminder.presentation)
-        Log.e("position", "position to select ${positionToSelectPresentation}")
+        val presentationValue = binding.presentationSpinner.selectedItem.toString()
+        val positionToSelectPresentation = getPresentationNumber(presentationValue)
+        Log.e("esta es la posicion", "position to select ${positionToSelectPresentation}")
         binding.presentationSpinner.setSelection(positionToSelectPresentation)
         val frecuencyIntervalValues = resources.getStringArray(R.array.frecuency_intake_type)
         val frquencyInEn = reminder.frequencyText.toString()
@@ -343,4 +343,17 @@ class EditReminderFragment : Fragment() {
          }
      })
  }
+
+    fun getPresentationNumber(presentation: String): Int {
+        return when (presentation) {
+            "polvos" -> 1
+            "granulados" -> 2
+            "comprimidos" -> 3
+            "capsulas" -> 4
+            "jarabes" -> 5
+            "suspensiones" -> 6
+            "emulsiones" -> 7
+            else -> -1 // Si la presentación no coincide con ninguna de las opciones conocidas
+        }
+    }
 }
