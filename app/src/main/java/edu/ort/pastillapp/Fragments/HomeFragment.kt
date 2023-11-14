@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.ort.pastillapp.Helpers.UserSingleton
@@ -23,7 +24,7 @@ import edu.ort.pastillapp.Adapters.TodayReminderAdapter
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Listeners.OnCheckBoxClickListener
 import edu.ort.pastillapp.Models.ApiContactEmergencyServerResponse
-import edu.ort.pastillapp.ViewModels.HomeViewModel
+import edu.ort.pastillapp.ViewModels.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,12 +34,13 @@ import retrofit2.Response
 
 class HomeFragment : Fragment(), OnClickNavigate, OnCheckBoxClickListener {
 
-    private val homeViewModel: HomeViewModel by viewModels()
+
     private val binding get() = _binding!!
     private var _binding: FragmentHomeBinding? = null
     private var reminderList: MutableList<ReminderLogToday> = mutableListOf()
     private var backFromFragment = false
     private lateinit var adapter: TodayReminderAdapter
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,22 +52,17 @@ class HomeFragment : Fragment(), OnClickNavigate, OnCheckBoxClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        val homeViewModel =
-//            ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        homeViewModel.remidersLogs.observe(viewLifecycleOwner, Observer { reminders ->
-//            reminders?.let {
-//            reminderList= reminders
-//                initRecylcerView()
-//                Log.e("reminderList", "en el homoViewModel.remidnerlogs")
-//            }
-//        })
+        sharedViewModel.onCreate()
+        sharedViewModel.remidersLogs.observe(viewLifecycleOwner, Observer { reminders ->
+            reminders?.let {
+           adapter.updateData(it)
 
-//        homeViewModel.isLoading.observe(viewLifecycleOwner, Observer {
-//            binding.loading.isVisible = it
-//        })
+            }
+        })
+
 
         val emergencyContactBtn = binding.emergencyContactButton
         emergencyContactBtn.setOnClickListener {
@@ -95,8 +92,7 @@ class HomeFragment : Fragment(), OnClickNavigate, OnCheckBoxClickListener {
     override fun onResume() {
         super.onResume()
         if (backFromFragment) {
-            getTodayReminders()
-            Log.e("backFromFragment", "esto es true")
+            sharedViewModel.refreshData()
             backFromFragment = false
         }
 
@@ -255,6 +251,7 @@ class HomeFragment : Fragment(), OnClickNavigate, OnCheckBoxClickListener {
             }
         })
     }
+
 }
 
 

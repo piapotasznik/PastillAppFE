@@ -20,7 +20,7 @@ class TodayReminderViewHolder (val view: View) : RecyclerView.ViewHolder(view) {
     private val takenImageGreen :ImageView = view.findViewById(R.id.tvPillGreen)
 
     val chTaken: CheckBox = view.findViewById(R.id.medDosage)
-    val updateBtn: ImageView = view.findViewById(R.id.updateBtn)
+//    val updateBtn: ImageView = view.findViewById(R.id.updateBtn)
     val archiveBtn: ImageView = view.findViewById(R.id.archivedBtn)
 
     fun render(reminder: ReminderLogToday){
@@ -30,6 +30,7 @@ class TodayReminderViewHolder (val view: View) : RecyclerView.ViewHolder(view) {
         pillTaken(reminder.taken)
         if (reminder.taken){
             checkBox.isEnabled= false
+            //updateBtn.visibility = View.INVISIBLE
         }
 
 
@@ -43,6 +44,7 @@ class TodayReminderViewHolder (val view: View) : RecyclerView.ViewHolder(view) {
         if(boolean){
             takenImage.visibility = View.INVISIBLE
             takenImageGreen.visibility = View.VISIBLE
+            //updateBtn.visibility = View.INVISIBLE
         }
     }
 
