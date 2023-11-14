@@ -26,7 +26,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="430dp"
+        android:layout_height="445dp"
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="10dp"
         app:cardBackgroundColor="@color/celeste"
@@ -127,20 +127,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="100dp"
-                android:backgroundTint="@color/pink"
+                android:layout_marginBottom="124dp"
                 android:background="@drawable/round_button"
+                android:backgroundTint="@color/pink"
                 android:gravity="center"
-                android:textAllCaps="false"
                 android:paddingHorizontal="80dp"
                 android:text="@string/save"
+                android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="20sp"
 
                 app:fontFamily="@font/francois_one"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.473"
+                app:layout_constraintHorizontal_bias="0.463"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.appcompat.widget.AppCompatEditText
@@ -187,22 +187,22 @@
 
             <Button
                 android:id="@+id/deteleContactBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="69dp"
+                android:layout_width="125dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_button"
                 android:backgroundTint="@color/pink"
+                android:paddingHorizontal="5dp"
                 android:text="Eliminar Contacto"
                 android:textAllCaps="false"
-                android:background="@drawable/round_button"
                 android:textColor="@color/black"
-                android:paddingHorizontal="5dp"
                 app:fontFamily="@font/francois_one"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.39"
+                app:layout_constraintHorizontal_bias="0.443"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/myProfileEmergencyContact"
-                app:layout_constraintVertical_bias="0.875" />
+                app:layout_constraintTop_toBottomOf="@+id/myProfileEmergencyContact"
+                app:layout_constraintVertical_bias="0.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
