@@ -60,11 +60,12 @@
     <string name="detalle">Detalle</string>
     <string name="iniciado">Iniciado</string>
     <string name="daily_status">ESTADO DIARIO</string>
+    <string name="daily_status_min">Estado diario</string>
     <string name="daily_alert">Alertas del dia</string>
     <string name="see_all">Ver todos</string>
     <string name="fecha_hasta">Fecha Hasta</string>
     <string name="volver">Volver</string>
-
+    <string name="see_details">Ver detalle</string>
     <string name="date_today">05/11/2023</string>
 
     <string-array name="frecuency_intake_type">

@@ -163,38 +163,35 @@
             android:background="@color/celesteClaro">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="12dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:fontFamily="@font/francois_one"
                 android:gravity="center"
                 android:text="@string/fecha"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                 />
+                android:textSize="18sp" />
+
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="15dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:fontFamily="@font/francois_one"
                 android:gravity="center"
                 android:text="@string/daily_alert"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                  />
-
+                android:textSize="18sp" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="15dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:fontFamily="@font/francois_one"
                 android:gravity="center"
-                android:text="@string/daily_status"
+                android:text="@string/daily_status_min"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                 />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
