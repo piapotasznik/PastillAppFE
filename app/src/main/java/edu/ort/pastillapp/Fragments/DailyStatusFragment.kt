@@ -1,19 +1,17 @@
-package edu.ort.pastillapp
+package edu.ort.pastillapp.Fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import edu.ort.pastillapp.Helpers.Helpers
-import edu.ort.pastillapp.Models.DailyStatus
 import edu.ort.pastillapp.ViewModels.CalendarViewModel
 import edu.ort.pastillapp.databinding.FragmentDailyStatusBinding
-import edu.ort.pastillapp.databinding.FragmentHistoricalReminderBinding
 
 
 class DailyStatusFragment : Fragment() {
@@ -56,7 +54,7 @@ class DailyStatusFragment : Fragment() {
             Log.d("arriba 3", " este es ${dailyStatus.toString()}")
             if (dailyStatus != null) {
                 binding.dateDailyStatus.text = Helpers().convertDateSM(dailyStatus.date)
-                binding.tvSymptomsContent.text = dailyStatus.symptoms
+                binding.tvSymptomsContent.text = dailyStatus.symptoms.trim('[', ']')
                 binding.tvObservationContent.text = dailyStatus.observation
             }
         })
