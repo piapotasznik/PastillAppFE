@@ -17,14 +17,26 @@ class ReminderAdapter(
     private val navController: NavController,
     private val fragment: HistoricalReminderFragment
 ) : RecyclerView.Adapter<ReminderViewHolder>() {
-    fun filter(query: String?) {
+    fun filter(query: String?, reminderList: List<Reminder>?, onlyActives : Boolean?) {
         val filteredList = mutableListOf<Reminder>()
-        for (item in reminders) {
-            if (item.medicineName?.lowercase()!!.contains(query!!.lowercase())) {
-                filteredList.add(item)
+        var remindersFiltered  =  reminderList
+
+                if(onlyActives==true){
+                    if (remindersFiltered != null) {
+                        remindersFiltered = remindersFiltered.filter { item ->
+                            !item.endDateTime?.let { Helpers().dateHasAlreadyPassed(it) }!!
+                        }
+                    }
+                }
+
+        if (remindersFiltered != null ) {
+            for (item in remindersFiltered) {
+                if (item.medicineName?.lowercase()!!.contains(query!!.lowercase())) {
+                    filteredList.add(item)
+                }
             }
         }
-        // reminders = filteredList
+
         updateData(filteredList)
         notifyDataSetChanged()
     }
