@@ -30,17 +30,6 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView9"
-                    style="@style/GrayText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fecha del Estado"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/dailyStatusTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/dailyStatusTitle" />
-
 
                 <TextView
                     android:id="@+id/dailyStatusTitle"
@@ -54,7 +43,6 @@
                     android:textColor="@color/celesteClaro"
                     android:textSize="35sp"
                     android:textStyle="normal"
-                    app:layout_constraintBottom_toTopOf="@+id/textView9"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -66,8 +54,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/francois_one"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@+id/dailyStatusTitle"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/dailyStatusTitle" />
 
                 <CheckBox
@@ -183,6 +172,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="1dp"
                     android:background="@drawable/round_button"
                     android:gravity="center"
                     android:paddingHorizontal="30dp"
@@ -194,15 +185,19 @@
                     android:theme="@style/Theme.PastillApp.ButtonSave"
                     app:fontFamily="@font/francois_one"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editNotes3"
-                    app:layout_constraintVertical_chainStyle="spread_inside"/>
+                    app:layout_constraintVertical_chainStyle="spread_inside" />
 
                 <Button
                     android:id="@+id/cxlBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="15dp"
                     android:background="@drawable/round_button"
                     android:gravity="center"
                     android:paddingHorizontal="30dp"
@@ -216,8 +211,10 @@
                     app:fontFamily="@font/francois_one"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editNotes3"
-                    app:layout_constraintVertical_chainStyle="spread_inside"/>
+                    app:layout_constraintVertical_chainStyle="spread_inside" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
