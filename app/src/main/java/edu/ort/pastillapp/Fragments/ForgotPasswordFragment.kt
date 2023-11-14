@@ -1,41 +1,39 @@
-package edu.ort.pastillapp.Activities
+package edu.ort.pastillapp.Fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.util.Patterns
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import edu.ort.pastillapp.Helpers.SharedPref
-import edu.ort.pastillapp.Helpers.UserSingleton
-import edu.ort.pastillapp.Models.ApiUserResponse
-import edu.ort.pastillapp.Models.ReminderLogToday
+import edu.ort.pastillapp.R
 import edu.ort.pastillapp.Services.ActivityServiceApiBuilder
-import edu.ort.pastillapp.databinding.ActivityForgotPasswordBinding
+import edu.ort.pastillapp.databinding.FragmentForgotPasswordBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.IOException
 
-class ForgotPasswordActivity: BaseActivity() {
+class ForgotPasswordFragment : BaseFragment() {
 
-    private var binding: ActivityForgotPasswordBinding? = null
+    private lateinit var binding: FragmentForgotPasswordBinding
     private lateinit var auth: FirebaseAuth
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        auth = Firebase.auth
 
-        binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        auth = Firebase.auth
+        binding = FragmentForgotPasswordBinding.inflate(inflater, container, false)
 
         binding?.btnForgotPasword?.setOnClickListener {
             resetPassword()
         }
+        return binding.root
     }
 
     private fun resetPassword() {
@@ -50,16 +48,15 @@ class ForgotPasswordActivity: BaseActivity() {
                 if (emailExists) {
                     auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            showToast(this@ForgotPasswordActivity, "Email enviado para restablecer contraseña")
-                            startActivity(Intent(this@ForgotPasswordActivity, InitActivity::class.java))
-                            finish()
+                            showToast("Email enviado para restablecer contraseña")
+                            findNavController().navigate(R.id.action_forgotPasswordFragment_to_initFragment)
                         } else {
-                            showToast(this@ForgotPasswordActivity, "Error en el envío de correo para restablecer contraseña")
+                            showToast("Error en el envío de correo para restablecer contraseña")
                         }
                     }
                 } else {
                     // Manejar caso donde el correo electrónico no existe
-                    showToast(this@ForgotPasswordActivity, "El correo electrónico no está registrado")
+                    showToast("El correo electrónico no está registrado")
                 }
             }
         }
@@ -85,11 +82,4 @@ class ForgotPasswordActivity: BaseActivity() {
             false
         }
     }
-
-
-
-
-
-
-
 }

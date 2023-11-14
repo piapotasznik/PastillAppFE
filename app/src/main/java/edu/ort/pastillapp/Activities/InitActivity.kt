@@ -40,16 +40,6 @@ class InitActivity : AppCompatActivity() {
             }
         }
 
-        binding?.btnLogIn?.setOnClickListener {
-            startActivity(Intent(this, LogInActivity::class.java))
-            finish()
-        }
-
-        binding?.btnSignUp?.setOnClickListener {
-            startActivity(Intent(this, SignUpActivity::class.java))
-            finish()
-        }
-
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
             // User is signed in

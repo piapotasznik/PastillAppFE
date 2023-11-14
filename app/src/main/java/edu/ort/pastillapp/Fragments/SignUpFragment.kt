@@ -1,39 +1,45 @@
-package edu.ort.pastillapp.Activities
+package edu.ort.pastillapp.Fragments
 
 import android.content.ContentValues
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.Models.User
 import edu.ort.pastillapp.Models.UserRepository
-import edu.ort.pastillapp.databinding.ActivitySignUpBinding
+import edu.ort.pastillapp.R
+import edu.ort.pastillapp.databinding.FragmentSignUpBinding
 
-class SignUpActivity : BaseActivity() {
+class SignUpFragment : BaseFragment() {
 
-    private var binding: ActivitySignUpBinding? = null
+    private lateinit var binding: FragmentSignUpBinding
     private lateinit var auth: FirebaseAuth
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySignUpBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         auth = Firebase.auth
+        binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
         binding?.txtSignIn?.setOnClickListener {
-            startActivity(Intent(this, LogInActivity::class.java))
-            finish()
+            findNavController().navigate(R.id.action_signUpFragment_to_logInFragment)
         }
 
         binding?.btnSignUp?.setOnClickListener {
             registerUser()
         }
+
+        return binding.root
     }
+
 
     private fun registerUser() {
         val name = binding?.txtName?.text.toString()
@@ -49,13 +55,12 @@ class SignUpActivity : BaseActivity() {
                     if (task.isSuccessful) {
                         createUser(name, lastName, email) {
                             hideProgressBar()
-                            showToast(this, "Usuario creado exitosamente")
-                            startActivity(Intent(this, LogInActivity::class.java))
-                            finish()
+                            showToast("Usuario creado exitosamente")
+                            findNavController().navigate(R.id.action_signUpFragment_to_logInFragment)
                         }
                     } else {
                         hideProgressBar()
-                        showToast(this, "Usuario no creado, intente de nuevamente")
+                        showToast("Usuario no creado, intente de nuevamente")
                     }
                 }
         }
@@ -64,33 +69,41 @@ class SignUpActivity : BaseActivity() {
     private fun createUser(name: String, lastName: String, email: String, function: () -> Unit) {
         Log.d(ContentValues.TAG, "createUserWithEmail:success")
         val newUser = User(name = name, lastName = lastName, email = email)
-        val userRepository = UserRepository(this)
-        userRepository.createUser( newUser,
+        val userRepository = context?.let { UserRepository(it) }
+        userRepository?.createUser(newUser,
             onSuccess = {
                 auth.currentUser?.sendEmailVerification()
-                showToast(this, "Email de verificacion enviado!")
+                showToast("Email de verificacion enviado!")
                 val user = auth.currentUser
                 UserSingleton.currentUser = user
                 function()
             }, onError = {
                 hideProgressBar()
-                showToast(this, "Error en el envio de mail")
+                showToast("Error en el envio de mail")
                 function()
             }
         )
     }
 
-    private fun validateForm(name: String, lastName: String, email: String, password: String, password2: String): Boolean {
+    private fun validateForm(
+        name: String,
+        lastName: String,
+        email: String,
+        password: String,
+        password2: String
+    ): Boolean {
         val nameRegex = "^[a-zA-Z ]+\$".toRegex()
 
         return when {
             !nameRegex.matches(name) || TextUtils.getTrimmedLength(name) > 50 -> {
-                binding?.txtName?.error = "Ingrese un nombre válido (sin caracteres especiales, números y máximo 50 caracteres)"
+                binding?.txtName?.error =
+                    "Ingrese un nombre válido (sin caracteres especiales, números y máximo 50 caracteres)"
                 false
             }
 
             !nameRegex.matches(lastName) || TextUtils.getTrimmedLength(lastName) > 50 -> {
-                binding?.txtLastName?.error = "Ingrese un apellido válido (sin caracteres especiales, números y máximo 50 caracteres)"
+                binding?.txtLastName?.error =
+                    "Ingrese un apellido válido (sin caracteres especiales, números y máximo 50 caracteres)"
                 false
             }
 
