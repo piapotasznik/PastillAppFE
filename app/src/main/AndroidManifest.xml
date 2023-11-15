@@ -27,18 +27,6 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
-        <activity
-            android:name=".Activities.ForgotPasswordActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.SignUpActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.LogInActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -71,11 +59,6 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"></activity>
-
-        <activity
-            android:name=".Activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:exported="true"></activity>
 
         <service
             android:name=".Services.MyFirebaseMessagingService"

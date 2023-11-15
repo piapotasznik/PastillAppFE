@@ -1,4 +1,4 @@
-package edu.ort.pastillapp.Activities
+package edu.ort.pastillapp.Fragments
 
 import android.content.ContentValues
 import android.content.Intent
@@ -6,39 +6,45 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import edu.ort.pastillapp.Activities.HomeScreenActivity
 import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.Models.UserRepository
-import edu.ort.pastillapp.databinding.ActivityLogInBinding
+import edu.ort.pastillapp.R
+import edu.ort.pastillapp.databinding.FragmentLogInBinding
 
-class LogInActivity: BaseActivity() {
+class LogInFragment : BaseFragment() {
 
-    private var binding: ActivityLogInBinding? = null
+    private lateinit var binding: FragmentLogInBinding
     private lateinit var auth: FirebaseAuth
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityLogInBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         auth = Firebase.auth
+        binding = FragmentLogInBinding.inflate(inflater, container, false)
 
         binding?.txtForgotPassword?.setOnClickListener {
-            startActivity(Intent(this, ForgotPasswordActivity::class.java))
-            finish()
+            findNavController().navigate(R.id.action_logInFragment_to_forgotPasswordFragment)
         }
 
         binding?.txtSignUp?.setOnClickListener {
-            startActivity(Intent(this, SignUpActivity::class.java))
-            finish()
+            findNavController().navigate(R.id.action_logInFragment_to_signUpFragment)
         }
 
         binding?.btnLogIn?.setOnClickListener {
             signIn()
         }
+
+        return binding.root
     }
 
     private fun signIn() {
@@ -67,22 +73,24 @@ class LogInActivity: BaseActivity() {
                                     val token = task.result
                                     SharedPref.write(SharedPref.TOKEN, token.toString())
                                     // Llama a la función para enviar el token al backend
-                                    UserRepository(this).sendTokenToServer(email,
-                                        onSuccess = {
-                                            // Manejar éxito
-                                            Log.d(
-                                                "LoginFragment",
-                                                "Token enviado con éxito al servidor"
-                                            )
-                                        },
-                                        onError = {
-                                            // Manejar error
-                                            Log.e(
-                                                "LoginFragment",
-                                                "Error al enviar el token al servidor"
-                                            )
-                                        }
-                                    )
+                                    context?.let {
+                                        UserRepository(it).sendTokenToServer(email,
+                                            onSuccess = {
+                                                // Manejar éxito
+                                                Log.d(
+                                                    "LoginFragment",
+                                                    "Token enviado con éxito al servidor"
+                                                )
+                                            },
+                                            onError = {
+                                                // Manejar error
+                                                Log.e(
+                                                    "LoginFragment",
+                                                    "Error al enviar el token al servidor"
+                                                )
+                                            }
+                                        )
+                                    }
                                 } else {
                                     // Manejar el error al obtener el token
                                     Log.e(
@@ -92,25 +100,22 @@ class LogInActivity: BaseActivity() {
                                 }
                             }
 
-                            val intent = Intent(this, HomeScreenActivity::class.java)
+                            val intent = Intent(activity, HomeScreenActivity::class.java)
                             intent.putExtra(
                                 "user",
                                 user
                             )
-                            startActivity(intent)
-                            finish()
+                            activity?.startActivity(intent)
                             hideProgressBar()
                         } else {
                             // El correo electrónico no está verificado, mostrar un mensaje o realizar alguna acción
                             hideProgressBar()
-                            showToast(
-                                this,
-                                "Por favor, verifica tu dirección de correo electrónico antes de iniciar sesión."
+                            showToast("Por favor, verifica tu dirección de correo electrónico antes de iniciar sesión."
                             )
                         }
                     } else {
                         hideProgressBar()
-                        showToast(this, "No se pudo iniciar sesion, intente de nuevo mas tarde")
+                        showToast("No se pudo iniciar sesion, intente de nuevo mas tarde")
                     }
                 }
         }
