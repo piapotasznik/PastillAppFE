@@ -108,16 +108,25 @@ class ProfileFragment : Fragment() {
             val name = profileName!!.text.toString().trim()
             val surname = profileSurname!!.text.toString().trim()
 
-            if(isValidInput(name) && isValidInput(surname) ) {
-                updateUserInformation()
-            }else {
+            if (name.isNotEmpty() && surname.isNotEmpty()) {
+                if (isValidInput(name) && isValidInput(surname)) {
+                    updateUserInformation()
+                } else {
+                    // Mensaje si se ingresan caracteres no permitidos
+                    Toast.makeText(
+                        requireContext(),
+                        "Error: Solo se permiten letras",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
+                // Mensaje si algún campo está vacío
                 Toast.makeText(
                     requireContext(),
-                    "Error: Solo se permiten letras",
+                    "Error: Los campos no pueden estar vacíos",
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
         }
 
 
@@ -161,7 +170,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun isValidInput(text: String): Boolean {
-        val regex = Regex("^[a-zA-Z]+$")
+        val regex = Regex("^[\\p{L}ÑñáéíóúÁÉÍÓÚüÜ\\s]+$")
         return text.matches(regex)
     }
 
