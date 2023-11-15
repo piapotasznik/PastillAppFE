@@ -37,15 +37,9 @@ class HomeFragment : Fragment(), OnClickNavigate, OnCheckBoxClickListener {
 
     private val binding get() = _binding!!
     private var _binding: FragmentHomeBinding? = null
-    private var reminderList: MutableList<ReminderLogToday> = mutableListOf()
-    private var backFromFragment = false
     private lateinit var adapter: TodayReminderAdapter
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        executeFunctions()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +48,7 @@ class HomeFragment : Fragment(), OnClickNavigate, OnCheckBoxClickListener {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        initRecyclerView()
         sharedViewModel.onCreate()
         sharedViewModel.remidersLogs.observe(viewLifecycleOwner, Observer { reminders ->
             reminders?.let {
@@ -63,13 +57,12 @@ class HomeFragment : Fragment(), OnClickNavigate, OnCheckBoxClickListener {
             }
         })
 
-
         val emergencyContactBtn = binding.emergencyContactButton
         emergencyContactBtn.setOnClickListener {
             contactEmergencyUser()
         }
 
-        initRecyclerView()
+
         return root
     }
 
@@ -83,20 +76,6 @@ class HomeFragment : Fragment(), OnClickNavigate, OnCheckBoxClickListener {
         }
     }
 
-
-    override fun onPause() {
-        super.onPause()
-        backFromFragment = true
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (backFromFragment) {
-            sharedViewModel.refreshData()
-            backFromFragment = false
-        }
-
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -113,7 +92,7 @@ class HomeFragment : Fragment(), OnClickNavigate, OnCheckBoxClickListener {
         binding.rvDate.adapter = dateAdapter
         binding.rvDate.smoothScrollToPosition(initialPosition)
 
-        adapter = TodayReminderAdapter(reminderList, findNavController())
+        adapter = TodayReminderAdapter(mutableListOf(), findNavController())
         binding.medList.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         adapter.setOnCheckBoxClickListener(this)
@@ -127,70 +106,6 @@ class HomeFragment : Fragment(), OnClickNavigate, OnCheckBoxClickListener {
         this.findNavController().navigate(action)
     }
 
-    fun getTodayReminders() {
-        Log.e("remindersLogs", "ejecuto el get today reminders")
-        val service = ActivityServiceApiBuilder.createReminderLogService()
-        var id = SharedPref.read(SharedPref.ID, UserSingleton.userId!!)
-        service.getTodayReminders(id).enqueue(object :
-            Callback<List<ReminderLogToday>> {
-            override fun onResponse(
-                call: Call<List<ReminderLogToday>>,
-                response: Response<List<ReminderLogToday>>
-            ) {
-                if (response.isSuccessful && response.body() != null) {
-                    val responseReminders = response.body()
-                    if (responseReminders != null) {
-                        //  remidersLogs.postValue(responseReminders!!) // Actualiza el valor de remindersLogs
-                        adapter.updateData(responseReminders)
-
-
-                        Log.e("remindersLogs", "la respuesta esl ${responseReminders}")
-                    }
-                } else {
-                    Log.e("chau", "respuesta no exitosa")
-                    Log.e("Respuesta no exitosa", " esta es la respuesta $response")
-                }
-            }
-
-            override fun onFailure(call: Call<List<ReminderLogToday>>, t: Throwable) {
-                Log.e("Example", t.stackTraceToString())
-            }
-        })
-    }
-
-    private fun executeFunctions() {
-        CoroutineScope(Dispatchers.Main).launch {
-            saveUserId() // Espera a que saveUserId() termine antes de continuar
-        }
-    }
-
-    private fun saveUserId() {
-        var email = SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail)
-        if (email != null) {
-            val service = ActivityServiceApiBuilder.create()
-            service?.getUserEmail(email)?.enqueue(object : Callback<ApiUserResponse> {
-                override fun onResponse(
-                    call: Call<ApiUserResponse>,
-                    response: Response<ApiUserResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        if (response.body() != null) {
-                            var userCreatedInformation = response.body()
-                            UserSingleton.userId = userCreatedInformation?.userId
-                            SharedPref.write(SharedPref.ID, userCreatedInformation?.userId)
-                            Log.e("tarde pero seguro", "el user id es ${UserSingleton.userId}")
-                            getTodayReminders()
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<ApiUserResponse>, t: Throwable) {
-                    // Manejar errores de red o solicitud
-                    Log.e("error al taer id", "error al taer id user")
-                }
-            })
-        }
-    }
 
     private fun contactEmergencyUser() {
         val email = SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail)
@@ -237,7 +152,7 @@ class HomeFragment : Fragment(), OnClickNavigate, OnCheckBoxClickListener {
                     val responseReminders = response.body()
                     if (responseReminders != null) {
                         //  remidersLogs.postValue(responseReminders!!) // Actualiza el valor de remindersLogs
-                   getTodayReminders()
+                      sharedViewModel.refreshData()
 
                     }
                 } else {

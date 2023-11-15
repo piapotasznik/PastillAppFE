@@ -366,30 +366,30 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewWelcome3"
                 app:layout_constraintVertical_bias="0.093" />
 
-            <TextView
-                android:id="@+id/KeepsLogsTextView"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:text="@string/mantener_recordatorios_pendientes"
-                android:textColor="@color/white_white_transparency"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/textView3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.945"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkedTextView"
-                app:layout_constraintVertical_bias="0.549" />
+<!--            <TextView-->
+<!--                android:id="@+id/KeepsLogsTextView"-->
+<!--                android:layout_width="120dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/mantener_recordatorios_pendientes"-->
+<!--                android:textColor="@color/white_white_transparency"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/textView3"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.945"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/checkedTextView"-->
+<!--                app:layout_constraintVertical_bias="0.549" />-->
 
-            <CheckBox
-                android:id="@+id/KeepsLogsCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@android:color/white"
-                app:layout_constraintBottom_toTopOf="@+id/textView3"
-                app:layout_constraintEnd_toStartOf="@+id/checkedTextView"
-                app:layout_constraintTop_toBottomOf="@+id/checkedTextView"
-                app:layout_constraintVertical_bias="0.394" />
+<!--            <CheckBox-->
+<!--                android:id="@+id/KeepsLogsCheckBox"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:buttonTint="@android:color/white"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/textView3"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/checkedTextView"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/checkedTextView"-->
+<!--                app:layout_constraintVertical_bias="0.394" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

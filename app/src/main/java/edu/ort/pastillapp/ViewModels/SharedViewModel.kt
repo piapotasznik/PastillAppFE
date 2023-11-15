@@ -1,9 +1,13 @@
 package edu.ort.pastillapp.ViewModels
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import edu.ort.pastillapp.Helpers.SharedPref
 import edu.ort.pastillapp.Helpers.UserSingleton
 import edu.ort.pastillapp.Models.ApiUserResponse
 import edu.ort.pastillapp.Models.ReminderLogToday
@@ -22,9 +26,10 @@ class SharedViewModel : ViewModel() {
 
 
     fun onCreate() {
+
         viewModelScope.launch {
             try {
-                executeFunctions()
+                saveUserId()
                 getTodayReminders()
 
             } catch (e: Exception) {
@@ -42,8 +47,12 @@ class SharedViewModel : ViewModel() {
     }
 
     fun getTodayReminders() {
-        Log.e("remindersLogs", "ejecuto el get today reminders")
+        Log.d("tarde ", "llamo al getTodayReminders")
+        Log.e("tarde pero seguro", SharedPref.read(SharedPref.ID,UserSingleton.userId!!).toString() )
+        Log.e("tarde pero seguro", UserSingleton.userId!!.toString() )
         val service = ActivityServiceApiBuilder.createReminderLogService()
+
+            Log.d("tarde ", "entro al getTodayReminders")
         service.getTodayReminders(UserSingleton.userId!!).enqueue(object :
             Callback<List<ReminderLogToday>> {
             override fun onResponse(call: Call<List<ReminderLogToday>>, response: Response<List<ReminderLogToday>>) {
@@ -66,6 +75,8 @@ class SharedViewModel : ViewModel() {
                 Log.e("Example", t.stackTraceToString())
             }
         })
+
+
     }
 
 
@@ -76,8 +87,9 @@ class SharedViewModel : ViewModel() {
         }
     }
 
-    suspend fun saveUserId() {
-        var email = UserSingleton.currentUserEmail
+    private fun saveUserId() {
+        var email = SharedPref.read(SharedPref.EMAIL, UserSingleton.currentUserEmail.toString())
+
         if (email!=null && UserSingleton.userId == null) {
             val service = ActivityServiceApiBuilder.create()
             service?.getUserEmail(email)?.enqueue(object : Callback<ApiUserResponse> {
@@ -89,6 +101,8 @@ class SharedViewModel : ViewModel() {
                         if (response.body() != null) {
                             var userCreatedInformation = response.body()
                             UserSingleton.userId= userCreatedInformation?.userId
+                            SharedPref.write(SharedPref.ID, userCreatedInformation?.userId)
+                            Log.e("tarde pero seguro", SharedPref.read(SharedPref.ID,UserSingleton.userId!!).toString() )
                             Log.e("tarde pero seguro","el user id es ${UserSingleton.userId}")
                             getTodayReminders()
 
