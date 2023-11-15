@@ -92,12 +92,12 @@ class SignUpFragment : BaseFragment() {
         password: String,
         password2: String
     ): Boolean {
-        val nameRegex = "^[a-zA-Z ]+\$".toRegex()
+        val nameRegex = Regex("^[\\p{L}ÑñáéíóúÁÉÍÓÚüÜ\\s]+$")
 
         return when {
             !nameRegex.matches(name) || TextUtils.getTrimmedLength(name) > 50 -> {
                 binding?.txtName?.error =
-                    "Ingrese un nombre válido (sin caracteres especiales, números y máximo 50 caracteres)"
+                    "Ingrese un nombre válido (sin numeros y máximo 50 caracteres)"
                 false
             }
 
