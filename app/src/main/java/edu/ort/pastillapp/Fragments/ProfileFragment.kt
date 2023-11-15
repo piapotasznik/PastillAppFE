@@ -153,6 +153,9 @@ class ProfileFragment : Fragment() {
                 Log.e("token", token)
                 deleteToken(token)
                 SharedPref.delete()
+                UserSingleton.currentUserEmail = null
+                UserSingleton.userId = null
+                UserSingleton.currentUser = null
                 auth.signOut()
 
                 val intent = Intent(context, InitActivity::class.java)
