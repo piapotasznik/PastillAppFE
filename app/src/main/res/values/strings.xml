@@ -2,4 +2,128 @@
     <string name="app_name">PastillApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Nombre">Nombre</string>
+    <string name="Apellido">Apellido</string>
+    <string name="Email">E-mail</string>
+    <string name="Contraseña">Contraseña</string>
+    <string name="Confirmar_Contraseña">Confirmar contraseña</string>
+    <string name="Acceder">Ingresar</string>
+    <string name="olvide_contraseña">¿Olvidaste tu contraseña?</string>
+    <string name="Bienvenido">BIENVENIDO</string>
+    <string name="Sin_cuenta">¿No tenés una cuenta? </string>
+    <string name="Con_cuenta">¿Ya tenés una cuenta? </string>
+    <string name="Registrarse">Registrarse</string>
+    <string name="user_profile_title">Perfil del usuario</string>
+    <string name="title_activity_home_screen">HomeScreenActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_profile">Perfil</string>
+    <string name="title_calendar">Calendario</string>
+    <string name="title_sintomas">Sintomas</string>
+    <string name="title_register">Registrar</string>
+    <string name="title_medication_reminder">Hora de tomar la Medicación!</string>
+    <string name="my_data">MIS DATOS</string>
+    <string name="my_profile">MI PERFIL</string>
+    <string name="my_request">Personas con solicitud pendiente:</string>
+    <string name="sign_out">CERRAR SESION</string>
+    <string name="emergency_contact">Email de Emergencia</string>
+    <string name="new_emergency_contact"> Agregar contacto </string>
+    <string name="save">Guardar</string>
+    <string name="register_pill_title">REGISTRAR</string>
+    <string name="Posponer">Posponer</string>
+    <string name="Tomado">Tomado</string>
+    <string name="reminder_name">Nombre del medicamento:</string>
+    <string name="reminder_dose">Dosis:</string>
+    <string name="reminder_presentation">Presentación:</string>
+    <string name="reminder_date">Fecha programada:</string>
+    <string name="medicamento">Medicamento</string>
+    <string name="dosis">Dosis</string>
+    <string name="notificar_contacto">Notificar Contacto</string>
+    <string name="mantener_recordatorios_pendientes">Mantener Recordatorios Pendientes</string>
+    <string name="inicio_de_toma">Inicio de toma</string>
+    <string name="frecuencia">Frecuencia</string>
+    <string name="duraci_n_de_toma">Duración de toma</string>
+    <string name="notas_adicionales">Notas Adicionales</string>
+    <string name="presentacion">Presentacion</string>
+    <string name="emergencias">Emergencias</string>
+    <string name="ver_recordatorios">Ver Recordatorios</string>
+    <string name="recordatorios">Recordatorios</string>
+    <string name="nombre_de_medicamento">Nombre de Medicamento</string>
+    <string name="buscar">Buscar</string>
+    <string name="solo_activos">Solo activos</string>
+    <string name="acciones">Acciones</string>
+    <string name="limpiar">Limpiar</string>
+    <string name="fecha_desde">"Fecha Desde "</string>
+    <string name="fecha">Fecha</string>
+    <string name="accion">Accion</string>
+    <string name="detalle">Detalle</string>
+    <string name="iniciado">Iniciado</string>
+    <string name="daily_status">ESTADO DIARIO</string>
+    <string name="daily_status_min">Estado diario</string>
+    <string name="daily_alert">Alertas del dia</string>
+    <string name="see_all">Ver todos</string>
+    <string name="fecha_hasta">Fecha Hasta</string>
+    <string name="volver">Volver</string>
+    <string name="delete_emergency_contact"> Eliminar contacto </string>
+    <string name="see_details">Ver detalle</string>
+    <string name="date_today">05/11/2023</string>
+
+    <string-array name="frecuency_intake_type">
+        <item>Horas</item>
+        <item>Dias</item>
+        <item>Semanas</item>
+        <item>Meses</item>
+    </string-array>
+
+    <string-array name="duration_intake">
+        <item>Dias</item>
+        <item>Semanas</item>
+        <item>Meses</item>
+        <item>Años</item>
+    </string-array>
+
+    <string-array name="frecuency_intake_duration">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+    </string-array>
+
+    <string-array name="med_presentation">
+        <item>Polvo</item>
+        <item>Granulado</item>
+        <item>Comprimidos</item>
+        <item>Capsulas</item>
+        <item>Jarabe</item>
+        <item>Suspension</item>
+        <item>Emulsion</item>
+    </string-array>
 </resources>

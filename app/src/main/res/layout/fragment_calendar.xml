@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context=".Fragments.CalendarFragment">
+
+    <TextView
+        android:id="@+id/titleCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_calendar"
+        android:textColor="@color/celesteClaro"
+        android:layout_marginTop="10dp"
+        android:textSize="38dp"
+        android:fontFamily="@font/francois_one"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvSearchCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        app:cardCornerRadius="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="15dp"
+        android:background="@color/transparent"
+
+        app:layout_constraintTop_toBottomOf="@id/titleCalendar">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/celeste">
+
+
+            <RelativeLayout
+                android:id="@+id/searchFromLO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/searchFrom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="15dp"
+                    android:paddingEnd="40dp"
+                    android:backgroundTint="@color/grey"
+                    android:hint="@string/fecha_desde"
+                    android:textColor="@color/grey"
+                    android:textSize="23dp"
+                    android:fontFamily="@font/francois_one"
+               />
+
+                <ImageView
+                    android:id="@+id/iconCalendar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="30dp"
+                    android:src="@drawable/ic_calendarbtn" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/searchUptoLO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.466"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchFromLO"
+                app:layout_constraintVertical_bias="0.144">
+
+
+            <TextView
+                android:id="@+id/searchUpto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:backgroundTint="@color/grey"
+                android:fontFamily="@font/francois_one"
+                android:hint="@string/fecha_hasta"
+                android:textColor="@color/grey"
+                android:textSize="23dp"
+               />
+                <ImageView
+                    android:id="@+id/iconCalendar2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="30dp"
+                    android:src="@drawable/ic_calendarbtn" />
+            </RelativeLayout>
+
+
+            <Button
+                android:id="@+id/btnSearchCalendar"
+                style="@style/Theme.PastillApp.ButtonHistorical"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:background="@drawable/round_button"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/francois_one"
+                android:text="@string/buscar"
+                android:textColor="@color/blue"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.137"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchUptoLO"
+                app:layout_constraintVertical_bias="0.542" />
+
+            <Button
+                android:id="@+id/btnClean"
+                style="@style/Theme.PastillApp.ButtonHistorical"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:background="@drawable/round_button"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/francois_one"
+                android:text="@string/limpiar"
+                android:textColor="@color/blue"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.878"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchUptoLO"
+                app:layout_constraintVertical_bias="0.542" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:backgroundTint="@color/blue"
+        app:layout_constraintVertical_bias="0.15"
+        app:layout_constraintTop_toBottomOf="@id/cvSearchCalendar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="15dp"
+        app:cardCornerRadius="15dp"
+        >
+        <LinearLayout
+            android:id="@+id/llHeaderCalendar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/celesteClaro">
+
+            <TextView
+                android:layout_width="12dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:fontFamily="@font/francois_one"
+                android:gravity="center"
+                android:text="@string/fecha"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:fontFamily="@font/francois_one"
+                android:gravity="center"
+                android:text="@string/daily_alert"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:fontFamily="@font/francois_one"
+                android:gravity="center"
+                android:text="@string/daily_status_min"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCalendarSearch"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_max="wrap"
+                android:layout_marginTop="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

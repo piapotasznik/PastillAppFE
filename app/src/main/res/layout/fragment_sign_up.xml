@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context=".Fragments.SignUpFragment">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="135dp"
+        android:layout_height="126dp"
+        android:layout_marginStart="138dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="138dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:layout_marginTop="70dp"
+        app:cardBackgroundColor="@color/celeste"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/txtReminder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:letterSpacing="0"
+                android:lineSpacingExtra="12sp"
+                android:paddingStart="10dp"
+                android:text="@string/Bienvenido"
+                android:textColor="@color/celesteClaro"
+                android:textSize="40sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.062" />
+
+            <EditText
+                android:id="@+id/txtName"
+                style="@style/GrayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/Nombre"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/txtLastName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtReminder"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/txtLastName"
+                style="@style/GrayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/Apellido"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/txtEmail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtReminder"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/txtEmail"
+                style="@style/GrayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/Email"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/txtPass"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/txtPass2"
+                style="@style/GrayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/Confirmar_Contraseña"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/Registrarse"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/francois_one"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/txtPass"
+                style="@style/GrayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/Contraseña"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/txtPass2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/registerConCuenta"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="25dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+        <TextView
+            android:id="@+id/textFgLoginSinCuenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/Con_cuenta"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.089"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtSignIn"
+            android:layout_width="131dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/Acceder"
+            android:textColor="@color/celesteClaro"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textFgLoginSinCuenta"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/errorMsgRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="La contraseña debe tener al menos 6 caracteres"
+        android:textColor="@color/pinkError"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/cardView" />
+    <TextView
+        android:id="@+id/errorMsgRegisterPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="Las contraseñas no coinciden"
+        android:textColor="@color/pinkError"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/cardView" />
+    <TextView
+        android:id="@+id/errorMsgRegisterFill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="Las contraseñas no coinciden"
+        android:textColor="@color/pinkError"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/cardView" />
+    <TextView
+        android:id="@+id/errorMsgRegisterEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="El Email ya figura como registrado"
+        android:textColor="@color/pinkError"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/cardView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

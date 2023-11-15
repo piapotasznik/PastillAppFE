@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context=".Fragments.ProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/txtSignOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_out"
+        android:textColor="@color/celesteClaro"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.197" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="445dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="@color/celeste"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/cancelBtnProfile"
+                android:layout_width="120dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/round_button"
+                android:backgroundTint="@color/pink"
+                android:paddingHorizontal="5dp"
+                android:text="Cancelar"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:fontFamily="@font/francois_one"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myProfileEmail"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="120dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/round_button"
+                android:backgroundTint="@color/pink"
+                android:paddingHorizontal="5dp"
+                android:text="Guardar"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:fontFamily="@font/francois_one"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myProfileEmail"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/registerPillTitle"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="64dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:letterSpacing="0"
+                android:lineSpacingExtra="12sp"
+                android:paddingStart="10dp"
+                android:text="@string/my_data"
+                android:textColor="@color/celesteClaro"
+                android:textSize="40sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/myProfileName"
+                style="@style/GrayText"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="60dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/Nombre"
+                android:inputType="text"
+                android:paddingStart="10dp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/registerPillTitle" />
+
+            <EditText
+                android:id="@+id/myProfileLastName"
+                style="@style/GrayText"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="60dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/Apellido"
+                android:inputType="text"
+                android:paddingStart="10dp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myProfileName" />
+
+            <EditText
+                android:id="@+id/myProfileEmail"
+                style="@style/GrayText"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="60dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/Email"
+                android:inputType="textEmailAddress"
+                android:paddingStart="10dp"
+                android:textColor="@color/gray_with_transparency"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myProfileLastName" />
+
+            <EditText
+                android:id="@+id/myProfileEmergencyContact"
+                style="@style/GrayText"
+                android:layout_width="210dp"
+                android:layout_height="45dp"
+                android:layout_marginBottom="52dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/emergency_contact"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/saveBtn"
+                app:layout_constraintVertical_bias="0.444"
+                android:gravity="center"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/saveContactBtn"
+                style="@style/Theme.PastillApp.ButtonSave"
+                android:layout_width="120dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/round_button"
+                android:backgroundTint="@color/pink"
+                android:paddingHorizontal="5dp"
+                android:text="@string/new_emergency_contact"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:fontFamily="@font/francois_one"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myProfileEmergencyContact"
+                app:layout_constraintVertical_bias="0.571" />
+
+            <Button
+                android:id="@+id/deteleContactBtn"
+                android:layout_width="120dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/round_button"
+                android:backgroundTint="@color/pink"
+                android:paddingHorizontal="5dp"
+                android:text="@string/delete_emergency_contact"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:fontFamily="@font/francois_one"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myProfileEmergencyContact"
+                app:layout_constraintVertical_bias="0.578" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ContactsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_button"
+        android:backgroundTint="@color/pink"
+        android:paddingHorizontal="5dp"
+        android:text="Ver Solicitudes de Contacto pendientes"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:fontFamily="@font/francois_one"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/errorMsg"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="44dp"
+        android:text="TextView"
+        android:textColor="#00BCD4"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ContactsBtn"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

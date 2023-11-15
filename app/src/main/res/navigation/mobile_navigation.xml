@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="edu.ort.pastillapp.Fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_editReminderFragment"
+            app:destination="@id/editReminderFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_historicalReminderFragment"
+            app:destination="@id/historicalReminderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_symptoms"
+        android:name="edu.ort.pastillapp.Fragments.SymptomsFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_symptoms" >
+        <action
+            android:id="@+id/action_navigation_symptoms_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="edu.ort.pastillapp.Fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_contactRequests2"
+            app:destination="@id/contactRequests2" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_registerPill"
+        android:name="edu.ort.pastillapp.Fragments.RegisterPillFragment"
+        android:label="fragment_register_pill"
+        tools:layout="@layout/fragment_register_pill" >
+        <action
+            android:id="@+id/action_navigation_registerPill_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_calendar"
+        android:name="edu.ort.pastillapp.Fragments.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/action_navigation_calendar_to_logsCalendarFragment"
+            app:destination="@id/logsCalendarFragment" />
+        <action
+            android:id="@+id/action_navigation_calendar_to_dailyStatusFragment"
+            app:destination="@id/dailyStatusFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/medicationReminder"
+        android:name="edu.ort.pastillapp.Fragments.MedicationReminderFragment"
+        android:label="fragment_medication_reminder"
+        tools:layout="@layout/fragment_medication_reminder" />
+    <fragment
+        android:id="@+id/editReminderFragment"
+        android:name="edu.ort.pastillapp.Fragments.EditReminderFragment"
+        android:label="fragment_edit_reminder"
+        tools:layout="@layout/fragment_edit_reminder" >
+        <action
+            android:id="@+id/action_editReminderFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <argument
+            android:name="reminderId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/reminderFragment"
+        android:name="edu.ort.pastillapp.Fragments.ReminderFragment"
+        android:label="fragment_reminder"
+        tools:layout="@layout/fragment_reminder" >
+        <argument
+            android:name="reminderId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+    android:id="@+id/contactRequests2"
+    android:name="edu.ort.pastillapp.Fragments.ContactRequestsFragment"
+    android:label="fragment_contact_requests"
+    tools:layout="@layout/fragment_contact_requests" >
+        <action
+            android:id="@+id/action_contactRequests2_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/historicalReminderFragment"
+        android:name="edu.ort.pastillapp.Fragments.HistoricalReminderFragment"
+        android:label="fragment_historical_reminder"
+        tools:layout="@layout/fragment_historical_reminder" >
+        <action
+            android:id="@+id/action_historicalReminderFragment_to_editReminderFragment"
+            app:destination="@id/editReminderFragment" />
+        <action
+            android:id="@+id/action_historicalReminderFragment_to_reminderFragment"
+            app:destination="@id/reminderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logsCalendarFragment"
+        android:name="edu.ort.pastillapp.Fragments.LogsCalendarFragment"
+        android:label="fragment_logs_calendar"
+        tools:layout="@layout/fragment_logs_calendar" >
+        <argument
+            android:name="date"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/dailyStatusFragment"
+        android:name="edu.ort.pastillapp.Fragments.DailyStatusFragment"
+        android:label="fragment_daily_status"
+        tools:layout="@layout/fragment_daily_status" >
+        <argument
+            android:name="date"
+            app:argType="string" />
+    </fragment>
+</navigation>
