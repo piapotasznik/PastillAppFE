@@ -78,9 +78,12 @@ class HistoricalReminderFragment : Fragment() {
           viewModel.updateState(isChecked)
             if (isChecked){
                 reminderAdapter.onlyActives()
+//               binding.serachView.setQuery("", false)
             } else {
                viewModel.resetOriginalList()
+//                binding.serachView.setQuery("", false)
             }
+
 
         }
 
@@ -112,7 +115,7 @@ class HistoricalReminderFragment : Fragment() {
 
             return
         }
-            reminderAdapter.filter(query)
+            reminderAdapter.filter(query,viewModel.remindersList.value, viewModel.onlyActive.value)
 
     }
 

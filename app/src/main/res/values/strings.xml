@@ -27,8 +27,8 @@
     <string name="my_profile">MI PERFIL</string>
     <string name="my_request">Personas con solicitud pendiente:</string>
     <string name="sign_out">CERRAR SESION</string>
-    <string name="emergency_contact">Email de Emergencia</string>
-    <string name="new_mergency_contact"> Agregar nuevo </string>
+    <string name="emergency_contact">Contacto de Emergencia</string>
+    <string name="new_emergency_contact"> Agregar contacto </string>
     <string name="save">Guardar</string>
     <string name="register_pill_title">REGISTRAR</string>
     <string name="Posponer">Posponer</string>
@@ -65,6 +65,7 @@
     <string name="see_all">Ver todos</string>
     <string name="fecha_hasta">Fecha Hasta</string>
     <string name="volver">Volver</string>
+    <string name="delete_emergency_contact"> Eliminar contacto </string>
     <string name="see_details">Ver detalle</string>
     <string name="date_today">05/11/2023</string>
 

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/blue"
-    tools:context=".DailyStatusFragment">
+    tools:context=".Fragments.DailyStatusFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvDaily"
@@ -100,6 +100,7 @@
                         android:layout_marginTop="10dp"
                         android:paddingBottom="15dp"
                         android:text="Dolor de cabeza, consancio, tos"
+                        android:textAlignment="center"
                         android:textColor="@color/grey"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"

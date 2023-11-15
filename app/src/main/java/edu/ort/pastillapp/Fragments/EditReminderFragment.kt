@@ -4,7 +4,9 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.res.Configuration
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputFilter
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -48,6 +50,29 @@ class EditReminderFragment : Fragment() {
         val reminderId = EditReminderFragmentArgs.fromBundle(requireArguments()).reminderId
         getReminderByID(reminderId)
         binding = FragmentEditReminderBinding.inflate(inflater, container, false)
+        binding.editDosis.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+                // Aquí puedes realizar la validación
+                val dosis = charSequence.toString()
+
+                if (dosis.isNotEmpty()) {
+                    // Si el texto no está vacío, verifica si es "0" y evita la entrada
+                    if (dosis == "0") {
+                        binding.editDosis.setText("")
+                    }
+
+                    // Limita la entrada a un máximo de tres dígitos
+                    if (dosis.length > 3) {
+                        binding.editDosis.setText(dosis.substring(0, 3))
+                        binding.editDosis.setSelection(3) // Coloca el cursor al final
+                    }
+                }
+            }
+
+            override fun afterTextChanged(editable: Editable?) {}
+        })
         return binding.root
     }
 
