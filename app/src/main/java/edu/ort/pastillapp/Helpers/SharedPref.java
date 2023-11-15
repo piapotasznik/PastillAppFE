@@ -50,6 +50,6 @@ public class SharedPref {
     public static void delete() {
         SharedPreferences.Editor prefsEditor = mSharedPref.edit();
         prefsEditor.clear();
-        prefsEditor.apply();
+        prefsEditor.commit();
     }
 }
