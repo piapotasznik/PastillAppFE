@@ -115,7 +115,7 @@ class LogInFragment : BaseFragment() {
                         }
                     } else {
                         hideProgressBar()
-                        showToast("No se pudo iniciar sesion, intente de nuevo mas tarde")
+                        showToast("Credenciales incorrectas")
                     }
                 }
         }
