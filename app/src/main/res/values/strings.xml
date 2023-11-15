@@ -27,7 +27,7 @@
     <string name="my_profile">MI PERFIL</string>
     <string name="my_request">Personas con solicitud pendiente:</string>
     <string name="sign_out">CERRAR SESION</string>
-    <string name="emergency_contact">Contacto de Emergencia</string>
+    <string name="emergency_contact">Email de Emergencia</string>
     <string name="new_emergency_contact"> Agregar contacto </string>
     <string name="save">Guardar</string>
     <string name="register_pill_title">REGISTRAR</string>

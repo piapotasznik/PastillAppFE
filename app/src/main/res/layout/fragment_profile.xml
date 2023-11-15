@@ -60,6 +60,8 @@
                 android:textSize="14sp"
                 app:fontFamily="@font/francois_one"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/saveBtn"
                 app:layout_constraintTop_toBottomOf="@+id/myProfileEmail" />
 
             <Button
@@ -173,7 +175,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/saveBtn" />
+                app:layout_constraintTop_toBottomOf="@+id/saveBtn"
+                app:layout_constraintVertical_bias="0.444"
+                android:gravity="center"
+                />
 
             <androidx.appcompat.widget.AppCompatButton
                 style="@style/Theme.PastillApp.ButtonSave"
@@ -208,8 +213,10 @@
                 app:fontFamily="@font/francois_one"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.733"
+                app:layout_constraintStart_toEndOf="@+id/saveContactBtn"
                 app:layout_constraintTop_toBottomOf="@+id/myProfileEmergencyContact"
-                app:layout_constraintVertical_bias="0.571" />
+                app:layout_constraintVertical_bias="0.578" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
