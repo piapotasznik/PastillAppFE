@@ -118,12 +118,12 @@
     </string-array>
 
     <string-array name="med_presentation">
-        <item>polvos</item>
-        <item>granulados</item>
-        <item>comprimidos</item>
-        <item>capsulas</item>
-        <item>jarabes</item>
-        <item>suspensiones</item>
-        <item>emulsiones</item>
+        <item>Polvo</item>
+        <item>Granulado</item>
+        <item>Comprimidos</item>
+        <item>Capsulas</item>
+        <item>Jarabe</item>
+        <item>Suspension</item>
+        <item>Emulsion</item>
     </string-array>
 </resources>

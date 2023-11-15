@@ -234,44 +234,6 @@ class EditReminderFragment : Fragment() {
              }
          }
 
-         
-    fun getReminderValues(): ReminderUpdate? {
-        val reminderid = reminder?.reminderId
-        val frecuencyIntakeSp = binding.editFrecuencyInterval.selectedItem.toString()
-        Log.d("traduccion", "freq intake sp = ${frecuencyIntakeSp}")
-        val frequencyEnglish =
-            Helpers().translateFrequencyEn(frecuencyIntakeSp)
-        val durationIntakeSp = binding.editDurationIntake.selectedItem.toString()
-        Log.d("traduccion", "freq intake sp = ${durationIntakeSp}")
-        val durationEnglish = Helpers().translateFrequencyEn(durationIntakeSp)
-
-        Log.e("put33", binding.editDateIntake.text.toString())
-        val dateFromat = Helpers().convertInvertDate(binding.editDateIntake.text.toString())
-        //validar si el campo de dosis está vacío
-        val dosisText = binding.editDosis.text.toString()
-        if (dosisText.isEmpty()) {
-            // El campo "dosis" está vacío, mostrar un Toast
-            Toast.makeText(requireContext(), "El campo de dosis es obligatorio", Toast.LENGTH_SHORT).show()
-            return null
-        }
-
-        var updateReminder = reminderid?.let {
-            ReminderUpdate(
-                it,
-                binding.editDosis.text.toString().toInt(),
-                binding.presentationSpinner.selectedItem.toString(),
-                dateFromat,
-                binding.editFrecuencyInt.selectedItem.toString().toInt(),
-                frequencyEnglish,
-                binding.editDurationNum.selectedItem.toString().toInt(),
-                durationEnglish,
-                binding.emergencyCheckBox.isChecked,
-                binding.KeepsLogsCheckBox.isChecked,
-                binding.editNotes.text.toString()
-            )
-        }
-        return updateReminder
-    }
 
          override fun onFailure(call: Call<ApiUserResponse>, t: Throwable) {
              // En caso de que ocurra un error en la solicitud, asumimos que no hay contacto de emergencia
@@ -299,7 +261,7 @@ class EditReminderFragment : Fragment() {
              binding.editDurationNum.selectedItem.toString().toInt(),
              durationEnglish,
              binding.emergencyCheckBox.isChecked,
-             binding.KeepsLogsCheckBox.isChecked,
+             false, // Se saco la casilla de "mantener recordatorios",
              binding.editNotes.text.toString(),
          )
      }

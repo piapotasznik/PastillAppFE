@@ -189,12 +189,13 @@ class ProfileFragment : Fragment() {
                             // AGREGO
                             // Verifica el valor de myProfileEmergencyContact para habilitar/deshabilitar el botón
                             val isEmergencyContactNotNull = userCreatedInformation?.emergencyUser != null
+                            if (isAdded) {
                             saveContactBtn.isEnabled = !isEmergencyContactNotNull
                             saveContactBtn.backgroundTintList = ColorStateList.valueOf(
                                 if (isEmergencyContactNotNull) Color.GRAY
                                 else ContextCompat.getColor(requireContext(), R.color.pink)
                             )
-                        }
+                        }}
                     }
                 }
 
