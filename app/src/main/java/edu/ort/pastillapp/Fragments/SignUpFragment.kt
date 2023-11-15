@@ -93,7 +93,6 @@ class SignUpFragment : BaseFragment() {
         password2: String
     ): Boolean {
         val nameRegex = Regex("^[\\p{L}ÑñáéíóúÁÉÍÓÚüÜ\\s]+$")
-
         return when {
             !nameRegex.matches(name) || TextUtils.getTrimmedLength(name) > 50 -> {
                 binding?.txtName?.error =
