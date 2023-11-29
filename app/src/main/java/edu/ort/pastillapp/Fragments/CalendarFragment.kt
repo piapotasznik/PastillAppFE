@@ -1,5 +1,6 @@
 package edu.ort.pastillapp.Fragments
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.res.Configuration
 import android.icu.text.SimpleDateFormat
@@ -63,6 +64,7 @@ class CalendarFragment : Fragment(), OnItemClickListener {
         _binding = null
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onStart() {
         super.onStart()
         val dateTextFrom = binding.searchFrom
@@ -90,18 +92,31 @@ class CalendarFragment : Fragment(), OnItemClickListener {
 
         val btnSearch = binding.btnSearchCalendar
         btnSearch.setOnClickListener {
-            if (dateTextFrom.text.isNullOrBlank() || dateTextFrom.text.isEmpty() || dateTextUpTo.text.isNullOrBlank() || dateTextUpTo.text.isEmpty()) {
+            if (dateTextFrom.text.isNullOrBlank() || dateTextFrom.text.isEmpty() ||
+                dateTextUpTo.text.isNullOrBlank() || dateTextUpTo.text.isEmpty()
+            ) {
                 Toast.makeText(
                     requireContext(),
                     "Debe seleccionar ambas fechas",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                val dateList =
-                    generateDateRange(dateTextFrom.text.toString(), dateTextUpTo.text.toString())
-                calendarViewModel.remindersList.postValue(dateList)
+                val startDate = dateTextFrom.text.toString()
+                val endDate = dateTextUpTo.text.toString()
+
+                if (isDateRangeValid(startDate, endDate)) {
+                    val dateList = generateDateRange(startDate, endDate)
+                    calendarViewModel.remindersList.postValue(dateList)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "La fecha de inicio debe ser anterior a la fecha de fin",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
+
 
         calendarViewModel.logs.observe(viewLifecycleOwner, Observer {
 
@@ -225,6 +240,16 @@ class CalendarFragment : Fragment(), OnItemClickListener {
 
         dateList.add(endDate)
         return dateList
+    }
+    private fun isDateRangeValid(startDate: String, endDate: String): Boolean {
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val startCalendar = Calendar.getInstance()
+        val endCalendar = Calendar.getInstance()
+
+        startCalendar.time = dateFormat.parse(startDate)!!
+        endCalendar.time = dateFormat.parse(endDate)!!
+
+        return startCalendar.before(endCalendar)
     }
 
     override fun onItemClick(date: String, type: Int) {
