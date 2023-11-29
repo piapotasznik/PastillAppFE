@@ -89,17 +89,33 @@ class CalendarFragment : Fragment(), OnItemClickListener {
         }
 
         val btnSearch = binding.btnSearchCalendar
+
+        val dateFormat = SimpleDateFormat("dd-MM-yy", Locale.getDefault())
+        val startCalendar = Calendar.getInstance()
+        val endCalendar = Calendar.getInstance()
+
+        startCalendar.time = dateFormat.parse(dateTextFrom.text?.toString())!!
+        endCalendar.time = dateFormat.parse(dateTextUpTo.text?.toString())!!
+
         btnSearch.setOnClickListener {
-            if (dateTextFrom.text.isNullOrBlank() || dateTextFrom.text.isEmpty() || dateTextUpTo.text.isNullOrBlank() || dateTextUpTo.text.isEmpty()) {
-                Toast.makeText(
-                    requireContext(),
-                    "Debe seleccionar ambas fechas",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
+            if (!dateTextFrom.text.isNullOrBlank() && !dateTextFrom.text.isEmpty() && !dateTextUpTo.text.isNullOrBlank() && !dateTextUpTo.text.isEmpty())  {
                 val dateList =
                     generateDateRange(dateTextFrom.text.toString(), dateTextUpTo.text.toString())
-                calendarViewModel.remindersList.postValue(dateList)
+                    calendarViewModel.remindersList.postValue(dateList)
+
+                if(startCalendar > endCalendar) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Rango invalido",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Debe seleccionar ambas fechas",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
 
@@ -213,7 +229,10 @@ class CalendarFragment : Fragment(), OnItemClickListener {
 
         startCalendar.time = dateFormat.parse(startDate)!!
         endCalendar.time = dateFormat.parse(endDate)!!
+        if (startCalendar.after(endCalendar)) {
 
+            throw IllegalArgumentException("La fecha de inicio no puede ser mayor que la fecha de fin")
+        }
         val dateList = mutableListOf<String>()
 
         while (startCalendar.before(endCalendar)) {
