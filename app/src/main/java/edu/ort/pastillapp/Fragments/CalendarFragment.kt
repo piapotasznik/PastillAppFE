@@ -31,7 +31,7 @@ class CalendarFragment : Fragment(), OnItemClickListener {
     private val binding get() = _binding!!
     private lateinit var reminderAdapter: DateCalendarAdapter
     private val calendarViewModel: CalendarViewModel by viewModels()
-     private var dateLogs: String = ""
+    private var dateLogs: String = ""
     private var isBackFromFragment : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,25 +64,27 @@ class CalendarFragment : Fragment(), OnItemClickListener {
         _binding = null
     }
 
-    @SuppressLint("SuspiciousIndentation")
     override fun onStart() {
         super.onStart()
         val dateTextFrom = binding.searchFrom
         val dateTextUpTo = binding.searchUpto
 
         dateTextFrom.setOnClickListener {
-            showDatePicker(dateTextFrom)
+            if (dateTextUpTo.text.isNotEmpty()) {
+                showDatePicker(dateTextFrom, minDateString = dateTextUpTo.text.toString())
+            } else {
+                showDatePicker(dateTextFrom)
+            }
         }
 
         dateTextUpTo.setOnClickListener {
-
-            if(dateTextFrom.text.isNotEmpty() ){
-                showDatePicker(dateTextUpTo, dateTextFrom.text.toString())
+            if (dateTextFrom.text.isNotEmpty()) {
+                showDatePicker(dateTextUpTo, maxDateString = dateTextFrom.text.toString())
             } else {
                 showDatePicker(dateTextUpTo)
             }
-
         }
+
         val btnCleanInputs = binding.btnClean
         btnCleanInputs.setOnClickListener {
             dateTextFrom.text = ""
@@ -92,31 +94,18 @@ class CalendarFragment : Fragment(), OnItemClickListener {
 
         val btnSearch = binding.btnSearchCalendar
         btnSearch.setOnClickListener {
-            if (dateTextFrom.text.isNullOrBlank() || dateTextFrom.text.isEmpty() ||
-                dateTextUpTo.text.isNullOrBlank() || dateTextUpTo.text.isEmpty()
-            ) {
+            if (dateTextFrom.text.isNullOrBlank() || dateTextFrom.text.isEmpty() || dateTextUpTo.text.isNullOrBlank() || dateTextUpTo.text.isEmpty()) {
                 Toast.makeText(
                     requireContext(),
                     "Debe seleccionar ambas fechas",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                val startDate = dateTextFrom.text.toString()
-                val endDate = dateTextUpTo.text.toString()
-
-                if (isDateRangeValid(startDate, endDate)) {
-                    val dateList = generateDateRange(startDate, endDate)
-                    calendarViewModel.remindersList.postValue(dateList)
-                } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "La fecha de inicio debe ser anterior a la fecha de fin",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                val dateList =
+                    generateDateRange(dateTextFrom.text.toString(), dateTextUpTo.text.toString())
+                calendarViewModel.remindersList.postValue(dateList)
             }
         }
-
 
         calendarViewModel.logs.observe(viewLifecycleOwner, Observer {
 
@@ -133,11 +122,11 @@ class CalendarFragment : Fragment(), OnItemClickListener {
 
         calendarViewModel.dailyStatus.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                    val date = dateLogs
-                    val action =
-                        CalendarFragmentDirections.actionNavigationCalendarToDailyStatusFragment(date)
-                    calendarViewModel.dailyStatus.value = null
-                    dateLogs = ""
+                val date = dateLogs
+                val action =
+                    CalendarFragmentDirections.actionNavigationCalendarToDailyStatusFragment(date)
+                calendarViewModel.dailyStatus.value = null
+                dateLogs = ""
                 isBackFromFragment = true
                 findNavController().navigate(action)
 
@@ -170,7 +159,7 @@ class CalendarFragment : Fragment(), OnItemClickListener {
 
     }
 
-    private fun showDatePicker(textView: TextView, maxDateString: String? = null) {
+    private fun showDatePicker(textView: TextView, maxDateString: String? = null, minDateString: String? = null) {
         val currentLocale = Locale("es")
         Locale.setDefault(currentLocale)
         val config = Configuration()
@@ -204,6 +193,15 @@ class CalendarFragment : Fragment(), OnItemClickListener {
             val minDate = dateFormat.parse(it)
             minDate?.let {
                 datePickerDialog.datePicker.minDate = minDate.time
+            }
+        }
+
+        minDateString?.let {
+            val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            val maxDate = dateFormat.parse(it)
+            maxDate?.let {
+                // Configurar fecha máxima para la fecha inicial
+                datePickerDialog.datePicker.maxDate = maxDate.time
             }
         }
 
@@ -241,24 +239,14 @@ class CalendarFragment : Fragment(), OnItemClickListener {
         dateList.add(endDate)
         return dateList
     }
-    private fun isDateRangeValid(startDate: String, endDate: String): Boolean {
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-        val startCalendar = Calendar.getInstance()
-        val endCalendar = Calendar.getInstance()
-
-        startCalendar.time = dateFormat.parse(startDate)!!
-        endCalendar.time = dateFormat.parse(endDate)!!
-
-        return startCalendar.before(endCalendar)
-    }
 
     override fun onItemClick(date: String, type: Int) {
         isBackFromFragment = false
         dateLogs = date
         if (type ==0){
 
-          calendarViewModel.getLogs(date)
-      }
+            calendarViewModel.getLogs(date)
+        }
         if (type ==1){
             calendarViewModel.getDailyStatus(date)
 
