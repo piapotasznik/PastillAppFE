@@ -1,5 +1,6 @@
 package edu.ort.pastillapp.Fragments
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.res.Configuration
 import android.icu.text.SimpleDateFormat
@@ -30,7 +31,7 @@ class CalendarFragment : Fragment(), OnItemClickListener {
     private val binding get() = _binding!!
     private lateinit var reminderAdapter: DateCalendarAdapter
     private val calendarViewModel: CalendarViewModel by viewModels()
-     private var dateLogs: String = ""
+    private var dateLogs: String = ""
     private var isBackFromFragment : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,18 +70,21 @@ class CalendarFragment : Fragment(), OnItemClickListener {
         val dateTextUpTo = binding.searchUpto
 
         dateTextFrom.setOnClickListener {
-            showDatePicker(dateTextFrom)
+            if (dateTextUpTo.text.isNotEmpty()) {
+                showDatePicker(dateTextFrom, minDateString = dateTextUpTo.text.toString())
+            } else {
+                showDatePicker(dateTextFrom)
+            }
         }
 
         dateTextUpTo.setOnClickListener {
-
-            if(dateTextFrom.text.isNotEmpty() ){
-                showDatePicker(dateTextUpTo, dateTextFrom.text.toString())
+            if (dateTextFrom.text.isNotEmpty()) {
+                showDatePicker(dateTextUpTo, maxDateString = dateTextFrom.text.toString())
             } else {
                 showDatePicker(dateTextUpTo)
             }
-
         }
+
         val btnCleanInputs = binding.btnClean
         btnCleanInputs.setOnClickListener {
             dateTextFrom.text = ""
@@ -118,11 +122,11 @@ class CalendarFragment : Fragment(), OnItemClickListener {
 
         calendarViewModel.dailyStatus.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                    val date = dateLogs
-                    val action =
-                        CalendarFragmentDirections.actionNavigationCalendarToDailyStatusFragment(date)
-                    calendarViewModel.dailyStatus.value = null
-                    dateLogs = ""
+                val date = dateLogs
+                val action =
+                    CalendarFragmentDirections.actionNavigationCalendarToDailyStatusFragment(date)
+                calendarViewModel.dailyStatus.value = null
+                dateLogs = ""
                 isBackFromFragment = true
                 findNavController().navigate(action)
 
@@ -155,7 +159,7 @@ class CalendarFragment : Fragment(), OnItemClickListener {
 
     }
 
-    private fun showDatePicker(textView: TextView, maxDateString: String? = null) {
+    private fun showDatePicker(textView: TextView, maxDateString: String? = null, minDateString: String? = null) {
         val currentLocale = Locale("es")
         Locale.setDefault(currentLocale)
         val config = Configuration()
@@ -189,6 +193,15 @@ class CalendarFragment : Fragment(), OnItemClickListener {
             val minDate = dateFormat.parse(it)
             minDate?.let {
                 datePickerDialog.datePicker.minDate = minDate.time
+            }
+        }
+
+        minDateString?.let {
+            val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            val maxDate = dateFormat.parse(it)
+            maxDate?.let {
+                // Configurar fecha máxima para la fecha inicial
+                datePickerDialog.datePicker.maxDate = maxDate.time
             }
         }
 
@@ -232,8 +245,8 @@ class CalendarFragment : Fragment(), OnItemClickListener {
         dateLogs = date
         if (type ==0){
 
-          calendarViewModel.getLogs(date)
-      }
+            calendarViewModel.getLogs(date)
+        }
         if (type ==1){
             calendarViewModel.getDailyStatus(date)
 
