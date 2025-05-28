@@ -38,4 +38,4 @@ El proyecto PastillApp sigue una arquitectura MVVM junto a una organización mod
 - Revise el historial de recordatorios en la sección "Ver Recordatorios".
 
 ## Equipo
-Estudiantes del Instituto ORT Argentina, en la carrera de Analistas en Sistemas: Agustina Boto, Joaquin Herreros Schoklender, Tomas Guerchicoff Adamo, Camila Szesko, Camila Ingberg, Francisco Veron, Paola Quiñonez, Federico Marty, Patricia Berkovics, Pia Potasznik, Jose Lara
+Estudiantes del Instituto ORT Argentina, en la carrera de Analistas en Sistemas: Agustina Boto, Joaquin Herreros Schoklender, Tomas, Camila Szesko, Camila Ingberg, Francisco Veron, Paola Quiñonez, Federico Marty, Patricia Berkovics, Pia Potasznik, Jose Lara
